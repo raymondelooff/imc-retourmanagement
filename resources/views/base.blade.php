@@ -49,7 +49,7 @@
                         {{-- Navbar content --}}
                         <div class="collapse navbar-collapse" id="navbar-collapse-target">
                             <ul class="nav navbar-nav navbar-right">
-
+                                @include(config('laravel-menu.views.bootstrap-items'), array('items' => $menu->roots()))
                             </ul>
                         </div>
                     </div>

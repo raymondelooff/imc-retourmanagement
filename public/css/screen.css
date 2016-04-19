@@ -5036,7 +5036,7 @@ tbody.collapse.in {
   background-color: #eeeeee;
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-  color: #CF1E2F;
+  color: #333333;
   background-color: #eeeeee;
 }
 .navbar-default .navbar-nav > .disabled > a, .navbar-default .navbar-nav > .disabled > a:hover, .navbar-default .navbar-nav > .disabled > a:focus {
@@ -5058,7 +5058,7 @@ tbody.collapse.in {
 }
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
   background-color: #eeeeee;
-  color: #CF1E2F;
+  color: #333333;
 }
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
@@ -5069,7 +5069,7 @@ tbody.collapse.in {
     background-color: #eeeeee;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-    color: #CF1E2F;
+    color: #333333;
     background-color: #eeeeee;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus {
@@ -7393,7 +7393,7 @@ header {
   border-bottom: 1px solid #00548e;
 }
 header .container .container-inner {
-  padding: 40px 0;
+  padding: 20px 0;
 }
 header h1 {
   margin-top: 10px;
@@ -7468,7 +7468,6 @@ footer {
   transition: background 0.2s linear;
 }
 
-ac
 .btn {
   -webkit-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
