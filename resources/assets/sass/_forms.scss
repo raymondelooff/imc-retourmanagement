@@ -1,0 +1,12 @@
+// Forms
+form {
+
+}
+
+.input-group {
+    &[data-datetimepicker] {
+        .input-group-addon {
+            cursor: pointer;
+        }
+    }
+}

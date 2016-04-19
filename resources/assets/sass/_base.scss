@@ -1,0 +1,153 @@
+// Sticky footer
+@include sticky-footer($navbar-height, "#wrapper", "#footer-pusher", "footer");
+
+// Body
+body {
+	-webkit-font-smoothing: antialiased;
+	@include transition(background .2s linear);
+}
+
+// Selections
+::selection {
+	background: transparentize($blue-color, .6);
+}
+
+:focus {
+	outline: none !important;
+}
+
+::-moz-focus-inner {
+	border: 0;
+}
+
+// Anchors
+a {
+	@include transition(all .2s linear);
+}
+
+// Wrapper
+section#content {
+	margin-bottom: 20px;
+}
+
+// Header
+header {
+	background: $blue-color;
+	color: #FFF;
+	border-bottom: 1px solid $blue-dark-color;
+
+	.container {
+		.container-inner {
+			padding: 40px 0;
+		}
+	}
+
+	h1 {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	.header-nav {
+		margin-top: 10px;
+		margin-bottom: 10px;
+
+		.nav-pills {
+			> li {
+				float: right;
+
+				> a {
+					background: $blue-dark-color;
+					color: #FFF;
+					border: 1px solid $blue-darker-color;
+
+					&:hover, &:active, &:focus {
+						background: $blue-darker-color;
+					}
+				}
+			}
+		}
+	}
+}
+
+// Content
+section {
+	.container {
+		.container-inner {
+			padding: 40px 0;
+
+			.container-section {
+				margin-bottom: 30px;
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+
+				.container-section-inner {
+
+				}
+			}
+		}
+	}
+}
+
+// Footer
+footer {
+	background: $gray-lighter;
+	padding: $navbar-padding-vertical $navbar-padding-horizontal;
+	border-top: 1px solid $gray-light;
+	@include transition(background .2s linear);
+}
+
+// Navigation
+.nav {
+	> li {
+		> a {
+			@include transition(all .2s linear);
+		}
+	}
+}
+
+.navbar {
+	border-radius: 0;
+	border: none;
+
+	.container-fluid {
+		max-width: $container-lg;
+	}
+}
+
+/*
+.navbar-brand {
+	padding: 17px 15px 18px 15px;
+
+	> span {
+		background: url('../img/logo.png') no-repeat;
+		background-size: 217px 47px;
+		width: 217px;
+		height: 47px;
+		text-indent: -9999px;
+		display: inline-block;
+	}
+}
+*/
+
+.navbar-default {
+	@include transition(background .2s linear);
+}ac
+
+// Buttons
+.btn {
+	@include transition(all .2s linear);
+}
+
+// Breakpoints
+// HiDPI screens
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+
+	.navbar-brand {
+		> span {
+			//background-image: url('../img/logo@2x.png');
+		}
+	}
+
+}
