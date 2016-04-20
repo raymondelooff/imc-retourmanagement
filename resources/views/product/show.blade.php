@@ -19,7 +19,7 @@
             {{--</tbody> --}}
             <tr>
                 <td>EAN-code</td>
-                <td>{{ $product->ean }}</td>
+                <td>{{ $product->ean_code }}</td>
             </tr>
             <tr>
                 <td>Locatie</td>
@@ -31,23 +31,26 @@
             </tr>
             <tr>
                 <td>Status</td>
-                <td>Status {{ $product->itemStatus }}</td>
+                <td>Status {{ $product->status }}</td>
             <tr>
                 <td>Staat</td>
                 <td>Nieuw / Zo goed als nieuw / Gebruikt</td>
             </tr>
             <tr>
                 <td>Probleemomschrijving</td>
-                <td>{{ $product->problemDescription }}</td>
+                <td>{{ $product->problem_description }}</td>
             </tr>
-
+            <tr>
+                <td>Kwaliteitslabel</td>
+                <td>{{ $product->quality_label }}</td>
+            </tr>
             <tr>
                 <td>Serienummer</td>
-                <td>{{ $product->serialNumber }}</td>
+                <td>{{ $product->serial_number }}</td>
             </tr>
             <tr>
                 <td>Factuurnummer</td>
-                <td>{{ $product->invoiceNumber }}</td>
+                <td>{{ $product->invoice_number }}</td>
             </tr>
             <tr>
                 <td>Gewicht</td>
@@ -55,23 +58,23 @@
             </tr>
             <tr>
                 <td>Landcode</td>
-                <td>{{ $product->countryCode }}</td>
+                <td>{{ $product->country_code }}</td>
             </tr>
             <tr>
                 <td>Leverancier</td>
                 <td>{{ $product->manufacturer }}</td>
             </tr>
             <tr>
-                <td>Productstatus</td>
-                <td>{{ $product->productStatus }}</td>
-            </tr>
-            <tr>
                 <td>Belastingroep</td>
-                <td>{{ $product->taxID }}</td>
+                <td>{{ $product->tax_group }}</td>
             </tr>
             <tr>
                 <td>Kleur</td>
                 <td>{{ $product->color }}</td>
+            </tr>
+            <tr>
+                <td>Adviesprijs</td>
+                <td>{{ $product->msrp }}</td>
             </tr>
         </table>
     </div>
