@@ -26,14 +26,14 @@ notifications:
     on_failure: always  # options: [always|never|change] default: always
     on_start: never     # options: [always|never|change] default: always
 
-#deploy:
-#  - provider: script
-#    script: .travis/deploy-staging.sh
-#    on:
-#      branch: develop
-#      php: 7.0
-#  - provider: script
-#    script: .travis/deploy-production.sh
-#    on:
-#      branch: master
-#      php: 7.0
+deploy:
+  - provider: script
+    script: .travis/deploy-staging.sh
+    on:
+      branch: develop
+      php: 7.0
+  - provider: script
+    script: .travis/deploy-production.sh
+    on:
+      branch: master
+      php: 7.0
