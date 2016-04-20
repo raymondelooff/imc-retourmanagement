@@ -3,7 +3,7 @@
 
 @section('content')
 
-    <h1>Create New %%modelName%%</h1>
+    <h1>Maak nieuw %%modelName%%</h1>
     <hr/>
 
     {!! Form::open(['url' => '%%routeGroup%%%%crudName%%', 'class' => 'form-horizontal']) !!}
@@ -12,7 +12,7 @@
 
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
-            {!! Form::submit('Create', ['class' => 'btn btn-primary form-control']) !!}
+            {!! Form::submit('Maak', ['class' => 'btn btn-primary form-control']) !!}
         </div>
     </div>
     {!! Form::close() !!}
