@@ -62,6 +62,15 @@
                             <div class="col-sm-8">
                                 <h1>@yield('title')</h1>
                             </div>
+
+                            <!-- Header navigation -->
+                            <div class="col-sm-4">
+                                <div class="header-nav">
+                                    <ul class="nav nav-pills">
+                                        @yield('header-nav')
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
