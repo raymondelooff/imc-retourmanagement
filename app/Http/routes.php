@@ -36,6 +36,3 @@ Route::get('registreren', [
 Route::post('registreren', [
     'uses' => 'Auth\AuthController@postRegister'
 ]);
-Route::group(['middleware' => ['web']], function () {
-	Route::resource('posts', 'PostsController');
-});
