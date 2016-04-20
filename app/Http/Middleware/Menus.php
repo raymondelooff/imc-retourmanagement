@@ -19,17 +19,24 @@ class Menus
     public function handle($request, Closure $next, $guard = null)
     {
         Menu::make('menu', function($menu) {
+            $menu->add('Home', ['route' => 'index']);
 
-            $menu->add('Home',  array('url' => '/'));
-            //$menu->add('Producten', array('route' => 'producten'));
+            // Products
+            //$menu->add('Producten', ['route' => 'producten']);
 
-            if(Auth::check()) {
-                $menu->add('Inloggen', array('route' => 'uitloggen'));
+            // Profile
+            if (Auth::guest()) {
+                $menu->add('Inloggen', ['route' => 'inloggen']);
+            } else {
+                $menu->add('Profiel', 'account');
+                $menu->profiel->prepend('<i class="fa fa-user"></i> ');
+
+                $menu->profiel->group(['prefix' => 'account'], function($group) {
+                    //$group->add('Wachtwoord wijzigen', ['route' => 'wachtwoord-wijzigen']);
+                });
+
+                $menu->profiel->add('Uitloggen', ['route' => 'uitloggen']);
             }
-            else {
-                $menu->add('Inloggen', array('route' => 'inloggen'));
-            }
-
         });
 
         return $next($request);

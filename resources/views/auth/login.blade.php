@@ -1,5 +1,4 @@
 @extends('base')
-
 @section('title', 'Inloggen')
 
 @section('content')
@@ -48,6 +47,8 @@
                     </div>
                 </div>
             </form>
+
+            <p>Heeft u nog geen account aangemaakt? <a href="{{ url('/registreren') }}">Maak een account aan.</a></p>
         </div>
     </div>
 @endsection

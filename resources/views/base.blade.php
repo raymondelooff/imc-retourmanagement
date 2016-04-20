@@ -90,7 +90,6 @@
 
         <!-- Scripts -->
         <script src="{{ asset('/bower_components/jquery/dist/jquery.min.js') }}"></script>
-        <script src="{{ asset('/bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js') }}"></script>
         <script src="{{ asset('/bower_components/moment/min/moment-with-locales.min.js') }}"></script>
         <script src="{{ asset('/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
         <script src="{{ asset('/js/app.js') }}"></script>
