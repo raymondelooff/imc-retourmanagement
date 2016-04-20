@@ -4,6 +4,7 @@ var gulp = require('gulp'),
     gutil = require('gulp-util'),
     compass = require('gulp-compass'),
     livereload = require('gulp-livereload'),
+    concat = require('gulp-concat'),
     uglify = require('gulp-uglify');
 
 gulp.task('blade', function() {
@@ -27,6 +28,7 @@ gulp.task('compass', function() {
 
 gulp.task('compress', function() {
     return gulp.src('resources/assets/js/*.js')
+        .pipe(concat('app.js'))
         .pipe(uglify().on('error', function(error) {
             gutil.log(error);
             this.emit('end');
