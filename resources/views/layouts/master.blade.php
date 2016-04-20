@@ -59,12 +59,12 @@
                 <div class="container">
                     <div class="container-inner">
                         <div class="row">
-                            <div class="col-sm-8">
+                            <div class="col-xs-7 col-sm-9 col-md-6">
                                 <h1>@yield('title')</h1>
                             </div>
 
                             <!-- Header navigation -->
-                            <div class="col-sm-4">
+                            <div class="col-xs-5 col-sm-3 col-md-6">
                                 <div class="header-nav">
                                     <ul class="nav nav-pills">
                                         @yield('header-nav')
