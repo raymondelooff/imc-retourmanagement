@@ -11,7 +11,16 @@
 |
 */
 
-Route::get('/', 'IndexController@getIndex');
+
+// Protected group
+Route::group(['middleware' => ['auth']], function () {
+
+	Route::get('/', [
+		'uses' => 'IndexController@getIndex',
+		'as' => 'index'
+	]);
+
+});
 
 // Authentication routes...
 Route::get('inloggen',  [

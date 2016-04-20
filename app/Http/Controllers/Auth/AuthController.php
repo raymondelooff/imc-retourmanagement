@@ -31,6 +31,13 @@ class AuthController extends Controller
     protected $redirectTo = '/';
 
     /**
+     * Where to redirect users after failing login
+     *
+     * @var string
+     */
+    protected $loginPath = '/inloggen';
+
+    /**
      * Create a new authentication controller instance.
      *
      * @return void
