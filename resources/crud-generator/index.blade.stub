@@ -1,14 +1,24 @@
 @extends('layouts.master')
 @section('title', '%%crudNameCap%%')
 
+{{-- Header button --}}
+@section('header-nav')
+    <li>
+        <a href="{{ url('%%routeGroup%%%%crudName%%/create') }}">
+            <i class="fa fa-plus"></i> Maak nieuw %%modelName%%
+        </a>
+    </li>
+@stop
+
 @section('content')
 
-    <h1>%%crudNameCap%% <a href="{{ url('%%routeGroup%%%%crudName%%/create') }}" class="btn btn-primary pull-right btn-sm">Maak nieuw %%modelName%%</a></h1>
     <div class="table">
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>Nr.</th>%%formHeadingHtml%%<th>Acties</th>
+                    <th>Nr.</th>
+                    %%formHeadingHtml%%
+                    <th>Acties</th>
                 </tr>
             </thead>
             <tbody>
@@ -16,11 +26,13 @@
             @foreach($%%crudName%% as $item)
                 {{-- */$x++;/* --}}
                 <tr>
-                    <td>{{ $x }}</td>
+                    <td>
+                        {{ $x }}
+                    </td>
                     %%formBodyHtml%%
                     <td>
                         <a href="{{ url('%%routeGroup%%%%crudName%%/' . $item->id . '/edit') }}">
-                            <button type="submit" class="btn btn-primary btn-xs">Bewerk</button>
+                            <button type="submit" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Bewerk</button>
                         </a> /
                         {!! Form::open([
                             'method'=>'DELETE',
