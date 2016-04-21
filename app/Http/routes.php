@@ -41,7 +41,7 @@ Route::group(['middleware' => ['auth']], function() {
 // Authentication routes...
 Route::get('inloggen',  [
     'uses' => 'Auth\AuthController@getLogin',
-    'as' => 'logout'
+    'as' => 'login'
 ]);
 
 Route::post('inloggen', [
@@ -50,7 +50,7 @@ Route::post('inloggen', [
 
 Route::get('uitloggen', [
     'uses' => 'Auth\AuthController@getLogout',
-    'as' => 'login'
+    'as' => 'logout'
 ]);
 
 // Registration routes...
