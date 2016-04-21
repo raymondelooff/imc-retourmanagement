@@ -22,21 +22,9 @@ class Menus
             $menu->add('Home', ['route' => 'index']);
 
             // Products
-            //$menu->add('Producten', ['route' => 'producten']);
-
-            // Profile
-            if (Auth::guest()) {
-                $menu->add('Inloggen', ['route' => 'inloggen']);
-            } else {
-                $menu->add('Profiel', 'account');
-                $menu->profiel->prepend('<i class="fa fa-user"></i> ');
-
-                $menu->profiel->group(['prefix' => 'account'], function($group) {
-                    //$group->add('Wachtwoord wijzigen', ['route' => 'wachtwoord-wijzigen']);
-                });
-
-                $menu->profiel->add('Uitloggen', ['route' => 'uitloggen']);
-            }
+            //$menu->add('Producten', ['route' => 'products::list']);
+            //$menu->producten->prepend('<i class="fa fa-cubes" aria-hidden="true"></i> ');
+            //$menu->producten->add('Toevoegen', ['route' => 'products::add']);
         });
 
         return $next($request);

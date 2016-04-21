@@ -48,8 +48,21 @@
 
                         {{-- Navbar content --}}
                         <div class="collapse navbar-collapse" id="navbar-collapse-target">
-                            <ul class="nav navbar-nav navbar-right">
+                            <ul class="nav navbar-nav">
                                 @include(config('laravel-menu.views.bootstrap-items'), array('items' => $menu->roots()))
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                @if(Auth::check())
+                                    <li class="dropdown">
+                                        <a href="{{ route('account::index') }}" class="dropdown-toggle dropdown-profile" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{{ Gravatar::src(Auth::user()->email, 80) }}" class="avatar"> {{ Auth::user()->name }} <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{{ route('account::edit') }}">Account wijzigen</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="{{ route('logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i> Uitloggen</a></li>
+                                @else
+                                    <li><a href="{{ route('login') }}"><i class="fa fa-sign-in" aria-hidden="true"></i> Inloggen</a></li>
+                                @endif
                             </ul>
                         </div>
                     </div>

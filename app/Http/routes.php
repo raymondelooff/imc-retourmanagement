@@ -13,19 +13,35 @@
 
 
 // Protected group
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth']], function() {
 
 	Route::get('/', [
 		'uses' => 'IndexController@getIndex',
 		'as' => 'index'
 	]);
 
+	Route::group(['as' => 'account::'], function() {
+		Route::get('account', [
+			'uses' => 'Account\AccountController@getIndex',
+			'as' => 'index'
+		]);
+
+		Route::get('account/wijzigen', [
+			'uses' => 'Account\AccountController@getEdit',
+			'as' => 'edit'
+		]);
+
+		Route::post('account/wijzigen', [
+			'uses' => 'Account\AccountController@postEdit'
+		]);
+	});
+
 });
 
 // Authentication routes...
 Route::get('inloggen',  [
     'uses' => 'Auth\AuthController@getLogin',
-    'as' => 'inloggen'
+    'as' => 'logout'
 ]);
 
 Route::post('inloggen', [
@@ -34,7 +50,7 @@ Route::post('inloggen', [
 
 Route::get('uitloggen', [
     'uses' => 'Auth\AuthController@getLogout',
-    'as' => 'uitloggen'
+    'as' => 'login'
 ]);
 
 // Registration routes...
