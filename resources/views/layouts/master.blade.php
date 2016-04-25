@@ -54,9 +54,11 @@
                             <ul class="nav navbar-nav navbar-right">
                                 @if(Auth::check())
                                     <li class="dropdown">
-                                        <a href="{{ route('account::index') }}" class="dropdown-toggle dropdown-profile" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{{ Gravatar::src(Auth::user()->email, 80) }}" class="avatar"> {{ Auth::user()->name }} <span class="caret"></span></a>
+                                        <a href="{{ route('account.index') }}" class="dropdown-toggle dropdown-profile" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{{ Gravatar::src(Auth::user()->email, 80) }}" class="avatar"> {{ Auth::user()->name }} <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="{{ route('account::edit') }}">Account wijzigen</a></li>
+                                            <li><a href="{{ route('account.edit') }}">Account wijzigen</a></li>
+                                            <li><a href="{{ route('account.email.edit') }}">E-mailadres wijzigen</a></li>
+                                            <li><a href="{{ route('account.password.edit') }}">Wachtwoord wijzigen</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="{{ route('logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i> Uitloggen</a></li>
@@ -84,6 +86,22 @@
             <section id="content">
                 <div class="container">
                     <div class="container-inner">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        @if (Session::has('flash_notification.message'))
+                            <div class="alert alert-{{ Session::get('flash_notification.level') }}">
+                                {{ Session::get('flash_notification.message') }}
+                            </div>
+                        @endif
+
                         @yield('content')
                     </div>
                 </div>
