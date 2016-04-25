@@ -3,9 +3,6 @@
 
 @section('content')
 
-    <h1>Maak nieuw %%modelName%%</h1>
-    <hr/>
-
     {!! Form::open(['url' => '%%routeGroup%%%%crudName%%', 'class' => 'form-horizontal']) !!}
 
     %%formFieldsHtml%%
