@@ -75,7 +75,7 @@ Route::post('login', [
 ]);
 
 Route::get('logout', [
-    'uses' => 'Auth\AuthController@getLogout',
+    'uses' => 'Auth\AuthController@logout',
     'as' => 'logout'
 ]);
 
