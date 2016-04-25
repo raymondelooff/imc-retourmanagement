@@ -20,44 +20,70 @@ Route::group(['middleware' => ['auth']], function() {
 		'as' => 'index'
 	]);
 
-	Route::group(['as' => 'account::'], function() {
+	Route::group(['as' => 'account.'], function() {
 		Route::get('account', [
-			'uses' => 'Account\AccountController@getIndex',
+			'uses' => 'Account\AccountController@index',
 			'as' => 'index'
 		]);
 
-		Route::get('account/wijzigen', [
-			'uses' => 'Account\AccountController@getEdit',
+		Route::get('account/edit', [
+			'uses' => 'Account\AccountController@edit',
 			'as' => 'edit'
 		]);
 
-		Route::post('account/wijzigen', [
-			'uses' => 'Account\AccountController@postEdit'
+		Route::post('account/edit', [
+			'uses' => 'Account\AccountController@update'
 		]);
+	});
+
+	Route::group(['as' => 'account.email.'], function() {
+
+		Route::get('account/email/edit', [
+			'uses' => 'Account\EmailController@edit',
+			'as' => 'edit'
+		]);
+
+		Route::post('account/email/edit', [
+			'uses' => 'Account\EmailController@update'
+		]);
+
+	});
+
+	Route::group(['as' => 'account.password.'], function() {
+
+		Route::get('account/password/edit', [
+			'uses' => 'Account\PasswordController@edit',
+			'as' => 'edit'
+		]);
+
+		Route::post('account/password/edit', [
+			'uses' => 'Account\PasswordController@update'
+		]);
+
 	});
 
 });
 
 // Authentication routes...
-Route::get('inloggen',  [
+Route::get('login',  [
     'uses' => 'Auth\AuthController@getLogin',
     'as' => 'login'
 ]);
 
-Route::post('inloggen', [
+Route::post('login', [
     'uses' => 'Auth\AuthController@postLogin'
 ]);
 
-Route::get('uitloggen', [
+Route::get('logout', [
     'uses' => 'Auth\AuthController@getLogout',
     'as' => 'logout'
 ]);
 
 // Registration routes...
-Route::get('registreren', [
+Route::get('register', [
     'uses' => 'Auth\AuthController@getRegister'
 ]);
 
-Route::post('registreren', [
+Route::post('register', [
     'uses' => 'Auth\AuthController@postRegister'
 ]);
