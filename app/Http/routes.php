@@ -37,5 +37,5 @@ Route::post('registreren', [
     'uses' => 'Auth\AuthController@postRegister'
 ]);
 Route::group(['middleware' => ['web']], function () {
-	Route::resource('product', 'productController');
+	Route::resource('product', 'ProductController');
 });
