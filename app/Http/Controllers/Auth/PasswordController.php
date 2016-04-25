@@ -21,6 +21,13 @@ class PasswordController extends Controller
     use ResetsPasswords;
 
     /**
+     * Defines where the user is redirected to after resetting the password
+     *
+     * @var string
+     */
+    protected $redirectTo = '/';
+
+    /**
      * Create a new password controller instance.
      *
      * @return void

@@ -96,11 +96,13 @@
                             </div>
                         @endif
 
-                        @if (Session::has('flash_notification.message'))
-                            <div class="alert alert-{{ Session::get('flash_notification.level') }}">
-                                {{ Session::get('flash_notification.message') }}
+                            @if (Session::has('status'))
+                            <div class="alert alert-info">
+                                <span>{{ Session::get('status') }}</span>
                             </div>
                         @endif
+
+                        @include('flash::message')
 
                         @yield('content')
                     </div>

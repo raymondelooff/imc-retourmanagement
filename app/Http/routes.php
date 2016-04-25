@@ -21,6 +21,7 @@ Route::group(['middleware' => ['auth']], function() {
 	]);
 
 	Route::group(['as' => 'account.'], function() {
+		// Account settings routes
 		Route::get('account', [
 			'uses' => 'Account\AccountController@index',
 			'as' => 'index'
@@ -36,30 +37,28 @@ Route::group(['middleware' => ['auth']], function() {
 		]);
 	});
 
-	Route::group(['as' => 'account.email.'], function() {
-
-		Route::get('account/email/edit', [
+	Route::group(['prefix' => 'account/email', 'as' => 'account.email.'], function() {
+		// Edit email address routes
+		Route::get('edit', [
 			'uses' => 'Account\EmailController@edit',
 			'as' => 'edit'
 		]);
 
-		Route::post('account/email/edit', [
+		Route::post('edit', [
 			'uses' => 'Account\EmailController@update'
 		]);
-
 	});
 
-	Route::group(['as' => 'account.password.'], function() {
-
-		Route::get('account/password/edit', [
+	Route::group(['prefix' => 'account/password', 'as' => 'account.password.'], function() {
+		// Edit password routes
+		Route::get('edit', [
 			'uses' => 'Account\PasswordController@edit',
 			'as' => 'edit'
 		]);
 
-		Route::post('account/password/edit', [
+		Route::post('edit', [
 			'uses' => 'Account\PasswordController@update'
 		]);
-
 	});
 
 });
@@ -75,15 +74,38 @@ Route::post('login', [
 ]);
 
 Route::get('logout', [
-    'uses' => 'Auth\AuthController@logout',
+    'uses' => 'Auth\AuthController@getLogout',
     'as' => 'logout'
 ]);
 
 // Registration routes...
 Route::get('register', [
-    'uses' => 'Auth\AuthController@getRegister'
+    'uses' => 'Auth\AuthController@getRegister',
+	'as' => 'register'
 ]);
 
 Route::post('register', [
     'uses' => 'Auth\AuthController@postRegister'
 ]);
+
+// Password reset routes
+Route::group(['prefix' => 'account/password', 'as' => 'account.password.'], function() {
+	// Password reset link request routes
+	Route::get('email', [
+		'uses' => 'Auth\PasswordController@getEmail',
+		'as' => 'email'
+	]);
+
+	Route::post('email', [
+		'uses' => 'Auth\PasswordController@postEmail'
+	]);
+
+	// Password reset routes
+	Route::get('reset/{token}', [
+		'uses' => 'Auth\PasswordController@getReset'
+	]);
+
+	Route::post('reset', [
+		'uses' => 'Auth\PasswordController@postReset'
+	]);
+});

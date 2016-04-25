@@ -1,11 +1,14 @@
 @extends('layouts.master')
-@section('title', 'Inloggen')
+@section('title', 'Wachtwoord vergeten')
 
 @section('content')
     <div class="row">
         <div class="col-xs-12 col-sm-8 col-md-6">
-            <form method="post" action="{{ action('Auth\AuthController@getLogin') }}" class="form-horizontal">
+            <p>Voer hieronder het gewenste nieuwe wachtwoord in.</p>
+
+            <form method="post" action="{{ action('Auth\PasswordController@postReset') }}" class="form-horizontal">
                 {!! csrf_field() !!}
+                <input type="hidden" name="token" value="{{ $token }}">
 
                 <div class="form-group">
                     <label for="email" class="control-label col-sm-4">E-mailadres</label>
@@ -22,24 +25,18 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-sm-offset-4 col-sm-8">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="remember"> Onthoud mij
-                            </label>
-                        </div>
+                    <label for="password_confirmation" class="control-label col-sm-4">Herhaal wachtwoord</label>
+                    <div class="col-sm-8">
+                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-offset-4 col-sm-8">
-                        <button type="submit" class="btn btn-primary">Inloggen</button>
+                        <button type="submit" class="btn btn-primary">Wachtwoord opnieuw instellen</button>
                     </div>
                 </div>
             </form>
-
-            <p>Heeft u nog geen account aangemaakt? <a href="{{ route('register') }}">Maak een account aan.</a></p>
-            <p>Bent u uw wachtwoord vergeten? <a href="{{ route('account.password.email') }}">Wachtwoord opnieuw instellen.</a></p>
         </div>
     </div>
 @endsection
