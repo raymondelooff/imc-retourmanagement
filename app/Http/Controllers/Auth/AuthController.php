@@ -35,7 +35,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $loginPath = '/inloggen';
+    protected $loginPath = '/login';
 
     /**
      * Create a new authentication controller instance.
