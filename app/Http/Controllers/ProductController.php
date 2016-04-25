@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
 
-class productController extends Controller
+class ProductController extends Controller
 {
 
     /**
