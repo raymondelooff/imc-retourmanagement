@@ -12,7 +12,7 @@
                 <div class="form-group">
                     <label for="email" class="control-label col-sm-4">Nieuw e-mailadres</label>
                     <div class="col-sm-8">
-                        <input type="email" name="email" id="email" class="form-control">
+                        <input type="email" name="email" id="email" value="{{ old('email') }}" class="form-control">
                     </div>
                 </div>
 

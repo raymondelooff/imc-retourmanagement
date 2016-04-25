@@ -17,8 +17,7 @@ class EmailController extends Controller
     public function update(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required|unique:users|email',
-            'email_confirmation' => 'required|same:email'
+            'email' => 'required|confirmed|unique:users|email'
         ]);
 
         $user = Auth::user();
