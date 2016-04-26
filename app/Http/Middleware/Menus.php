@@ -22,9 +22,9 @@ class Menus
             $menu->add('Home', ['route' => 'index']);
 
             // Products
-            //$menu->add('Producten', ['route' => 'products::list']);
-            //$menu->producten->prepend('<i class="fa fa-cubes" aria-hidden="true"></i> ');
-            //$menu->producten->add('Toevoegen', ['route' => 'products::add']);
+            $menu->add('Producten', ['route' => 'product.index']);
+            $menu->producten->prepend('<i class="fa fa-cubes" aria-hidden="true"></i> ');
+            $menu->producten->add('Voeg een product toe', ['route' => 'product.create']);
         });
 
         return $next($request);
