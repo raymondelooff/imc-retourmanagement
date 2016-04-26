@@ -162,6 +162,8 @@ return [
         Lavary\Menu\ServiceProvider::class,
         Appzcoder\CrudGenerator\CrudGeneratorServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class
 
     ],
 
@@ -190,8 +192,10 @@ return [
         'Eloquent' => Illuminate\Database\Eloquent\Model::class,
         'Event' => Illuminate\Support\Facades\Event::class,
         'File' => Illuminate\Support\Facades\File::class,
+        'Flash' => Laracasts\Flash\Flash::class,
         'Form'      => Collective\Html\FormFacade::class,
         'Gate' => Illuminate\Support\Facades\Gate::class,
+        'Gravatar' => Thomaswelton\LaravelGravatar\Facades\Gravatar::class,
         'Hash' => Illuminate\Support\Facades\Hash::class,
         'HTML'      => Collective\Html\HtmlFacade::class,
         'Lang' => Illuminate\Support\Facades\Lang::class,
