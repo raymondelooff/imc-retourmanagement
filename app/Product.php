@@ -19,6 +19,6 @@ class Product extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'description', 'short_description', 'ean_code', 'serial_number', 'invoice_number', 'weight', 'country_code', 'location', 'supplier', 'quality_label', 'status', 'tax_group', 'problem_description', 'color', 'msrp'];
+    protected $fillable = ['name', 'description', 'short_description', 'ean_code', 'serial_number', 'invoice_number', 'weight', 'country_code', 'location', 'supplier', 'quality_label', 'status', 'problem_description', 'color', 'msrp'];
 
 }

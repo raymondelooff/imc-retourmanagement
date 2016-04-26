@@ -42,7 +42,34 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        
+        var_dump($request);
+
+        $request->merge([
+            'msrp' => str_replace(',','.',$request->input('price'))
+        ]);
+
+        var_dump($request);
+
+        $messages = [
+            'name.required' => 'De naam van het product moet ingevuld zijn.',
+            'supplier.required' => 'De leverancier van het product moet ingevuld zijn.',
+            'short_description.max' => 'De korte beschrijving van het product mag niet meer dan 100 tekens lang zijn.',
+            'ean_code.digits' => 'De EAN-Code moet uit 13 cijfers bestaan',
+            'ivnoice_number.digits_between' => 'Het factuurnummer moet een nummer van maximaal 20 cijfers zijn.',
+            'weight.digits_between' => 'Het gewicht moet een nummer van maximaal 10 cijfers zijn.',
+            'msrp.regex' => 'De prijs moet een getal zijn zonder decimalen, of een getal met twee decimalen en een punt bevatten i.p.v. een komma',
+        ];
+
+        $this->validate($request, [
+            'name' => 'required',
+            'supplier' => 'required',
+            'short_description' => 'max:100',
+            'ean_code' => 'digits:13',
+            'invoice_number' => 'digits_between:0,20',
+            'weight' => 'digits_between:0,10',
+            'msrp' => 'regex:/^\d+(\.\d{2})?$/'
+        ],$messages);
+
         Product::create($request->all());
 
         Session::flash('flash_message', 'product added!');
@@ -87,7 +114,30 @@ class ProductController extends Controller
      */
     public function update($id, Request $request)
     {
-        
+        $request->merge([
+            'price' => str_replace(',','.',$request->input('price'))
+        ]);
+
+        $messages = [
+            'name.required' => 'De naam van het product moet ingevuld zijn.',
+            'supplier.required' => 'De leverancier van het product moet ingevuld zijn.',
+            'short_description.max' => 'De korte beschrijving van het product mag niet meer dan 100 tekens lang zijn.',
+            'ean_code.digits' => 'De EAN-Code moet uit 13 cijfers bestaan',
+            'ivnoice_number.digits_between' => 'Het factuurnummer moet een nummer van maximaal 20 cijfers zijn.',
+            'weight.digits_between' => 'Het gewicht moet een nummer van maximaal 10 cijfers zijn.',
+            'msrp.regex' => 'De prijs moet een getal zijn zonder decimalen, of een getal met twee decimalen en een punt bevatten i.p.v. een komma',
+        ];
+
+        $this->validate($request, [
+            'name' => 'required',
+            'supplier' => 'required',
+            'short_description' => 'max:100',
+            'ean_code' => 'digits:13',
+            'invoice_number' => 'digits_between:0,20',
+            'weight' => 'digits_between:0,10',
+            'msrp' => 'regex:/^\d+(\.\d{2})?$/'
+        ],$messages);
+
         $product = Product::findOrFail($id);
         $product->update($request->all());
 

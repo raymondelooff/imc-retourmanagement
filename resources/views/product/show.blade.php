@@ -81,10 +81,6 @@
                         <td>{{ $product->manufacturer }}</td>
                     </tr>
                     <tr>
-                        <th>Belastingroep</th>
-                        <td>{{ $product->tax_group }}</td>
-                    </tr>
-                    <tr>
                         <th>Kleur</th>
                         <td>{{ $product->color }}</td>
                     </tr>

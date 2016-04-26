@@ -34,9 +34,9 @@
                 </div>
             </div>
             <div class="form-group {{ $errors->has('ean_code') ? 'has-error' : ''}}">
-                {!! Form::label('ean_code', 'EAN *', ['class' => 'col-sm-4 control-label']) !!}
+                {!! Form::label('ean_code', 'EAN', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
-                    {!! Form::number('ean_code', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('ean_code', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('EAN', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
@@ -50,14 +50,14 @@
             <div class="form-group {{ $errors->has('invoice_number') ? 'has-error' : ''}}">
                 {!! Form::label('invoice_number', 'Factuurnummer', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
-                    {!! Form::number('invoice_number', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('invoice_number', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('Factuurnummer', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('weight') ? 'has-error' : ''}}">
                 {!! Form::label('weight', 'Gewicht', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
-                    {!! Form::number('weight', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('weight', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('Gewicht', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
@@ -356,13 +356,6 @@
                     {!! $errors->first('Status', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
-            <div class="form-group {{ $errors->has('tax_group') ? 'has-error' : ''}}">
-                {!! Form::label('tax_group', 'Belastingsgroep', ['class' => 'col-sm-4 control-label']) !!}
-                <div class="col-sm-8">
-                    {!! Form::text('tax_group', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('Belastingsgroep', '<p class="help-block">:message</p>') !!}
-                </div>
-            </div>
             <div class="form-group {{ $errors->has('problem_description') ? 'has-error' : ''}}">
                 {!! Form::label('problem_description', 'Probleemomschrijving', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
@@ -382,7 +375,7 @@
                 <div class="col-sm-8">
                     <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa-eur" aria-hidden="true"></i></div>
-                        {!! Form::number('msrp', null, ['class' => 'form-control']) !!}
+                        {!! Form::text('msrp', null, ['class' => 'form-control']) !!}
                     </div>
                     {!! $errors->first('Adviesprijs', '<p class="help-block">:message</p>') !!}
                 </div>
@@ -402,13 +395,5 @@
     </div>
 
     {!! Form::close() !!}
-
-    @if ($errors->any())
-        <ul class="alert alert-danger">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
 
 @endsection
