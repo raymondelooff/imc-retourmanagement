@@ -61,6 +61,9 @@ Route::group(['middleware' => ['auth']], function() {
 		]);
 	});
 
+	// Product routes
+	Route::resource('product', 'ProductController');
+
 });
 
 // Authentication routes...
@@ -109,6 +112,3 @@ Route::group(['prefix' => 'account/password', 'as' => 'account.password.'], func
 		'uses' => 'Auth\PasswordController@postReset'
 	]);
 });
-
-// Product routes
-Route::resource('product', 'ProductController');
