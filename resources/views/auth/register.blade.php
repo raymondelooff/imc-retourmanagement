@@ -42,7 +42,7 @@
                 </div>
             </form>
 
-            <p>Heeft u al een account? <a href="{{ url('/inloggen') }}">Log in.</a></p>
+            <p>Heeft u al een account? <a href="{{ route('login') }}">Log in.</a></p>
         </div>
     </div>
 @endsection
