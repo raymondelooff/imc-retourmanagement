@@ -48,8 +48,24 @@
 
                         {{-- Navbar content --}}
                         <div class="collapse navbar-collapse" id="navbar-collapse-target">
-                            <ul class="nav navbar-nav navbar-right">
+                            <ul class="nav navbar-nav">
                                 @include(config('laravel-menu.views.bootstrap-items'), array('items' => $menu->roots()))
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                @if(Auth::check())
+                                    <li class="dropdown">
+                                        <a href="{{ route('account.index') }}" class="dropdown-toggle dropdown-profile" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{{ Gravatar::src(Auth::user()->email, 80) }}" class="avatar"> {{ Auth::user()->name }} <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{{ route('account.index') }}">Overzicht</a></li>
+                                            <li><a href="{{ route('account.edit') }}">Account wijzigen</a></li>
+                                            <li><a href="{{ route('account.email.edit') }}">E-mailadres wijzigen</a></li>
+                                            <li><a href="{{ route('account.password.edit') }}">Wachtwoord wijzigen</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="{{ route('logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i> Uitloggen</a></li>
+                                @else
+                                    <li><a href="{{ route('login') }}"><i class="fa fa-sign-in" aria-hidden="true"></i> Inloggen</a></li>
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -59,12 +75,12 @@
                 <div class="container">
                     <div class="container-inner">
                         <div class="row">
-                            <div class="col-xs-7 col-sm-9 col-md-6">
+                            <div class="col-sm-8">
                                 <h1>@yield('title')</h1>
                             </div>
 
                             <!-- Header navigation -->
-                            <div class="col-xs-5 col-sm-3 col-md-6">
+                            <div class="col-sm-4">
                                 <div class="header-nav">
                                     <ul class="nav nav-pills">
                                         @yield('header-nav')
@@ -80,6 +96,24 @@
             <section id="content">
                 <div class="container">
                     <div class="container-inner">
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                            @if (Session::has('status'))
+                            <div class="alert alert-info">
+                                <span>{{ Session::get('status') }}</span>
+                            </div>
+                        @endif
+
+                        @include('flash::message')
+
                         @yield('content')
                     </div>
                 </div>
@@ -99,7 +133,6 @@
 
         <!-- Scripts -->
         <script src="{{ asset('/bower_components/jquery/dist/jquery.min.js') }}"></script>
-        <script src="{{ asset('/bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js') }}"></script>
         <script src="{{ asset('/bower_components/moment/min/moment-with-locales.min.js') }}"></script>
         <script src="{{ asset('/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
         <script src="{{ asset('/js/app.js') }}"></script>
