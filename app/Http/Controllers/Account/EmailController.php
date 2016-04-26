@@ -9,6 +9,8 @@ use Laracasts\Flash\Flash;
 
 class EmailController extends Controller
 {
+    use DeconfirmsEmail;
+    
     public function edit(Request $request)
     {
         return view('account.email.edit');
