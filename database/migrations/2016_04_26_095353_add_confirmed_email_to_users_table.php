@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddConfirmedToUsersTable extends Migration
+class AddConfirmedEmailToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AddConfirmedToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function(Blueprint $table) {
-            $table->boolean('confirmed')->default(0);
+            $table->boolean('confirmed_email')->default(0);
         });
     }
 
@@ -25,7 +25,7 @@ class AddConfirmedToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function(Blueprint $table) {
-            $table->dropColumn('confirmed');
+            $table->dropColumn('confirmed_email');
         });
     }
 }
