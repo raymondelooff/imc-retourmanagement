@@ -21,10 +21,13 @@ class Menus
         Menu::make('menu', function($menu) {
             $menu->add('Home', ['route' => 'index']);
 
-            // Products
-            $menu->add('Producten', ['route' => 'product.index']);
-            $menu->producten->prepend('<i class="fa fa-cubes" aria-hidden="true"></i> ');
-            $menu->producten->add('Voeg een product toe', ['route' => 'product.create']);
+            // Check if the user is authenticated
+            if(Auth::check()) {
+                // Products
+                $menu->add('Producten', ['route' => 'product.index']);
+                $menu->producten->prepend('<i class="fa fa-cubes" aria-hidden="true"></i> ');
+                $menu->producten->add('Voeg een product toe', ['route' => 'product.create']);
+            }
         });
 
         return $next($request);
