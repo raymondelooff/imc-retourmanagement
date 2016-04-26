@@ -111,6 +111,4 @@ Route::group(['prefix' => 'account/password', 'as' => 'account.password.'], func
 });
 
 // Product routes
-Route::group(['middleware' => ['web']], function () {
-	Route::resource('product', 'ProductController');
-});
+Route::resource('product', 'ProductController');
