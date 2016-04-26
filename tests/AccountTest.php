@@ -76,13 +76,103 @@ class AccountTest extends TestCase
     }
 
     /**
-     * Tests if the user can reach the account page when logged in
+     * Tests if the user can change his password
+     *
+     * @return void
+     */
+    public function testCanChangePassword()
+    {
+        $user = factory(App\User::class)->create([
+            'password' => 'CurrentPassword123'
+        ]);
+
+        $this->actingAs($user)
+             ->visit('/account/password/edit')
+             ->see('Wachtwoord wijzigen')
+             ->type('CurrentPassword123', 'password_current')
+             ->type('NewPassword123', 'password')
+             ->type('NewPassword123', 'password_confirmation')
+             ->press('Wachtwoord wijzigen')
+             ->seePageIs('/account')
+             ->see('Uw wachtwoord is bijgewerkt.');
+    }
+
+    /**
+     * Tests if the user can change his password with wrong current password
+     *
+     * @return void
+     */
+    public function testCantChangePasswordWithWrongCurrentPassword()
+    {
+        $user = factory(App\User::class)->create([
+            'password' => 'CurrentPassword123'
+        ]);
+
+        $this->actingAs($user)
+             ->visit('/account/password/edit')
+             ->see('Wachtwoord wijzigen')
+             ->type('WrongCurrentPassword123', 'password_current')
+             ->type('NewPassword123', 'password')
+             ->type('NewPassword123', 'password_confirmation')
+             ->press('Wachtwoord wijzigen')
+             ->seePageIs('/account/password/edit')
+             ->see('huidige wachtwoord is onjuist.');
+    }
+
+    /**
+     * Tests if the user can change his password with different new passwords
+     *
+     * @return void
+     */
+    public function testCantChangePasswordWithDifferentPasswords()
+    {
+        $user = factory(App\User::class)->create([
+            'password' => 'CurrentPassword123'
+        ]);
+
+        $this->actingAs($user)
+             ->visit('/account/password/edit')
+             ->see('Wachtwoord wijzigen')
+             ->type('CurrentPassword123', 'password_current')
+             ->type('NewPassword123', 'password')
+             ->type('WrongNewPassword123', 'password_confirmation')
+             ->press('Wachtwoord wijzigen')
+             ->seePageIs('/account/password/edit')
+             ->see('password bevestiging komt niet overeen.');
+    }
+
+    /**
+     * Tests if the user can reach the account page when not logged in
      *
      * @return void
      */
     public function testCantReachAccountIndexWhenNotLoggedIn()
     {
         $this->visit('/account')
+             ->seePageIs('/login')
+             ->see('Inloggen');
+    }
+
+    /**
+     * Tests if the user can reach the password change page when not logged in
+     *
+     * @return void
+     */
+    public function testCantReachPasswordEditPageWhenNotLoggedIn()
+    {
+        $this->visit('/account/password/edit')
+             ->seePageIs('/login')
+             ->see('Inloggen');
+    }
+
+    /**
+     * Tests if the user can reach the email address change page when not logged in
+     *
+     * @return void
+     */
+    public function testCantReachEmailEditPageWhenNotLoggedIn()
+    {
+        $this->visit('/account/email/edit')
              ->seePageIs('/login')
              ->see('Inloggen');
     }
