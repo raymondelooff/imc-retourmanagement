@@ -13,7 +13,10 @@ class ExampleTest extends TestCase
      */
     public function testBasicExample()
     {
-        $this->visit('/')
-             ->see('Laravel 5');
+        $user = factory(App\User::class)->create();
+
+        $this->actingAs($user)
+             ->visit('/')
+             ->see('Welkom');
     }
 }

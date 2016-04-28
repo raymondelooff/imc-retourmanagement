@@ -3,9 +3,6 @@
 
 @section('content')
 
-    <h1>Bewerk %%modelName%%</h1>
-    <hr/>
-
     {!! Form::model($%%crudNameSingular%%, [
         'method' => 'PATCH',
         'url' => ['%%routeGroup%%%%crudName%%', $%%crudNameSingular%%->id],

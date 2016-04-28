@@ -19,17 +19,15 @@ class Menus
     public function handle($request, Closure $next, $guard = null)
     {
         Menu::make('menu', function($menu) {
+            $menu->add('Home', ['route' => 'index']);
 
-            $menu->add('Home',  array('url' => '/'));
-            //$menu->add('Producten', array('route' => 'producten'));
-
+            // Check if the user is authenticated
             if(Auth::check()) {
-                $menu->add('Inloggen', array('route' => 'uitloggen'));
+                // Products
+                $menu->add('Producten', ['route' => 'product.index']);
+                $menu->producten->prepend('<i class="fa fa-cubes" aria-hidden="true"></i> ');
+                $menu->producten->add('Voeg een product toe', ['route' => 'product.create']);
             }
-            else {
-                $menu->add('Inloggen', array('route' => 'inloggen'));
-            }
-
         });
 
         return $next($request);
