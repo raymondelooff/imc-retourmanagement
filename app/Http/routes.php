@@ -61,6 +61,9 @@ Route::group(['middleware' => ['auth']], function() {
 		]);
 	});
 
+	// User management routes
+	Route::resource('user', 'UserController');
+
 	// Product routes
 	Route::resource('product', 'ProductController');
 
