@@ -14,7 +14,7 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-8">
-                    {!! Form::button('Bewerk', ['class' => 'btn btn-primary']) !!}
+                    {!! Form::button('Bewerk', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
                 </div>
             </div>
 
