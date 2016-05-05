@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
 use App\User;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
+use Laracasts\Flash\Flash;
 use Session;
 
 class UserController extends Controller
@@ -45,9 +44,9 @@ class UserController extends Controller
         
         User::create($request->all());
 
-        Session::flash('flash_message', 'User added!');
+        Flash::success('Gebruiker toegevoegd!');
 
-        return redirect('users');
+        return redirect('user');
     }
 
     /**
@@ -91,9 +90,9 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->update($request->all());
 
-        Session::flash('flash_message', 'User updated!');
+        Flash::success('Gebruiker bijgewerkt.');
 
-        return redirect('users');
+        return redirect('user');
     }
 
     /**
@@ -107,9 +106,9 @@ class UserController extends Controller
     {
         User::destroy($id);
 
-        Session::flash('flash_message', 'User deleted!');
+        Flash::success('Gebruiker verwijderd!');
 
-        return redirect('users');
+        return redirect('user');
     }
 
 }

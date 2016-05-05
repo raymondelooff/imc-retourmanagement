@@ -2,34 +2,38 @@
 @section('title', 'Gebruiker wijzigen')
 
 @section('content')
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-6">
+            {!! Form::model($user, [
+                'method' => 'PATCH',
+                'url' => ['user', $user->id],
+                'class' => 'form-horizontal'
+            ]) !!}
 
-    {!! Form::model($user, [
-        'method' => 'PATCH',
-        'url' => ['user', $user->id],
-        'class' => 'form-horizontal'
-    ]) !!}
-
-                <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
-                {!! Form::label('name', 'Name: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+            <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
+                {!! Form::label('name', 'Naam ', ['class' => 'col-sm-4 control-label']) !!}
+                <div class="col-sm-8">
                     {!! Form::text('name', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
+
             <div class="form-group {{ $errors->has('email') ? 'has-error' : ''}}">
-                {!! Form::label('email', 'Email: ', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
-                    {!! Form::textarea('email', null, ['class' => 'form-control']) !!}
+                {!! Form::label('email', 'E-mailadres ', ['class' => 'col-sm-4 control-label']) !!}
+                <div class="col-sm-8">
+                    {!! Form::email('email', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
 
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-8">
+                    {!! Form::button('Bewerk', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
+                    <a href="{{ url('user/' . $user->id) }}" class="btn btn-danger">Annuleren</a>
+                </div>
+            </div>
 
-    <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-3">
-            {!! Form::submit('Bewerk', ['class' => 'btn btn-primary form-control']) !!}
+            {!! Form::close() !!}
         </div>
     </div>
-    {!! Form::close() !!}
-
 @endsection
