@@ -13,7 +13,6 @@ class RetailerCrudTest extends TestCase
      */
     public function testExample()
     {
-        $this->visit('/retailer')
-            ->see
+        $this->visit('/retailer');
     }
 }

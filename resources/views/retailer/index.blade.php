@@ -1,15 +1,25 @@
 @extends('layouts.master')
 @section('title', 'Retailer')
 
+{{-- Header button --}}
+@section('header-nav')
+    <li>
+        <a href="{{ url('retailer/create') }}">
+            <i class="fa fa-plus"></i><span class="hidden-xs hidden-sm">Voeg een retailer toe</span>
+        </a>
+    </li>
+@stop
+
 @section('content')
 
-    <h1>Retailer <a href="{{ url('retailer/create') }}" class="btn btn-primary pull-right btn-sm">Maak nieuwe retailer</a></h1>
     <div class="table">
         <table class="table table-bordered table-striped table-hover">
             <thead>
-                <tr>
-                    <th>Nr.</th><th>Naam</th><th>Acties</th>
-                </tr>
+            <tr>
+                <th>Nr.</th>
+                <th>Naam</th>
+                <th>Acties</th>
+            </tr>
             </thead>
             <tbody>
             {{-- */$x=0;/* --}}
@@ -27,7 +37,7 @@
                             'url' => ['retailer', $item->id],
                             'style' => 'display:inline'
                         ]) !!}
-                            {!! Form::submit('Verwijder', ['class' => 'btn btn-danger btn-xs']) !!}
+                        {!! Form::submit('Verwijder', ['class' => 'btn btn-danger btn-xs']) !!}
                         {!! Form::close() !!}
                     </td>
                 </tr>
