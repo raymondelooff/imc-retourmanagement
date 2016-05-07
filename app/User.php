@@ -23,4 +23,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function isAdmin()
+    {
+        $user_role = UserRole::find($this->getAttribute('user_role'));
+
+        return $user_role;
+    }
 }

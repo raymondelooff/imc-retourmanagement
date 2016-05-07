@@ -14,10 +14,12 @@ class UserRolesTableSeeder extends Seeder
         DB::table('user_roles')->insert([
             [
                 'title' => 'Admin',
+                'alias' => 'admin',
             ],
             [
                 'title' => 'Retailer',
-            ]
+                'alias' => 'retailer',
+            ],
         ]);
     }
 }
