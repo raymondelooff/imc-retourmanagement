@@ -41,7 +41,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|unique:users|email'
+        ]);
+
         User::create($request->all());
 
         Flash::success('Gebruiker toegevoegd!');
@@ -86,6 +90,10 @@ class UserController extends Controller
      */
     public function update($id, Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|unique:users|email'
+        ]);
         
         $user = User::findOrFail($id);
         $user->update($request->all());
