@@ -1,6 +1,15 @@
 @extends('layouts.master')
 @section('title', 'Gebruiker toevoegen')
 
+{{-- Header button --}}
+@section('header-nav')
+    <li>
+        <a href="{{ url('user') }}">
+            <i class="fa fa-chevron-left "></i><span class="hidden-xs hidden-sm">Terug naar het overicht</span>
+        </a>
+    </li>
+@stop
+
 @section('content')
 
     {!! Form::open(['url' => 'user', 'class' => 'form-horizontal']) !!}
