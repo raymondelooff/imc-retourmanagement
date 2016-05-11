@@ -26,7 +26,7 @@ class AddUserRole extends Migration
     public function down()
     {
         Schema::table('users', function ($table) {
-            $table->dropForeign('user_role');
+            $table->dropForeign('users_user_role_foreign');
             $table->dropColumn('user_role');
         });
     }
