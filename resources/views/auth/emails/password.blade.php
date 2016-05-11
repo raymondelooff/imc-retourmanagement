@@ -1,0 +1,1 @@
+Klik hier om uw wachtwoord opnieuw in te stellen: {{ url('account/password/reset/' . $token) }}

@@ -57,4 +57,14 @@ class User extends Authenticatable
 
         return false;
     }
+
+    /**
+     * Setter for setting the encryption on the user password.
+     *
+     * @param $password
+     */
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
 }

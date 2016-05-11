@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\product;
+use App\Product;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
@@ -20,7 +20,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product = product::paginate(15);
+        $product = Product::paginate(15);
 
         return view('product.index', compact('product'));
     }
@@ -43,7 +43,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         
-        product::create($request->all());
+        Product::create($request->all());
 
         Session::flash('flash_message', 'product added!');
 
@@ -59,7 +59,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = product::findOrFail($id);
+        $product = Product::findOrFail($id);
 
         return view('product.show', compact('product'));
     }
@@ -73,7 +73,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = product::findOrFail($id);
+        $product = Product::findOrFail($id);
 
         return view('product.edit', compact('product'));
     }
@@ -88,7 +88,7 @@ class ProductController extends Controller
     public function update($id, Request $request)
     {
         
-        $product = product::findOrFail($id);
+        $product = Product::findOrFail($id);
         $product->update($request->all());
 
         Session::flash('flash_message', 'product updated!');
@@ -105,7 +105,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        product::destroy($id);
+        Product::destroy($id);
 
         Session::flash('flash_message', 'product deleted!');
 
