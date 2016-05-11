@@ -1,14 +1,6 @@
 @extends('layouts.master')
+@section('back', url('user'))
 @section('title', 'Details gebruiker')
-
-{{-- Header button --}}
-@section('header-nav')
-    <li>
-        <a href="{{ url('user') }}">
-            <i class="fa fa-chevron-left "></i><span class="hidden-xs hidden-sm">Terug naar het overicht</span>
-        </a>
-    </li>
-@stop
 
 @section('content')
     <div class="row">

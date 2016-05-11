@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('back', url('user', $user->id))
 @section('title', 'Wijzig gebruiker')
 
 @section('content')

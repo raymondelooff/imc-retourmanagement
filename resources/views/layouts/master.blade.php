@@ -76,10 +76,19 @@
                 <div class="page-title container">
                     <div class="container-inner">
                         <div class="row">
-                            <div class="col-sm-8">
+                            @hasSection('header-nav')
+                                <div class="col-sm-8">
+                            @else
+                                <div class="col-sm-12">
+                            @endif
+                                @hasSection('back')
+                                    <a href="@yield('back')" class="btn btn-back"><i class="fa fa-chevron-left"></i></a>
+                                @endif
+
                                 <h1>@yield('title')</h1>
                             </div>
 
+                            @hasSection('header-nav')
                             <!-- Header navigation -->
                             <div class="col-sm-4">
                                 <div class="header-nav">
@@ -88,6 +97,7 @@
                                     </ul>
                                 </div>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -107,7 +117,7 @@
                             </div>
                         @endif
 
-                            @if (Session::has('status'))
+                        @if (Session::has('status'))
                             <div class="alert alert-info">
                                 <span>{{ Session::get('status') }}</span>
                             </div>
