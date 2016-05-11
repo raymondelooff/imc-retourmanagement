@@ -25,15 +25,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * The model's attributes.
-     *
-     * @var array
-     */
-    protected $attributes = [
-        'activated' => true
-    ];
-
-    /**
      * Setters for setting the email attribute on the user.
      *
      * @param $email
