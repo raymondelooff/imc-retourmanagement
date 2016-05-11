@@ -11,6 +11,7 @@
         <title>IMC Retourmanagement - @yield('title')</title>
 
         {{-- Stylesheets --}}
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,600">
         <link rel="stylesheet" type="text/css" href="{{ asset('/bower_components/font-awesome/css/font-awesome.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('/css/screen.css') }}">
         @yield('stylesheets')
@@ -72,7 +73,7 @@
                 </nav>
 
                 <!-- Page header -->
-                <div class="container">
+                <div class="page-title container">
                     <div class="container-inner">
                         <div class="row">
                             <div class="col-sm-8">
