@@ -42,7 +42,9 @@ class AccountTest extends TestCase
      */
     public function testCanEditEmail()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(App\User::class)->create([
+            'email' => 'abc@abc.nl'
+        ]);
 
         $this->actingAs($user)
              ->visit('/account/email/edit')
@@ -52,7 +54,10 @@ class AccountTest extends TestCase
              ->press('E-mailadres wijzigen')
              ->seePageIs('/account')
              ->see('Uw e-mailadres is bijgewerkt.')
-             ->see('test@test.nl');
+             ->see('test@test.nl')
+             ->dontSee('abc@abc.nl')
+             ->seeInDatabase('users', ['email' => 'test@test.nl'])
+             ->dontSeeInDatabase('users', ['email' => 'abc@abc.nl']);
     }
 
     /**
@@ -63,7 +68,9 @@ class AccountTest extends TestCase
      */
     public function testCantEditWithWrongEmail()
     {
-        $user = factory(App\User::class)->create();
+        $user = factory(App\User::class)->create([
+            'email' => 'abc@abc.nl'
+        ]);
 
         $this->actingAs($user)
              ->visit('/account/email/edit')
@@ -72,7 +79,8 @@ class AccountTest extends TestCase
              ->type('test2@test2.nl', 'email_confirmation')
              ->press('E-mailadres wijzigen')
              ->seePageIs('/account/email/edit')
-             ->see('email bevestiging komt niet overeen.');
+             ->see('email bevestiging komt niet overeen.')
+             ->notSeeInDatabase('users', ['email' => 'test@test.nl']);
     }
 
     /**
@@ -175,5 +183,22 @@ class AccountTest extends TestCase
         $this->visit('/account/email/edit')
              ->seePageIs('/login')
              ->see('Inloggen');
+    }
+
+    /**
+     * Tests if the user can reach the index page when the user is deactivated
+     *
+     * @return void
+     */
+    public function testCantReachIndexPageWhenNotActivated()
+    {
+        $user = factory(App\User::class)->create([
+            'activated' => 0
+        ]);
+
+        $this->actingAs($user)
+             ->visit('/')
+             ->see('Account gedeactiveerd')
+             ->seePageIs('/account/deactivated');
     }
 }

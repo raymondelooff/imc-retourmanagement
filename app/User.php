@@ -34,6 +34,16 @@ class User extends Authenticatable
     ];
 
     /**
+     * Setters for setting the email attribute on the user.
+     *
+     * @param $email
+     */
+    public function setEmailAttribute($email)
+    {
+        $this->attributes['email'] = $email;
+    }
+
+    /**
      * Setter for setting the encryption on the user password.
      *
      * @param $password
@@ -41,5 +51,15 @@ class User extends Authenticatable
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);
+    }
+
+    /**
+     * Setter for setting the activated attribute on the user.
+     *
+     * @param $activated
+     */
+    public function setActivatedAttribute($activated)
+    {
+        $this->attributes['activated'] = $activated;
     }
 }
