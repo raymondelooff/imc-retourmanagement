@@ -23,6 +23,10 @@
                             <td>{{ $user->email }}</td>
                         </tr>
                         <tr>
+                            <td>Account status</td>
+                            <td>{!! $user->activated ? '<span class="label label-success">Geactiveerd</a>' : '<span class="label label-warning">Gedeactiveerd</span>' !!}</td>
+                        </tr>
+                        <tr>
                             <td>Geregistreerd op</td>
                             <td>{{ $user->created_at->format('d-m-Y \o\m H:i') }}</td>
                         </tr>

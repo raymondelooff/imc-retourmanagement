@@ -35,6 +35,11 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::post('account/edit', [
 			'uses' => 'Account\AccountController@update'
 		]);
+
+		Route::get('account/deactivated', [
+			'uses' => 'Account\AccountController@deactivated',
+			'as' => 'deactivated'
+		]);
 	});
 
 	Route::group(['prefix' => 'account/email', 'as' => 'account.email.'], function() {
@@ -62,6 +67,10 @@ Route::group(['middleware' => ['auth']], function() {
 	});
 
 	// User management routes
+	Route::patch('user/{user}/activate', [
+		'uses' => 'UserController@activate',
+		'as' => 'user.activate'
+	]);
 	Route::resource('user', 'UserController');
 
 	// Product routes

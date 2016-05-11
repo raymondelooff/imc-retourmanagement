@@ -55,4 +55,15 @@ class AccountController extends Controller
 
         return redirect('account');
     }
+
+    /**
+     * Account deactivated view
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function deactivated(Request $request)
+    {
+        return view('account.deactivated');
+    }
 }

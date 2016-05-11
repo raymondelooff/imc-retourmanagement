@@ -26,16 +26,18 @@
                 <tr>
                     <td><a href="{{ url('user', $user->id) }}">{{ $user->name }}</a></td><td>{{ $user->email }}</td>
                     <td>
-                        <a href="{{ url('user/' . $user->id . '/edit') }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Bewerk</a>
+                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Bewerk</a>
 
                         {!! Form::open([
                             'method'=>'PATCH',
-                            'url' => ['user', $user->id],
+                            'route' => ['user.activate', $user->id],
                             'style' => 'display:inline'
                         ]) !!}
                             @if ($user->activated)
+                                {!! Form::hidden('activated', false) !!}
                                 {!! Form::button('Deactiveren', ['type' => 'submit', 'class' => 'btn btn-warning btn-xs']) !!}
                             @else
+                                {!! Form::hidden('activated', true) !!}
                                 {!! Form::button('Activeren', ['type' => 'submit', 'class' => 'btn btn-success btn-xs']) !!}
                             @endif
                         {!! Form::close() !!}

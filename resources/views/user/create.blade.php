@@ -23,6 +23,13 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                {!! Form::label('activated', 'Account status ', ['class' => 'col-sm-4 control-label']) !!}
+                <div class="col-sm-8">
+                    {!! Form::select('activated', [1 => 'Geactiveerd', 0 => 'Gedeactiveerd'], null, ['class' => 'form-control']) !!}
+                </div>
+            </div>
+
             <div class="form-group {{ $errors->has('user_role') ? 'has-error' : ''}}">
                 {!! Form::label('retailer', 'Retailer ', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">

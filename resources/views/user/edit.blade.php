@@ -29,7 +29,14 @@
                 </div>
             </div>
 
-            <div class="form-group {{ $errors->has('user_role') ? 'has-error' : ''}}">
+            <div class="form-group">
+                {!! Form::label('activated', 'Account status ', ['class' => 'col-sm-4 control-label']) !!}
+                <div class="col-sm-8">
+                    {!! Form::select('activated', [1 => 'Geactiveerd', 0 => 'Gedeactiveerd'], null, ['class' => 'form-control']) !!}
+                </div>
+            </div>
+
+            <div class="form-group {{ $errors->has('retailer') ? 'has-error' : ''}}">
                 {!! Form::label('retailer', 'Retailer ', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
                     {!! Form::select('retailer', ['1' => 'Retailer 1', '2' => 'Retailer 2'], null, ['class' => 'form-control']) !!}
