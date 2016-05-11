@@ -1,9 +1,11 @@
 @extends('layouts.master')
-@section('title', 'Gebruiker wijzigen')
+@section('title', 'Wijzig gebruiker')
 
 @section('content')
     <div class="row">
         <div class="col-xs-12 col-sm-8 col-md-6">
+            <h2>{{ $user->name }}</h2>
+
             {!! Form::model($user, [
                 'method' => 'PATCH',
                 'url' => ['user', $user->id],
@@ -27,6 +29,14 @@
             </div>
 
             <div class="form-group {{ $errors->has('user_role') ? 'has-error' : ''}}">
+                {!! Form::label('retailer', 'Retailer ', ['class' => 'col-sm-4 control-label']) !!}
+                <div class="col-sm-8">
+                    {!! Form::select('retailer', ['1' => 'Retailer 1', '2' => 'Retailer 2'], null, ['class' => 'form-control']) !!}
+                    {!! $errors->first('retailer', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
+
+            <div class="form-group {{ $errors->has('user_role') ? 'has-error' : ''}}">
                 {!! Form::label('user_role', 'Rol ', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
                     {!! Form::select('user_role', ['1' => 'Normale gebruiker', '2' => 'Retailer'], null, ['class' => 'form-control']) !!}
@@ -36,7 +46,7 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-8">
-                    {!! Form::button('Bewerk', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
+                    {!! Form::button('Gebruiker wijzigen', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
                     <a href="{{ url('user/' . $user->id) }}" class="btn btn-danger">Annuleren</a>
                 </div>
             </div>
