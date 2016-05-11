@@ -25,7 +25,7 @@ class AddActivatedToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('activated')->default(0);
+            $table->dropColumn('activated');
         });
     }
 }
