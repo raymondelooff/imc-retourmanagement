@@ -52,7 +52,8 @@
             @endforeach
             </tbody>
         </table>
-        <div class="pagination"> {!! $users->render() !!} </div>
+
+        <div class="pagination-wrapper">{!! $users->render() !!}</div>
     </div>
 
 @endsection
