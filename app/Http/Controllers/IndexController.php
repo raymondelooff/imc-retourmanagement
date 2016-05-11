@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use Illuminate\Support\Facades\Auth;
-
 class IndexController extends Controller
 {
     /**
@@ -14,8 +11,6 @@ class IndexController extends Controller
      */
     public function getIndex()
     {
-        $admin = Auth::user()->isAdmin();
-
-        return view('index', compact('admin'));
+        return view('index');
     }
 }

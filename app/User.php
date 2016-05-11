@@ -24,10 +24,37 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function isAdmin()
+    /**
+     * Checks if the user is an admin or not.
+     *
+     * @param \App\User $user
+     * @return bool
+     */
+    public static function isAdmin($user)
     {
-        $user_role = UserRole::find($this->getAttribute('user_role'));
+        $user_role = UserRole::find($user->getAttribute('user_role'));
 
-        return $user_role;
+        if($user_role->alias == 'admin') {
+            return true;
+        }
+        
+        return false;
+    }
+
+    /**
+     * Checks if the user is a retailer or not.
+     *
+     * @param \App\User $user
+     * @return bool
+     */
+    public static function isRetailer($user)
+    {
+        $user_role = UserRole::find($user->getAttribute('user_role'));
+
+        if($user_role->alias == 'retailer') {
+            return true;
+        }
+
+        return false;
     }
 }
