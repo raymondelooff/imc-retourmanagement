@@ -112,3 +112,6 @@ Route::group(['prefix' => 'account/password', 'as' => 'account.password.'], func
 		'uses' => 'Auth\PasswordController@postReset'
 	]);
 });
+Route::group(['middleware' => ['web']], function () {
+	Route::resource('productcategory', 'ProductCategoryController');
+});
