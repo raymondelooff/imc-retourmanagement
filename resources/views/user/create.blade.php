@@ -33,7 +33,7 @@
             <div class="form-group {{ $errors->has('user_role') ? 'has-error' : ''}}">
                 {!! Form::label('retailer', 'Retailer ', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
-                    {!! Form::select('retailer', $user_roles_values, null, ['class' => 'form-control']) !!}
+                    {!! Form::select('retailer', ['1' => 'Retailer 1', '2' => 'Retailer 2'], null, ['class' => 'form-control']) !!}
                     {!! $errors->first('retailer', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
@@ -41,7 +41,7 @@
             <div class="form-group {{ $errors->has('user_role') ? 'has-error' : ''}}">
                 {!! Form::label('user_role', 'Rol ', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
-                    {!! Form::select('user_role', ['1' => 'Normale gebruiker', '2' => 'Retailer'], null, ['class' => 'form-control']) !!}
+                    {!! Form::select('user_role', $user_roles_values, null, ['class' => 'form-control']) !!}
                     {!! $errors->first('user_role', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
