@@ -64,7 +64,7 @@ class User extends Authenticatable
     {
         $user_role = UserRole::find($user->getAttribute('user_role'));
 
-        if($user_role->alias == 'admin') {
+        if(!is_null($user_role) && $user_role->alias == 'admin') {
             return true;
         }
 
@@ -81,7 +81,7 @@ class User extends Authenticatable
     {
         $user_role = UserRole::find($user->getAttribute('user_role'));
 
-        if($user_role->alias == 'retailer') {
+        if(!is_null($user_role) && $user_role->alias == 'retailer') {
             return true;
         }
 
