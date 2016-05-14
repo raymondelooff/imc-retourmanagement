@@ -128,7 +128,7 @@ class UserController extends Controller
                 
                 // Check if the user wants to change his own role
                 if($request->get('user_role') != $user->user_role) {
-                    $validator->errors()->add('activated', 'het is niet toegestaan om je eigen rol te wijzigen.');
+                    $validator->errors()->add('user_role', 'het is niet toegestaan om je eigen rol te wijzigen.');
                     $request->merge(['user_role' => $user->user_role]);
                 }
             });
