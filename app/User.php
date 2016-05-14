@@ -72,7 +72,7 @@ class User extends Authenticatable
      */
     public static function isAdmin($user)
     {
-        $user_role = UserRole::find($user->getAttribute('user_role'));
+        $user_role = UserRole::where('alias', $user->getAttribute('user_role'))->first();
 
         if(!is_null($user_role) && $user_role->alias == 'admin') {
             return true;
@@ -89,7 +89,7 @@ class User extends Authenticatable
      */
     public static function isRetailer($user)
     {
-        $user_role = UserRole::find($user->getAttribute('user_role'));
+        $user_role = UserRole::where('alias', $user->getAttribute('user_role'))->first();
 
         if(!is_null($user_role) && $user_role->alias == 'retailer') {
             return true;
