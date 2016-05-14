@@ -66,12 +66,14 @@ Route::group(['middleware' => ['auth']], function() {
 		]);
 	});
 
-	// User management routes
-	Route::patch('user/{user}/activate', [
-		'uses' => 'UserController@activate',
-		'as' => 'user.activate'
-	]);
-	Route::resource('user', 'UserController');
+	Route::group(['middleware' => ['role:admin']], function() {
+		// User management routes
+		Route::patch('user/{user}/activate', [
+			'uses' => 'UserController@activate',
+			'as' => 'user.activate'
+		]);
+		Route::resource('user', 'UserController');
+	});
 
 	// Product routes
 	Route::resource('product', 'ProductController');
