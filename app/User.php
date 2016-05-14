@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'activated',
+        'name', 'email', 'password', 'user_role', 'activated',
     ];
 
     /**
@@ -52,5 +52,39 @@ class User extends Authenticatable
     public function setActivatedAttribute($activated)
     {
         $this->attributes['activated'] = $activated;
+    }
+
+    /**
+     * Checks if the user is an admin or not.
+     *
+     * @param \App\User $user
+     * @return bool
+     */
+    public static function isAdmin($user)
+    {
+        $user_role = UserRole::find($user->getAttribute('user_role'));
+
+        if($user_role->alias == 'admin') {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks if the user is a retailer or not.
+     *
+     * @param \App\User $user
+     * @return bool
+     */
+    public static function isRetailer($user)
+    {
+        $user_role = UserRole::find($user->getAttribute('user_role'));
+
+        if($user_role->alias == 'retailer') {
+            return true;
+        }
+
+        return false;
     }
 }
