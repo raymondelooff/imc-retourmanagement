@@ -95,16 +95,6 @@ Route::get('logout', [
     'as' => 'logout'
 ]);
 
-// Registration routes...
-Route::get('register', [
-    'uses' => 'Auth\AuthController@getRegister',
-	'as' => 'register'
-]);
-
-Route::post('register', [
-    'uses' => 'Auth\AuthController@postRegister'
-]);
-
 // Password reset routes
 Route::group(['prefix' => 'account/password', 'as' => 'account.password.'], function() {
 	// Password reset link request routes
