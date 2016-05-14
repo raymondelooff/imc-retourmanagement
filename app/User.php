@@ -77,14 +77,11 @@ class User extends Authenticatable
     /**
      * Checks if the user is an admin or not.
      *
-     * @param \App\User $user
      * @return bool
      */
-    public static function isAdmin($user)
+    public function isAdmin()
     {
-        $user_role = UserRole::where('alias', $user->getAttribute('user_role'))->first();
-
-        if(!is_null($user_role) && $user_role->alias == 'admin') {
+        if(!is_null($this->user_role) && $this->user_role == 'admin') {
             return true;
         }
 
@@ -94,14 +91,11 @@ class User extends Authenticatable
     /**
      * Checks if the user is a retailer or not.
      *
-     * @param \App\User $user
      * @return bool
      */
-    public static function isRetailer($user)
+    public function isRetailer()
     {
-        $user_role = UserRole::where('alias', $user->getAttribute('user_role'))->first();
-
-        if(!is_null($user_role) && $user_role->alias == 'retailer') {
+        if(!is_null($this->user_role) && $this->user_role == 'retailer') {
             return true;
         }
 

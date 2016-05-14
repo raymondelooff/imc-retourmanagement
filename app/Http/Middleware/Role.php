@@ -23,12 +23,12 @@ class Role
 
             switch($requiredRole) {
                 case 'admin':
-                    if(User::isAdmin($user)) {
+                    if($user->isAdmin()) {
                         return $next($request);
                     }
                     break;
                 case 'retailer':
-                    if(User::isRetailer($user)) {
+                    if($user->isRetailer()) {
                         return $next($request);
                     }
                     break;
