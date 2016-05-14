@@ -20,6 +20,10 @@ class UserRolesTableSeeder extends Seeder
                 'title' => 'Retailer',
                 'alias' => 'retailer',
             ],
+            [
+                'title' => 'Gebruiker',
+                'alias' => 'user',
+            ],
         ]);
     }
 }
