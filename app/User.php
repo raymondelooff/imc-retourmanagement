@@ -25,6 +25,16 @@ class User extends Authenticatable
     ];
 
     /**
+     * Setters for setting the name attribute on the user.
+     *
+     * @param $email
+     */
+    public function setNameAttribute($name)
+    {
+        $this->attributes['name'] = $name;
+    }
+
+    /**
      * Setters for setting the email attribute on the user.
      *
      * @param $email
