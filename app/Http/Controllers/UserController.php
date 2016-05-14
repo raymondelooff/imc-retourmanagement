@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 
 use App\User;
+use App\UserRole;
 use Illuminate\Http\Request;
 use Laracasts\Flash\Flash;
 use Session;
@@ -33,7 +34,14 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.create');
+        $user_roles = UserRole::all();
+
+        $user_roles_values = [];
+        foreach($user_roles as $role) {
+            $user_roles_values[$role->alias] = $role->title;
+        }
+
+        return view('user.create', compact('user_roles_values'));
     }
 
     /**
@@ -46,7 +54,8 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|unique:users|email',
-            'activated' => 'boolean'
+            'activated' => 'boolean',
+            'user_role' => 'required'
         ]);
 
         User::create($request->all());
@@ -80,8 +89,14 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
+        $user_roles = UserRole::all();
 
-        return view('user.edit', compact('user'));
+        $user_roles_values = [];
+        foreach($user_roles as $role) {
+            $user_roles_values[$role->alias] = $role->title;
+        }
+
+        return view('user.edit', compact('user', 'user_roles_values'));
     }
 
     /**
@@ -98,15 +113,23 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
-            'activated' => 'boolean'
+            'activated' => 'boolean',
+            'user_role' => 'required'
         ]);
 
-        // The user can't deactivate his own account
+        // Extra checks if the user edits his own account
         if($id == $user->id) {
             $validator->after(function($validator) use ($request, $user) {
                 // Check if the user wants to deactivate his own account
                 if(!$request->get('activated')) {
                     $validator->errors()->add('activated', 'het is niet toegestaan jezelf te deactiveren.');
+                    $request->merge(['activated' => $user->activated]);
+                }
+                
+                // Check if the user wants to change his own role
+                if($request->get('user_role') != $user->user_role) {
+                    $validator->errors()->add('activated', 'het is niet toegestaan om je eigen rol te wijzigen.');
+                    $request->merge(['user_role' => $user->user_role]);
                 }
             });
         }
