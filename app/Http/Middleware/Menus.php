@@ -23,10 +23,12 @@ class Menus
 
             // Check if the user is authenticated
             if(Auth::check()) {
-                // Products
-                $menu->add('Producten', ['route' => 'product.index']);
-                $menu->producten->prepend('<i class="fa fa-cubes" aria-hidden="true"></i> ');
-                $menu->producten->add('Voeg een product toe', ['route' => 'product.create']);
+                if(Auth::user()->isAdmin() || Auth::user()->isRetailer()) {
+                    // Products
+                    $menu->add('Producten', ['route' => 'product.index']);
+                    $menu->producten->prepend('<i class="fa fa-cubes" aria-hidden="true"></i> ');
+                    $menu->producten->add('Voeg een product toe', ['route' => 'product.create']);
+                }
 
                 if(Auth::user()->isAdmin()) {
                     $menu->add('Gebruikers', ['route' => 'user.index']);

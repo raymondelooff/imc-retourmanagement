@@ -2,22 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use Gate;
 use App\Http\Requests;
 use App\Product;
+use App\Retailer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use Laracasts\Flash\Flash;
 
 class ProductController extends Controller
 {
+    /**
+     * Instantiate a new ProductController instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('role:admin', ['only' => [
+            'destroy',
+        ]]);
+    }
 
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $product = Product::paginate(15);
+        if($request->user()->isRetailer()) {
+            $product = Product::where('retailer_id', $request->user()->retailer_id)->paginate(15);
+        } else {
+            $product = Product::paginate(15);
+        }
 
         return view('product.index', compact('product'));
     }
@@ -29,7 +44,14 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+        $retailers = Retailer::all();
+        $retailer_values = [];
+
+        foreach($retailers as $retailer) {
+            $retailer_values[$retailer->id] = $retailer->name;
+        }
+
+        return view('product.create', compact('retailer_values'));
     }
 
     /**
@@ -43,9 +65,15 @@ class ProductController extends Controller
             'msrp' => str_replace(',', '.', $request->input('msrp'))
         ]);
 
+        if($request->user()->isRetailer()) {
+            $request->merge([
+                'retailer_id' => $request->user()->retailer_id
+            ]);
+        }
+
         $messages = [
             'name.required' => 'De naam van het product moet ingevuld zijn.',
-            'supplier.required' => 'De leverancier van het product moet ingevuld zijn.',
+            'retailer_id.required' => 'De leverancier van het product moet ingevuld zijn.',
             'short_description.max' => 'De korte beschrijving van het product mag niet meer dan 100 tekens lang zijn.',
             'ean_code.digits' => 'De EAN-code moet uit 13 cijfers bestaan',
             'ivnoice_number.digits_between' => 'Het factuurnummer moet een nummer van maximaal 20 cijfers zijn.',
@@ -55,7 +83,7 @@ class ProductController extends Controller
 
         $this->validate($request, [
             'name' => 'required',
-            'supplier' => 'required',
+            'retailer_id' => 'required',
             'short_description' => 'max:100',
             'ean_code' => 'digits:13',
             'invoice_number' => 'digits_between:0,20',
@@ -65,7 +93,7 @@ class ProductController extends Controller
 
         Product::create($request->all());
 
-        Session::flash('flash_message', 'product added!');
+        Flash::success('Product toegevoegd!');
 
         return redirect('product');
     }
@@ -81,6 +109,10 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
 
+        if (Gate::denies('show', $product)) {
+            abort(403);
+        }
+
         return view('product.show', compact('product'));
     }
 
@@ -95,7 +127,18 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
 
-        return view('product.edit', compact('product'));
+        if (Gate::denies('update', $product)) {
+            abort(403);
+        }
+
+        $retailers = Retailer::all();
+        $retailer_values = [];
+
+        foreach($retailers as $retailer) {
+            $retailer_values[$retailer->id] = $retailer->name;
+        }
+
+        return view('product.edit', compact('product', 'retailer_values'));
     }
 
     /**
@@ -111,9 +154,15 @@ class ProductController extends Controller
             'msrp' => str_replace(',', '.', $request->input('msrp'))
         ]);
 
+        if($request->user()->isRetailer()) {
+            $request->merge([
+                'retailer_id' => $request->user()->retailer_id
+            ]);
+        }
+
         $messages = [
             'name.required' => 'De naam van het product moet ingevuld zijn.',
-            'supplier.required' => 'De leverancier van het product moet ingevuld zijn.',
+            'retailer_id.required' => 'De leverancier van het product moet ingevuld zijn.',
             'short_description.max' => 'De korte beschrijving van het product mag niet meer dan 100 tekens lang zijn.',
             'ean_code.digits' => 'De EAN-code moet uit 13 cijfers bestaan',
             'ivnoice_number.digits_between' => 'Het factuurnummer moet een nummer van maximaal 20 cijfers zijn.',
@@ -123,7 +172,7 @@ class ProductController extends Controller
 
         $this->validate($request, [
             'name' => 'required',
-            'supplier' => 'required',
+            'retailer_id' => 'required',
             'short_description' => 'max:100',
             'ean_code' => 'digits:13',
             'invoice_number' => 'digits_between:0,20',
@@ -132,9 +181,14 @@ class ProductController extends Controller
         ], $messages);
 
         $product = Product::findOrFail($id);
+
+        if (Gate::denies('update', $product)) {
+            abort(403);
+        }
+
         $product->update($request->all());
 
-        Session::flash('flash_message', 'Product gewijzigd!');
+        Flash::success('Product gewijzigd!');
 
         return redirect('product');
     }
@@ -150,7 +204,7 @@ class ProductController extends Controller
     {
         Product::destroy($id);
 
-        Session::flash('flash_message', 'Product verwijderd!');
+        Flash::success('Product verwijderd!');
 
         return redirect('product');
     }

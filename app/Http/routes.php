@@ -100,8 +100,10 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::resource('retailer', 'RetailerController');
 	});
 
-	// Product routes
-	Route::resource('product', 'ProductController');
+	Route::group(['middleware' => ['role:retailer']], function() {
+		// Product routes
+		Route::resource('product', 'ProductController');
+	});
 
 });
 

@@ -336,13 +336,15 @@
         </div>
 
         <div class="col-sm-6">
-            <div class="form-group {{ $errors->has('supplier') ? 'has-error' : ''}}">
-                {!! Form::label('supplier', 'Leverancier', ['class' => 'col-sm-4 control-label']) !!}
-                <div class="col-sm-8">
-                    {!! Form::text('supplier', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('Leverancier', '<p class="help-block">:message</p>') !!}
+            @if(Auth::user()->isAdmin())
+                <div class="form-group {{ $errors->has('retailer_id') ? 'has-error' : ''}}">
+                    {!! Form::label('retailer_id', 'Retailer ', ['class' => 'col-sm-4 control-label']) !!}
+                    <div class="col-sm-8">
+                        {!! Form::select('retailer_id', $retailer_values, null, ['class' => 'form-control']) !!}
+                        {!! $errors->first('retailer_id', '<p class="help-block">:message</p>') !!}
+                    </div>
                 </div>
-            </div>
+            @endif
             <div class="form-group {{ $errors->has('quality_label') ? 'has-error' : ''}}">
                 {!! Form::label('quality_label', 'Kwaliteitslabel', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">

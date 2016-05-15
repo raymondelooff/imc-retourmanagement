@@ -35,14 +35,17 @@
                     <td>
                         <a href="{{ url('product/' . $item->id . '/edit') }}">
                             <button type="submit" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Bewerk</button>
-                        </a> /
-                        {!! Form::open([
-                            'method'=>'DELETE',
-                            'url' => ['product', $item->id],
-                            'style' => 'display:inline'
-                        ]) !!}
-                            {!! Form::button('<i class="fa fa-trash"></i> Verwijder', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs']) !!}
-                        {!! Form::close() !!}
+                        </a>
+
+                        @if(Auth::user()->isAdmin())
+                            {!! Form::open([
+                                'method'=>'DELETE',
+                                'url' => ['product', $item->id],
+                                'style' => 'display:inline'
+                            ]) !!}
+                                {!! Form::button('<i class="fa fa-trash"></i> Verwijder', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs']) !!}
+                            {!! Form::close() !!}
+                        @endif
                     </td>
                 </tr>
             @endforeach

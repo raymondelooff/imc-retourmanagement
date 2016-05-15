@@ -15,11 +15,24 @@ class ProductPolicy
         if($user->isAdmin()) {
             return true;
         }
+
         return null;
     }
 
     /**
-     * Determine if the given product can be updated by the user.
+     * Determine if the given product can be viewed by the user's retailer
+     *
+     * @param User $user
+     * @param Product $product
+     * @return bool
+     */
+    public function show(User $user, Product $product)
+    {
+        return $user->retailer_id === $product->retailer_id;
+    }
+
+    /**
+     * Determine if the given product can be updated by the user's retailer
      *
      * @param User $user
      * @param Product $product
@@ -27,6 +40,6 @@ class ProductPolicy
      */
     public function update(User $user, Product $product)
     {
-        return $user->id === $product->supplier;
+        return $user->retailer_id === $product->retailer_id;
     }
 }

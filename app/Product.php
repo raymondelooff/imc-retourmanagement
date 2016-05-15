@@ -19,6 +19,16 @@ class Product extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'description', 'short_description', 'ean_code', 'serial_number', 'invoice_number', 'weight', 'country_code', 'location', 'supplier', 'quality_label', 'status', 'problem_description', 'color', 'msrp'];
+    protected $fillable = ['name', 'description', 'short_description', 'ean_code', 'serial_number', 'invoice_number', 'weight', 'country_code', 'location', 'retailer_id', 'quality_label', 'status', 'problem_description', 'color', 'msrp'];
+
+    /**
+     * Returns the retailer associated with the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function retailer()
+    {
+        return $this->hasOne('App\Retailer', 'id', 'retailer_id');
+    }
 
 }

@@ -74,7 +74,7 @@
                     </tr>
                     <tr>
                         <th>Leverancier</th>
-                        <td>{{ $product->manufacturer }}</td>
+                        <td>{{ $product->retailer->name }}</td>
                     </tr>
                     <tr>
                         <th>Kleur</th>
