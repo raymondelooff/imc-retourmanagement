@@ -54,11 +54,11 @@
                     <tbody>
                         <tr>
                             <td>Retailer</td>
-                            <td>{{ $retailer ? $retailer->name : 'Geen retailer' }}</td>
+                            <td>{{ $user->retailer ? $user->retailer->name : 'Geen retailer' }}</td>
                         </tr>
                         <tr>
                             <td>Geregistreerd als</td>
-                            <td>{{ $user->role ? $user->role : 'Normale gebruiker' }}</td>
+                            <td>{{ $user->role ? $user->role->title : 'Normale gebruiker' }}</td>
                         </tr>
                     </tbody>
                 </table>
