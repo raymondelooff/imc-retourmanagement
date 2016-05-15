@@ -17,7 +17,7 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-8">
-                    {!! Form::submit('Retailer aanmaken', ['type' => 'submit', 'class' => 'btn btn-primary form-control']) !!}
+                    {!! Form::button('Retailer aanmaken', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
                 </div>
             </div>
         {!! Form::close() !!}

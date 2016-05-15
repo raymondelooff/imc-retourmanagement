@@ -5,7 +5,7 @@
 @section('header-nav')
     <li>
         <a href="{{ url('retailer/create') }}">
-            <i class="fa fa-plus"></i>Maak nieuwe retailer
+            <i class="fa fa-plus"></i> Maak nieuwe retailer
         </a>
     </li>
 @stop
