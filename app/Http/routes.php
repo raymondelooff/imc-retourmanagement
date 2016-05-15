@@ -35,6 +35,11 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::post('account/edit', [
 			'uses' => 'Account\AccountController@update'
 		]);
+
+		Route::get('account/deactivated', [
+			'uses' => 'Account\AccountController@deactivated',
+			'as' => 'deactivated'
+		]);
 	});
 
 	Route::group(['prefix' => 'account/email', 'as' => 'account.email.'], function() {
@@ -61,6 +66,18 @@ Route::group(['middleware' => ['auth']], function() {
 		]);
 	});
 
+	Route::group(['middleware' => ['role:admin']], function() {
+		// User management routes
+		Route::patch('user/{user}/activate', [
+			'uses' => 'UserController@activate',
+			'as' => 'user.activate'
+		]);
+		Route::resource('user', 'UserController');
+	});
+
+	// Product routes
+	Route::resource('product', 'ProductController');
+
 });
 
 // Authentication routes...
@@ -76,16 +93,6 @@ Route::post('login', [
 Route::get('logout', [
     'uses' => 'Auth\AuthController@getLogout',
     'as' => 'logout'
-]);
-
-// Registration routes...
-Route::get('register', [
-    'uses' => 'Auth\AuthController@getRegister',
-	'as' => 'register'
-]);
-
-Route::post('register', [
-    'uses' => 'Auth\AuthController@postRegister'
 ]);
 
 // Password reset routes
@@ -109,6 +116,3 @@ Route::group(['prefix' => 'account/password', 'as' => 'account.password.'], func
 		'uses' => 'Auth\PasswordController@postReset'
 	]);
 });
-
-// Product routes
-Route::resource('product', 'ProductController');

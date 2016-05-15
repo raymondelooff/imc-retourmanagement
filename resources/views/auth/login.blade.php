@@ -38,7 +38,6 @@
                 </div>
             </form>
 
-            <p>Heeft u nog geen account aangemaakt? <a href="{{ route('register') }}">Maak een account aan.</a></p>
             <p>Bent u uw wachtwoord vergeten? <a href="{{ route('account.password.email') }}">Wachtwoord opnieuw instellen.</a></p>
         </div>
     </div>
