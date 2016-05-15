@@ -95,6 +95,7 @@ Route::group(['middleware' => ['auth']], function() {
 			'as' => 'user.activate'
 		]);
 		Route::resource('user', 'UserController');
+		
 		// Retailer management
 		Route::resource('retailer', 'RetailerController');
 	});
