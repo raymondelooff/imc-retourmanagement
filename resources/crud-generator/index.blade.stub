@@ -31,15 +31,13 @@
                     </td>
                     %%formBodyHtml%%
                     <td>
-                        <a href="{{ url('%%routeGroup%%%%crudName%%/' . $item->id . '/edit') }}">
-                            <button type="submit" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Bewerk</button>
-                        </a> /
+                        <a href="{{ route('%%routeGroup%%%%crudName%%.edit', $item->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Bewerk</a> /
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['%%routeGroup%%%%crudName%%', $item->id],
                             'style' => 'display:inline'
                         ]) !!}
-                            {!! Form::submit('Verwijder', ['class' => 'btn btn-danger btn-xs']) !!}
+                            {!! Form::button('<i class="fa fa-trash"></i> Verwijder', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs']) !!}
                         {!! Form::close() !!}
                     </td>
                 </tr>

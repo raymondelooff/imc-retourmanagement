@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('back', url('%%routeGroup%%%%crudName%%', $%%crudNameSingular%%->id))
 @section('title', '%%modelName%%')
 
 @section('content')

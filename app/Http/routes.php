@@ -35,6 +35,11 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::post('account/edit', [
 			'uses' => 'Account\AccountController@update'
 		]);
+
+		Route::get('account/deactivated', [
+			'uses' => 'Account\AccountController@deactivated',
+			'as' => 'deactivated'
+		]);
 	});
 
 	Route::group(['prefix' => 'account/email', 'as' => 'account.email.'], function() {
@@ -59,6 +64,41 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::post('edit', [
 			'uses' => 'Account\PasswordController@update'
 		]);
+	});
+
+	// Password reset routes
+	Route::group(['prefix' => 'account/password', 'as' => 'account.password.'], function() {
+		// Password reset link request routes
+		Route::get('email', [
+			'uses' => 'Auth\PasswordController@getEmail',
+			'as' => 'email'
+		]);
+
+		Route::post('email', [
+			'uses' => 'Auth\PasswordController@postEmail'
+		]);
+
+		// Password reset routes
+		Route::get('reset/{token}', [
+			'uses' => 'Auth\PasswordController@getReset'
+		]);
+
+		Route::post('reset', [
+			'uses' => 'Auth\PasswordController@postReset'
+		]);
+	});
+	
+	Route::group(['middleware' => ['web']], function () {
+		Route::resource('retailer', 'RetailerController');
+	});
+
+	Route::group(['middleware' => ['role:admin']], function() {
+		// User management routes
+		Route::patch('user/{user}/activate', [
+			'uses' => 'UserController@activate',
+			'as' => 'user.activate'
+		]);
+		Route::resource('user', 'UserController');
 	});
 
 	// Product routes
@@ -90,27 +130,3 @@ Route::get('register', [
 Route::post('register', [
     'uses' => 'Auth\AuthController@postRegister'
 ]);
-// Password reset routes
-Route::group(['prefix' => 'account/password', 'as' => 'account.password.'], function() {
-	// Password reset link request routes
-	Route::get('email', [
-		'uses' => 'Auth\PasswordController@getEmail',
-		'as' => 'email'
-	]);
-
-	Route::post('email', [
-		'uses' => 'Auth\PasswordController@postEmail'
-	]);
-
-	// Password reset routes
-	Route::get('reset/{token}', [
-		'uses' => 'Auth\PasswordController@getReset'
-	]);
-
-	Route::post('reset', [
-		'uses' => 'Auth\PasswordController@postReset'
-	]);
-});
-Route::group(['middleware' => ['web']], function () {
-	Route::resource('retailer', 'RetailerController');
-});
