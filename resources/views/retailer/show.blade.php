@@ -45,7 +45,8 @@
                             <th>Acties</th>
                         </tr>
                     </thead>
-                    {{--<tbody>
+                    <tbody>
+                        @foreach ($retailer->users as $user)
                         <tr>
                             <td><a href="{{ route('user.show', $user->id) }}">{{ $user->name }}</a></td>
                             <td>
@@ -53,7 +54,8 @@
                                 <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Bewerk</a>
                             </td>
                         </tr>
-                    </tbody>--}}
+                        @endforeach
+                    </tbody>
                 </table>
             </div>
 
