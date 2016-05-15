@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 
+use App\Retailer;
 use App\User;
 use App\UserRole;
 use Illuminate\Http\Request;
@@ -35,13 +36,19 @@ class UserController extends Controller
     public function create()
     {
         $user_roles = UserRole::all();
+        $retailers = Retailer::all();
 
         $user_roles_values = [];
         foreach($user_roles as $role) {
             $user_roles_values[$role->alias] = $role->title;
         }
 
-        return view('user.create', compact('user_roles_values'));
+        $retailer_values = [];
+        foreach($retailers as $retailer) {
+            $retailer_values[$retailer->id] = $retailer->name;
+        }
+
+        return view('user.create', compact('user_roles_values', 'retailer_values'));
     }
 
     /**
@@ -55,7 +62,8 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users|email',
             'activated' => 'boolean',
-            'user_role' => 'required'
+            'user_role' => 'required',
+            'retailer_id' => 'numeric'
         ]);
 
         User::create($request->all());
@@ -76,7 +84,12 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        return view('user.show', compact('user'));
+        $retailer = null;
+        if(!is_null($user->retailer_id)) {
+            $retailer = Retailer::find($user->retailer_id);
+        }
+
+        return view('user.show', compact('user', 'retailer'));
     }
 
     /**
@@ -90,13 +103,19 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user_roles = UserRole::all();
+        $retailers = Retailer::all();
 
         $user_roles_values = [];
         foreach($user_roles as $role) {
             $user_roles_values[$role->alias] = $role->title;
         }
 
-        return view('user.edit', compact('user', 'user_roles_values'));
+        $retailer_values = [];
+        foreach($retailers as $retailer) {
+            $retailer_values[$retailer->id] = $retailer->name;
+        }
+
+        return view('user.edit', compact('user', 'user_roles_values', 'retailer_values'));
     }
 
     /**
@@ -114,7 +133,8 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'activated' => 'boolean',
-            'user_role' => 'required'
+            'user_role' => 'required',
+            'retailer_id' => 'numeric'
         ]);
 
         // Extra checks if the user edits his own account
