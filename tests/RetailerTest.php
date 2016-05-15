@@ -79,7 +79,7 @@ class RetailerCrudTest extends TestCase
             ->visit('retailer/create')
             ->type('Test Retailer', 'name')
             ->press('Retailer aanmaken')
-            ->see('Retailer Test Retailer bestaat al');
+            ->see('Retailer <strong>Test Retailer</strong> bestaat al');
     }
 
     /**
