@@ -2,6 +2,15 @@
 @section('back', url('retailer'))
 @section('title', 'Details retailer')
 
+{{-- Header button --}}
+@section('header-nav')
+    <li>
+        <a href="{{ route('retailer.edit', $retailer->id) }}">
+            <i class="fa fa-pencil"></i><span class="hidden-xs hidden-sm">Retailer bewerken</span>
+        </a>
+    </li>
+@stop
+
 @section('content')
 
     <div class="row">
@@ -31,24 +40,24 @@
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
-                    <tr>
-                        <th colspan="2">Informatie</th>
-                    </tr>
+                        <tr>
+                            <th>Gebruiker</th>
+                            <th>Acties</th>
+                        </tr>
                     </thead>
-                    <tbody>
-                    {{--<tr>--}}
-                        {{--<td>Retailer</td>--}}
-                        {{--<td>{{ $user->retailer ? $user->retailer : 'Geen retailer' }}</td>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td>Geregistreerd als</td>--}}
-                        {{--<td>{{ $user->role ? $user->role : 'Normale gebruiker' }}</td>--}}
-                    {{--</tr>--}}
-                    </tbody>
+                    {{--<tbody>
+                        <tr>
+                            <td><a href="{{ route('user.show', $user->id) }}">{{ $user->name }}</a></td>
+                            <td>
+                                <a href="{{ route('user.show', $user->id) }}" class="btn btn-primary btn-xs">Bekijken</a>
+                                <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Bewerk</a>
+                            </td>
+                        </tr>
+                    </tbody>--}}
                 </table>
             </div>
 
-            {{--<a href="{{ url('user/' . $user->id . '/edit') }}" class="btn btn-primary"><i class="fa fa-pencil"></i> Bewerk</a>--}}
+            <a href="{{ route('retailer.edit', $retailer->id) }}" class="btn btn-primary"><i class="fa fa-pencil"></i> Retailer bewerken</a>
         </div>
     </div>
 
