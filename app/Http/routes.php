@@ -87,10 +87,6 @@ Route::group(['middleware' => ['auth']], function() {
 			'uses' => 'Auth\PasswordController@postReset'
 		]);
 	});
-	
-	Route::group(['middleware' => ['web']], function () {
-		Route::resource('retailer', 'RetailerController');
-	});
 
 	Route::group(['middleware' => ['role:admin']], function() {
 		// User management routes
@@ -99,6 +95,8 @@ Route::group(['middleware' => ['auth']], function() {
 			'as' => 'user.activate'
 		]);
 		Route::resource('user', 'UserController');
+		// Retailer management
+		Route::resource('retailer', 'RetailerController');
 	});
 
 	// Product routes
