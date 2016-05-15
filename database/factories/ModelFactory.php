@@ -26,3 +26,9 @@ $factory->defineAs(App\User::class, 'admin', function (Faker\Generator $faker) u
 
     return array_merge($user, ['user_role' => 'admin']);
 });
+
+$factory->define(App\Retailer::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name
+    ];
+});

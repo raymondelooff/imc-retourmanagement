@@ -9,6 +9,7 @@ use App\Retailer;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
+use Laracasts\Flash\Flash;
 
 class RetailerController extends Controller
 {
@@ -46,7 +47,7 @@ class RetailerController extends Controller
 
         Retailer::create($request->all());
 
-        Session::flash('flash_message', 'Retailer aangemaakt!');
+        Flash::success('Retailer aangemaakt!');
 
         return redirect('retailer');
     }
@@ -93,7 +94,7 @@ class RetailerController extends Controller
         $retailer = Retailer::findOrFail($id);
         $retailer->update($request->all());
 
-        Session::flash('flash_message', 'Retailer bijgewerkt!');
+        Flash::success('Retailer bijgewerkt!');
 
         return redirect('retailer');
     }

@@ -15,7 +15,7 @@
             ]) !!}
 
             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
-                {!! Form::label('name', 'Name: ', ['class' => 'col-sm-3 control-label']) !!}
+                {!! Form::label('name', 'Name: ', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
                     {!! Form::text('name', null, ['class' => 'form-control', 'required' => 'required']) !!}
                     {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
