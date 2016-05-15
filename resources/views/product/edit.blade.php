@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('back', url('product',  $product->id))
 @section('title', 'Product wijzigen')
 
 @section('content')

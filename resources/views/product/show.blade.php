@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('back', url('product'))
 @section('title', $product->name)
 
 {{-- Header button --}}
@@ -6,11 +7,6 @@
     <li>
         <a href="{{ url('product/' . $product->id . '/edit') }}">
             <i class="fa fa-pencil"></i><span class="hidden-xs hidden-sm">Product bewerken</span>
-        </a>
-    </li>
-    <li>
-        <a href="{{ url('product/') }}">
-            <i class="fa fa-chevron-left "></i><span class="hidden-xs hidden-sm">Terug naar het overicht</span>
         </a>
     </li>
 @stop

@@ -1,14 +1,6 @@
 @extends('layouts.master')
+@section('back', url('product'))
 @section('title', 'Product toevoegen')
-
-{{-- Header button --}}
-@section('header-nav')
-    <li>
-        <a href="{{ url('product/') }}">
-            <i class="fa fa-chevron-left "></i><span class="hidden-xs hidden-sm">Terug naar het overicht</span>
-        </a>
-    </li>
-@stop
 
 @section('content')
 
