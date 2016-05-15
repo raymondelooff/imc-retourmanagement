@@ -48,7 +48,7 @@ class RetailerController extends Controller
 
         // If retailer already exists, stop creating it
         if (Retailer::where('name', '=', Input::get('name'))->exists()) {
-            Flash::error('Retailer bestaat al!');
+            Flash::error('Retailer <strong>' . Input::get('name') . '</strong> bestaat al!');
             return redirect('retailer');
         }
 
@@ -117,7 +117,7 @@ class RetailerController extends Controller
     {
         Retailer::destroy($id);
 
-        Session::flash('flash_message', 'Retailer verwijderd!');
+        Flash::success('Retailer verwijderd!');
 
         return redirect('retailer');
     }

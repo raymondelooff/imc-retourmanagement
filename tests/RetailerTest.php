@@ -59,6 +59,22 @@ class RetailerCrudTest extends TestCase
             ->seePageIs('/retailer')
             ->seeInDatabase('retailers', ['name' => 'Test Retailer']);
     }
+    
+    public function testAdminCantCreateRetailerAlreadyInDatabase()
+    {
+        $this->seed('TestingDatabaseSeeder');
+        $admin = factory(App\User::class, 'admin')->create();
+
+        $this->actingAs($admin)
+            ->visit('retailer/create')
+            ->type('Test Retailer', 'name')
+            ->press('Retailer aanmaken')
+            ->see('Retailer aangemaakt!')
+            ->visit('retailer/create')
+            ->type('Test Retailer', 'name')
+            ->press('Retailer aanmaken')
+            ->see('Retailer Test Retailer bestaat al');
+    }
 
     /**
      * Tests if an admin can change the name of a retailer.
