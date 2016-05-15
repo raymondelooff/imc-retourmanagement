@@ -58,6 +58,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $request->merge([
+            'retailer_id' => $request->get('retailer_id') ? $request->get('retailer_id') : null
+        ]);
+
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|unique:users|email',
@@ -84,12 +88,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $retailer = null;
-        if(!is_null($user->retailer_id)) {
-            $retailer = Retailer::find($user->retailer_id);
-        }
-
-        return view('user.show', compact('user', 'retailer'));
+        return view('user.show', compact('user'));
     }
 
     /**
@@ -128,6 +127,10 @@ class UserController extends Controller
     public function update($id, Request $request)
     {
         $user = Auth::user();
+
+        $request->merge([
+            'retailer_id' => $request->get('retailer_id') ? $request->get('retailer_id') : null
+        ]);
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
