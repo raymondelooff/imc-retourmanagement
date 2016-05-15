@@ -30,4 +30,12 @@ class Retailer extends Model
      */
     protected $dates = ['deleted_at'];
 
+    /**
+     * Get the users of the retailer.
+     */
+    public function users()
+    {
+        return $this->hasMany('App\User');
+    }
+
 }
