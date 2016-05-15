@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f7adb7b253175177ba079bb665c0b99a",
-    "content-hash": "76acffaef0c031b40e53f94282322f9e",
+    "hash": "9adbccf9e35a4958d1a344009a110b18",
+    "content-hash": "009490da223c9ff841e662b552aeef3a",
     "packages": [
         {
             "name": "appzcoder/crud-generator",
@@ -349,6 +349,36 @@
                 "tokenizer"
             ],
             "time": "2015-12-05 17:17:57"
+        },
+        {
+            "name": "kirkbater/soft-deletes",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/iamkirkbater/soft-deletes.git",
+                "reference": "ea7e4006adf4d925c4ce5bc43dca7568d52a2096"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/iamkirkbater/soft-deletes/zipball/ea7e4006adf4d925c4ce5bc43dca7568d52a2096",
+                "reference": "ea7e4006adf4d925c4ce5bc43dca7568d52a2096",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Kirkbater\\Testing": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Kirk Bater",
+                    "email": "kirk.bater@gmail.com"
+                }
+            ],
+            "description": "Trait to check for soft deletes in Laravel 5",
+            "time": "2016-01-18 19:41:00"
         },
         {
             "name": "laracasts/flash",

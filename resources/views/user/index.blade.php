@@ -16,8 +16,8 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Email</th>
+                    <th>Naam</th>
+                    <th>E-mailadres</th>
                     <th>Acties</th>
                 </tr>
             </thead>
