@@ -181,20 +181,19 @@ class UserManagementTest extends TestCase
      */
     public function testAdminCanChangeUserRetailer()
     {
-//        $this->seed('TestingDatabaseSeeder');
-//        $retailer = factory(App\Retailer::class)->create();
-//        $user = factory(App\User::class)->create();
-//        $admin = factory(App\User::class, 'admin')->create();
-//
-//        $this->actingAs($admin)
-//             ->visit('/user/' . $user->id . '/edit')
-//             ->see('Wijzig gebruiker')
-//             ->select($retailer->id, 'retailer')
-//             ->press('Gebruiker wijzigen')
-//             ->see('Gebruiker bijgewerkt.')
-//             ->seePageIs('/user/' . $user->id . '/edit')
-//             ->seeInDatabase('users', ['id' => $user->id, 'retailer_id' => $retailer->id])
-//             ->dontSeeInDatabase('users', ['id' => $user->id, 'retailer_id' => null]);
+        $this->seed('TestingDatabaseSeeder');
+        $retailer = factory(App\Retailer::class)->create();
+        $user = factory(App\User::class, 'retailer')->create();
+        $admin = factory(App\User::class, 'admin')->create();
+
+        $this->actingAs($admin)
+             ->visit('/user/' . $user->id . '/edit')
+             ->see('Wijzig gebruiker')
+             ->select($retailer->id, 'retailer')
+             ->press('Gebruiker wijzigen')
+             ->see('Gebruiker bijgewerkt.')
+             ->seePageIs('/user/' . $user->id . '/edit')
+             ->seeInDatabase('users', ['id' => $user->id, 'retailer_id' => $retailer->id]);
     }
 
     /**
