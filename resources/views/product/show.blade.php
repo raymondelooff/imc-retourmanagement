@@ -5,7 +5,7 @@
 {{-- Header button --}}
 @section('header-nav')
     <li>
-        <a href="{{ url('product/' . $product->id . '/edit') }}">
+        <a href="{{ route('product.edit', $product->id) }}">
             <i class="fa fa-pencil"></i><span class="hidden-xs hidden-sm">Product bewerken</span>
         </a>
     </li>
