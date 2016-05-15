@@ -41,7 +41,7 @@
                             'url' => ['product', $item->id],
                             'style' => 'display:inline'
                         ]) !!}
-                            {!! Form::submit('Verwijder', ['class' => 'btn btn-danger btn-xs btn-delete']) !!}
+                            {!! Form::button('<i class="fa fa-trash"></i> Verwijder', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs']) !!}
                         {!! Form::close() !!}
                     </td>
                 </tr>

@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
-
 use App\Product;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class ProductController extends Controller
 {
@@ -42,22 +39,18 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        var_dump($request);
-
         $request->merge([
-            'msrp' => str_replace(',','.',$request->input('price'))
+            'msrp' => str_replace(',', '.', $request->input('msrp'))
         ]);
-
-        var_dump($request);
 
         $messages = [
             'name.required' => 'De naam van het product moet ingevuld zijn.',
             'supplier.required' => 'De leverancier van het product moet ingevuld zijn.',
             'short_description.max' => 'De korte beschrijving van het product mag niet meer dan 100 tekens lang zijn.',
-            'ean_code.digits' => 'De EAN-Code moet uit 13 cijfers bestaan',
+            'ean_code.digits' => 'De EAN-code moet uit 13 cijfers bestaan',
             'ivnoice_number.digits_between' => 'Het factuurnummer moet een nummer van maximaal 20 cijfers zijn.',
             'weight.digits_between' => 'Het gewicht moet een nummer van maximaal 10 cijfers zijn.',
-            'msrp.regex' => 'De prijs moet een getal zijn zonder decimalen, of een getal met twee decimalen en een punt bevatten i.p.v. een komma',
+            'msrp.regex' => 'De prijs moet een getal zijn zonder decimalen, of een getal met twee decimalen.',
         ];
 
         $this->validate($request, [
@@ -68,7 +61,7 @@ class ProductController extends Controller
             'invoice_number' => 'digits_between:0,20',
             'weight' => 'digits_between:0,10',
             'msrp' => 'regex:/^\d+(\.\d{2})?$/'
-        ],$messages);
+        ], $messages);
 
         Product::create($request->all());
 
@@ -115,17 +108,17 @@ class ProductController extends Controller
     public function update($id, Request $request)
     {
         $request->merge([
-            'price' => str_replace(',','.',$request->input('price'))
+            'msrp' => str_replace(',', '.', $request->input('msrp'))
         ]);
 
         $messages = [
             'name.required' => 'De naam van het product moet ingevuld zijn.',
             'supplier.required' => 'De leverancier van het product moet ingevuld zijn.',
             'short_description.max' => 'De korte beschrijving van het product mag niet meer dan 100 tekens lang zijn.',
-            'ean_code.digits' => 'De EAN-Code moet uit 13 cijfers bestaan',
+            'ean_code.digits' => 'De EAN-code moet uit 13 cijfers bestaan',
             'ivnoice_number.digits_between' => 'Het factuurnummer moet een nummer van maximaal 20 cijfers zijn.',
             'weight.digits_between' => 'Het gewicht moet een nummer van maximaal 10 cijfers zijn.',
-            'msrp.regex' => 'De prijs moet een getal zijn zonder decimalen, of een getal met twee decimalen en een punt bevatten i.p.v. een komma',
+            'msrp.regex' => 'De prijs moet een getal zijn zonder decimalen, of een getal met twee decimalen.',
         ];
 
         $this->validate($request, [
@@ -136,12 +129,12 @@ class ProductController extends Controller
             'invoice_number' => 'digits_between:0,20',
             'weight' => 'digits_between:0,10',
             'msrp' => 'regex:/^\d+(\.\d{2})?$/'
-        ],$messages);
+        ], $messages);
 
         $product = Product::findOrFail($id);
         $product->update($request->all());
 
-        Session::flash('flash_message', 'product updated!');
+        Session::flash('flash_message', 'Product gewijzigd!');
 
         return redirect('product');
     }
@@ -157,7 +150,7 @@ class ProductController extends Controller
     {
         Product::destroy($id);
 
-        Session::flash('flash_message', 'product deleted!');
+        Session::flash('flash_message', 'Product verwijderd!');
 
         return redirect('product');
     }
