@@ -44,7 +44,9 @@ class RetailerController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['name' => 'required', ]);
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
 
         // If retailer already exists, stop creating it
         if (Retailer::where('name', '=', Input::get('name'))->exists()) {
@@ -96,7 +98,9 @@ class RetailerController extends Controller
      */
     public function update($id, Request $request)
     {
-        $this->validate($request, ['name' => 'required', ]);
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
 
         $retailer = Retailer::findOrFail($id);
         $retailer->update($request->all());
