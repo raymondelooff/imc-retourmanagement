@@ -11,6 +11,7 @@
         <title>IMC Retourmanagement - @yield('title')</title>
 
         {{-- Stylesheets --}}
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,600">
         <link rel="stylesheet" type="text/css" href="{{ asset('/bower_components/font-awesome/css/font-awesome.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('/css/screen.css') }}">
         @yield('stylesheets')
@@ -72,13 +73,22 @@
                 </nav>
 
                 <!-- Page header -->
-                <div class="container">
+                <div class="page-title container">
                     <div class="container-inner">
                         <div class="row">
-                            <div class="col-sm-8">
+                            @hasSection('header-nav')
+                                <div class="col-sm-8">
+                            @else
+                                <div class="col-sm-12">
+                            @endif
+                                @hasSection('back')
+                                    <a href="@yield('back')" class="btn btn-back"><i class="fa fa-chevron-left"></i></a>
+                                @endif
+
                                 <h1>@yield('title')</h1>
                             </div>
 
+                            @hasSection('header-nav')
                             <!-- Header navigation -->
                             <div class="col-sm-4">
                                 <div class="header-nav">
@@ -87,6 +97,7 @@
                                     </ul>
                                 </div>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -106,7 +117,7 @@
                             </div>
                         @endif
 
-                            @if (Session::has('status'))
+                        @if (Session::has('status'))
                             <div class="alert alert-info">
                                 <span>{{ Session::get('status') }}</span>
                             </div>

@@ -2,17 +2,20 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    use SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'user_role', 'activated',
     ];
 
     /**
@@ -25,6 +28,33 @@ class User extends Authenticatable
     ];
 
     /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
+
+    /**
+     * Setters for setting the name attribute on the user.
+     *
+     * @param $name
+     */
+    public function setNameAttribute($name)
+    {
+        $this->attributes['name'] = $name;
+    }
+
+    /**
+     * Setters for setting the email attribute on the user.
+     *
+     * @param $email
+     */
+    public function setEmailAttribute($email)
+    {
+        $this->attributes['email'] = $email;
+    }
+
+    /**
      * Setter for setting the encryption on the user password.
      *
      * @param $password
@@ -32,5 +62,43 @@ class User extends Authenticatable
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);
+    }
+
+    /**
+     * Setter for setting the activated attribute on the user.
+     *
+     * @param $activated
+     */
+    public function setActivatedAttribute($activated)
+    {
+        $this->attributes['activated'] = $activated;
+    }
+
+    /**
+     * Checks if the user is an admin or not.
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        if(!is_null($this->user_role) && $this->user_role == 'admin') {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks if the user is a retailer or not.
+     *
+     * @return bool
+     */
+    public function isRetailer()
+    {
+        if(!is_null($this->user_role) && $this->user_role == 'retailer') {
+            return true;
+        }
+
+        return false;
     }
 }
