@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'user_role', 'activated',
+        'name', 'email', 'password', 'user_role', 'retailer_id', 'activated',
     ];
 
     /**
@@ -33,6 +33,26 @@ class User extends Authenticatable
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    /**
+     * Returns the user role associated with the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function role()
+    {
+        return $this->hasOne('App\UserRole', 'alias', 'user_role');
+    }
+
+    /**
+     * Returns the retailer associated with the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function retailer()
+    {
+        return $this->hasOne('App\Retailer', 'id', 'retailer_id');
+    }
 
     /**
      * Setters for setting the name attribute on the user.
@@ -75,13 +95,23 @@ class User extends Authenticatable
     }
 
     /**
+     * Setter for setting the retailer_id attribute on the user.
+     *
+     * @param $retailer_id
+     */
+    public function setRetailerIdAttribute($retailer_id)
+    {
+        $this->attributes['retailer_id'] = $retailer_id;
+    }
+
+    /**
      * Checks if the user is an admin or not.
      *
      * @return bool
      */
     public function isAdmin()
     {
-        if(!is_null($this->user_role) && $this->user_role == 'admin') {
+        if(!is_null($this->role) && $this->role->alias == 'admin') {
             return true;
         }
 
@@ -95,7 +125,7 @@ class User extends Authenticatable
      */
     public function isRetailer()
     {
-        if(!is_null($this->user_role) && $this->user_role == 'retailer') {
+        if(!is_null($this->role) && $this->role->alias == 'retailer') {
             return true;
         }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 
+use App\Retailer;
 use App\User;
 use App\UserRole;
 use Illuminate\Http\Request;
@@ -35,13 +36,19 @@ class UserController extends Controller
     public function create()
     {
         $user_roles = UserRole::all();
+        $retailers = Retailer::all();
 
         $user_roles_values = [];
         foreach($user_roles as $role) {
             $user_roles_values[$role->alias] = $role->title;
         }
 
-        return view('user.create', compact('user_roles_values'));
+        $retailer_values = [];
+        foreach($retailers as $retailer) {
+            $retailer_values[$retailer->id] = $retailer->name;
+        }
+
+        return view('user.create', compact('user_roles_values', 'retailer_values'));
     }
 
     /**
@@ -51,11 +58,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $request->merge([
+            'retailer_id' => $request->get('retailer_id') ? $request->get('retailer_id') : null
+        ]);
+
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|unique:users|email',
             'activated' => 'boolean',
-            'user_role' => 'required'
+            'user_role' => 'required',
+            'retailer_id' => 'numeric'
         ]);
 
         User::create($request->all());
@@ -90,13 +102,19 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user_roles = UserRole::all();
+        $retailers = Retailer::all();
 
         $user_roles_values = [];
         foreach($user_roles as $role) {
             $user_roles_values[$role->alias] = $role->title;
         }
 
-        return view('user.edit', compact('user', 'user_roles_values'));
+        $retailer_values = [];
+        foreach($retailers as $retailer) {
+            $retailer_values[$retailer->id] = $retailer->name;
+        }
+
+        return view('user.edit', compact('user', 'user_roles_values', 'retailer_values'));
     }
 
     /**
@@ -110,11 +128,16 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
+        $request->merge([
+            'retailer_id' => $request->get('retailer_id') ? $request->get('retailer_id') : null
+        ]);
+
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
             'activated' => 'boolean',
-            'user_role' => 'required'
+            'user_role' => 'required',
+            'retailer_id' => 'numeric'
         ]);
 
         // Extra checks if the user edits his own account
