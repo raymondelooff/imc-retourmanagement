@@ -59,7 +59,13 @@ class RetailerCrudTest extends TestCase
             ->seePageIs('/retailer')
             ->seeInDatabase('retailers', ['name' => 'Test Retailer']);
     }
-    
+
+    /**
+     * Tests if an admin can't create a retailer that is already in
+     * storage
+     *
+     * @return void
+     */
     public function testAdminCantCreateRetailerAlreadyInDatabase()
     {
         $this->seed('TestingDatabaseSeeder');
@@ -101,7 +107,7 @@ class RetailerCrudTest extends TestCase
     }
 
     /**
-     * Tests if an admin can change the name of a retailer.
+     * Tests if an admin can delete a retailer
      *
      * @return void
      */
