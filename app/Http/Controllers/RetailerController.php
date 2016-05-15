@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Retailer;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Input;
 use Session;
 use Laracasts\Flash\Flash;
 
@@ -44,6 +45,12 @@ class RetailerController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, ['name' => 'required', ]);
+
+        // If retailer already exists, stop creating it
+        if (Retailer::where('name', '=', Input::get('name'))->exists()) {
+            Flash::error('Retailer bestaat al!');
+            return redirect('retailer');
+        }
 
         Retailer::create($request->all());
 
