@@ -101,4 +101,16 @@ class User extends Authenticatable
 
         return false;
     }
+
+    /**
+     * Returns the retailer associated with the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function retailer()
+    {
+        if(!is_null($this->user_role) && $this->user_role == 'retailer') {
+            return $this->hasOne('App\Retailer');
+        }
+    }
 }
