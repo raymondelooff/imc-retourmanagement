@@ -189,7 +189,7 @@ class UserManagementTest extends TestCase
         $this->actingAs($admin)
              ->visit('/user/' . $user->id . '/edit')
              ->see('Wijzig gebruiker')
-             ->select($retailer->id, 'retailer')
+             ->select($retailer->id, 'retailer_id')
              ->press('Gebruiker wijzigen')
              ->see('Gebruiker bijgewerkt.')
              ->seePageIs('/user/' . $user->id . '/edit')
