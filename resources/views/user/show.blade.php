@@ -2,6 +2,15 @@
 @section('back', url('user'))
 @section('title', 'Details gebruiker')
 
+{{-- Header button --}}
+@section('header-nav')
+    <li>
+        <a href="{{ route('user.edit', $user->id) }}">
+            <i class="fa fa-pencil"></i><span class="hidden-xs hidden-sm">Gebruiker bewerken</span>
+        </a>
+    </li>
+@stop
+
 @section('content')
     <div class="row">
         <div class="col-xs-12 col-sm-8 col-md-6">
@@ -45,17 +54,17 @@
                     <tbody>
                         <tr>
                             <td>Retailer</td>
-                            <td>{{ $user->retailer ? $user->retailer : 'Geen retailer' }}</td>
+                            <td>{{ $user->retailer ? $user->retailer->name : 'Geen retailer' }}</td>
                         </tr>
                         <tr>
                             <td>Geregistreerd als</td>
-                            <td>{{ $user->role ? $user->role : 'Normale gebruiker' }}</td>
+                            <td>{{ $user->role ? $user->role->title : 'Normale gebruiker' }}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <a href="{{ url('user/' . $user->id . '/edit') }}" class="btn btn-primary"><i class="fa fa-pencil"></i> Bewerk</a>
+            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary"><i class="fa fa-pencil"></i> Gebruiker bewerken</a>
         </div>
     </div>
 @endsection
