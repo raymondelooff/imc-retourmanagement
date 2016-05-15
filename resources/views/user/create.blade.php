@@ -41,7 +41,7 @@
             <div class="form-group {{ $errors->has('retailer_id') ? 'has-error' : ''}}">
                 {!! Form::label('retailer_id', 'Retailer ', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
-                    {!! Form::select('retailer_id', array_merge(['' => 'Geen retailer'], $retailer_values), null, ['class' => 'form-control']) !!}
+                    {!! Form::select('retailer_id', array_replace(['' => 'Geen retailer'], $retailer_values), null, ['class' => 'form-control']) !!}
                     {!! $errors->first('retailer_id', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
