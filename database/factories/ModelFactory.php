@@ -11,6 +11,12 @@
 |
 */
 
+$factory->define(App\Retailer::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name
+    ];
+});
+
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
@@ -24,11 +30,18 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->defineAs(App\User::class, 'admin', function (Faker\Generator $faker) use ($factory) {
     $user = $factory->raw(App\User::class);
 
-    return array_merge($user, ['user_role' => 'admin']);
+    return array_merge($user, [
+        'user_role' => 'admin'
+    ]);
 });
 
-$factory->define(App\Retailer::class, function (Faker\Generator $faker) {
-    return [
-        'name' => $faker->name
-    ];
+$factory->defineAs(App\User::class, 'retailer', function (Faker\Generator $faker) use ($factory) {
+    $user = $factory->raw(App\User::class);
+
+    return array_merge($user, [
+        'user_role' => 'retailer',
+        'retailer_id' => function() {
+            return factory(App\Retailer::class)->create()->id;
+        }
+    ]);
 });

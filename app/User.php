@@ -75,6 +75,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Setter for setting the retailer_id attribute on the user.
+     *
+     * @param $retailer_id
+     */
+    public function setRetailerIdAttribute($retailer_id)
+    {
+        $this->attributes['retailer_id'] = $retailer_id;
+    }
+
+    /**
      * Checks if the user is an admin or not.
      *
      * @return bool
