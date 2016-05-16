@@ -35,6 +35,11 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::post('account/edit', [
 			'uses' => 'Account\AccountController@update'
 		]);
+
+		Route::get('account/deactivated', [
+			'uses' => 'Account\AccountController@deactivated',
+			'as' => 'deactivated'
+		]);
 	});
 
 	Route::group(['prefix' => 'account/email', 'as' => 'account.email.'], function() {
@@ -61,6 +66,40 @@ Route::group(['middleware' => ['auth']], function() {
 		]);
 	});
 
+	// Password reset routes
+	Route::group(['prefix' => 'account/password', 'as' => 'account.password.'], function() {
+		// Password reset link request routes
+		Route::get('email', [
+			'uses' => 'Auth\PasswordController@getEmail',
+			'as' => 'email'
+		]);
+
+		Route::post('email', [
+			'uses' => 'Auth\PasswordController@postEmail'
+		]);
+
+		// Password reset routes
+		Route::get('reset/{token}', [
+			'uses' => 'Auth\PasswordController@getReset'
+		]);
+
+		Route::post('reset', [
+			'uses' => 'Auth\PasswordController@postReset'
+		]);
+	});
+
+	Route::group(['middleware' => ['role:admin']], function() {
+		// User management routes
+		Route::patch('user/{user}/activate', [
+			'uses' => 'UserController@activate',
+			'as' => 'user.activate'
+		]);
+		Route::resource('user', 'UserController');
+
+		// Retailer management
+		Route::resource('retailer', 'RetailerController');
+	});
+
 	// Product routes
 	Route::resource('product', 'ProductController');
 
@@ -68,50 +107,29 @@ Route::group(['middleware' => ['auth']], function() {
 
 // Authentication routes...
 Route::get('login',  [
-    'uses' => 'Auth\AuthController@getLogin',
-    'as' => 'login'
+	'uses' => 'Auth\AuthController@getLogin',
+	'as' => 'login'
 ]);
 
 Route::post('login', [
-    'uses' => 'Auth\AuthController@postLogin'
+	'uses' => 'Auth\AuthController@postLogin'
 ]);
 
 Route::get('logout', [
-    'uses' => 'Auth\AuthController@getLogout',
-    'as' => 'logout'
+	'uses' => 'Auth\AuthController@getLogout',
+	'as' => 'logout'
 ]);
 
 // Registration routes...
 Route::get('register', [
-    'uses' => 'Auth\AuthController@getRegister',
+	'uses' => 'Auth\AuthController@getRegister',
 	'as' => 'register'
 ]);
 
 Route::post('register', [
-    'uses' => 'Auth\AuthController@postRegister'
+	'uses' => 'Auth\AuthController@postRegister'
 ]);
 
-// Password reset routes
-Route::group(['prefix' => 'account/password', 'as' => 'account.password.'], function() {
-	// Password reset link request routes
-	Route::get('email', [
-		'uses' => 'Auth\PasswordController@getEmail',
-		'as' => 'email'
-	]);
-
-	Route::post('email', [
-		'uses' => 'Auth\PasswordController@postEmail'
-	]);
-
-	// Password reset routes
-	Route::get('reset/{token}', [
-		'uses' => 'Auth\PasswordController@getReset'
-	]);
-
-	Route::post('reset', [
-		'uses' => 'Auth\PasswordController@postReset'
-	]);
-});
 Route::group(['middleware' => ['web']], function () {
 	Route::resource('productcategory', 'ProductCategoryController');
 });

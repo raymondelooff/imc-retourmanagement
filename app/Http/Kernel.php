@@ -35,6 +35,11 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
         ],
+
+        'auth' => [
+            'auth:web',
+            \App\Http\Middleware\RedirectIfNotActivated::class,
+        ],
     ];
 
     /**
@@ -49,6 +54,7 @@ class Kernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'role' => \App\Http\Middleware\Role::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     ];
 }

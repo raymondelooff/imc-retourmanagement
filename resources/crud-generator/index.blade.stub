@@ -31,7 +31,7 @@
                     </td>
                     %%formBodyHtml%%
                     <td>
-                        <a href="{{ url('%%routeGroup%%%%crudName%%/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Bewerk</a> /
+                        <a href="{{ route('%%routeGroup%%%%crudName%%.edit', $item->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Bewerk</a> /
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['%%routeGroup%%%%crudName%%', $item->id],

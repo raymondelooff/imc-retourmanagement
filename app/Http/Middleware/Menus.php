@@ -27,6 +27,16 @@ class Menus
                 $menu->add('Producten', ['route' => 'product.index']);
                 $menu->producten->prepend('<i class="fa fa-cubes" aria-hidden="true"></i> ');
                 $menu->producten->add('Voeg een product toe', ['route' => 'product.create']);
+
+                if(Auth::user()->isAdmin()) {
+                    $menu->add('Gebruikers', ['route' => 'user.index']);
+                    $menu->gebruikers->prepend('<i class="fa fa-users" aria-hidden="true"></i> ');
+                    $menu->gebruikers->add('Voeg een gebruiker toe', ['route' => 'user.create']);
+
+                    $menu->add('Retailers', ['route' => 'retailer.index']);
+                    $menu->retailers->prepend('<i class="fa fa-truck" aria-hidden="true"></i> ');
+                    $menu->retailers->add('Voeg een retailer toe', ['route' => 'retailer.create']);
+                }
             }
         });
 
