@@ -5,7 +5,7 @@
 @section('header-nav')
     <li>
         <a href="{{ url('product/') }}">
-            <i class="fa fa-chevron-left "></i><span class="hidden-xs hidden-sm">Terug naar het overicht</span>
+            <i class="fa fa-chevron-left "></i><span class="hidden-xs hidden-sm">Terug naar het overzicht</span>
         </a>
     </li>
 @stop
@@ -346,14 +346,18 @@
                         {!! Form::text('supplier', null, ['class' => 'form-control']) !!}
                         {!! $errors->first('Leverancier', '<p class="help-block">:message</p>') !!}
                     </div>
+
                 </div>
-                <div class="form-group {{ $errors->has('quality_label') ? 'has-error' : ''}}">
-                    {!! Form::label('quality_label', 'Kwaliteitslabel', ['class' => 'col-sm-4 control-label']) !!}
-                    <div class="col-sm-8">
-                        {!! Form::text('quality_label', null, ['class' => 'form-control']) !!}
-                        {!! $errors->first('Kwaliteitslabel', '<p class="help-block">:message</p>') !!}
+
+                {{-- Quality_label doesnt exist anymore. fix this --}}
+                    <div class="form-group {{ $errors->has('quality_label') ? 'has-error' : ''}}">
+                        {!! Form::label('quality_label', 'Product Categorie', ['class' => 'col-sm-4 control-label']) !!}
+                        <div class="col-sm-8">
+                            {!! Form::select('quality_label', $productcategories, null, ['class' => 'form-control']) !!}
+                        </div>
+                        {!! $errors->first('Product Categorie', '<p class="help-block">:message</p>') !!}
                     </div>
-                </div>
+
                 <div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">
                     {!! Form::label('status', 'Status', ['class' => 'col-sm-4 control-label']) !!}
                     <div class="col-sm-8">

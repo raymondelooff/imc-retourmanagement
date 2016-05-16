@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Product Categorie')
+@section('title', 'Product Categorieën')
 
 {{-- Header button --}}
 @section('header-nav')

@@ -28,6 +28,10 @@ class Menus
                 $menu->producten->prepend('<i class="fa fa-cubes" aria-hidden="true"></i> ');
                 $menu->producten->add('Voeg een product toe', ['route' => 'product.create']);
 
+                //Product Categorieen. Too irrelevant to create a completely new menu.
+                $menu->producten->add("Overzicht Product Categorieën", ['route' => 'productcategory.index']);
+                $menu->producten->add('Voeg een nieuwe Product Categorie toe', ['route' => 'productcategory.create']);
+
                 if(Auth::user()->isAdmin()) {
                     $menu->add('Gebruikers', ['route' => 'user.index']);
                     $menu->gebruikers->prepend('<i class="fa fa-users" aria-hidden="true"></i> ');

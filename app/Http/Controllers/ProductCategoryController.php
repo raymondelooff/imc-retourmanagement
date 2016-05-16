@@ -8,7 +8,9 @@ use App\Http\Controllers\Controller;
 use App\ProductCategory;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Input;
 use Laracasts\Flash\Flash;
+use Session;
 
 class ProductCategoryController extends Controller
 {
@@ -42,16 +44,16 @@ class ProductCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['name' => 'required', ]);
 
-        if($this->checkNameExists($request['name'])){
-            ProductCategory::create($request->all());
-            Session::flash('flash_message', 'Kwaliteitslabel aangemaakt!');
+        if (ProductCategory::where('category', '=', Input::get('category'))->exists() && ProductCategory::where('productstatus', '=', Input::get('productstatus'))->exists()) {
+            Flash::error('Categorie <strong>' . Input::get('category') . '</strong> met status <strong>'. Input::get('productstatus') .'</strong> bestaat al!');
             return redirect('productcategory');
-        }else{
-            Session::flash('flash_message', 'Label bestaat al!');
-            return redirect('/productcategory/create');
-        };
+        }
+        ProductCategory::create($request->all());
+
+        Flash::success('Product Categorie toegevoegd!');
+
+        return redirect('productcategory');
     }
 
     /**
@@ -96,7 +98,7 @@ class ProductCategoryController extends Controller
         $productcategory = ProductCategory::findOrFail($id);
         $productcategory->update($request->all());
 
-        Flash::success('ProductCategory bijgewerkt!');
+        Flash::success('Product Categorie bijgewerkt!');
 
         return redirect('productcategory');
     }
@@ -112,7 +114,7 @@ class ProductCategoryController extends Controller
     {
         ProductCategory::destroy($id);
 
-        Flash::success('ProductCategory verwijderd!');
+        Flash::success('Product Categorie verwijderd!');
 
         return redirect('productcategory');
     }

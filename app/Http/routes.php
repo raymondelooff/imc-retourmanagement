@@ -98,6 +98,9 @@ Route::group(['middleware' => ['auth']], function() {
 
 		// Retailer management
 		Route::resource('retailer', 'RetailerController');
+
+        //productcategory
+        Route::resource('productcategory', 'ProductCategoryController');
 	});
 
 	// Product routes
@@ -129,7 +132,3 @@ Route::get('register', [
 Route::post('register', [
 	'uses' => 'Auth\AuthController@postRegister'
 ]);
-
-Route::group(['middleware' => ['web']], function () {
-	Route::resource('productcategory', 'ProductCategoryController');
-});

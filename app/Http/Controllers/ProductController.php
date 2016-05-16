@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Product;
+use App\ProductCategory;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
@@ -32,7 +33,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+        $productcategories=$this->getProductCategories();
+
+        return view('product.create', ['productcategories' => $productcategories]);
     }
 
     /**
@@ -110,6 +113,17 @@ class ProductController extends Controller
         Session::flash('flash_message', 'product deleted!');
 
         return redirect('product');
+    }
+
+    /**
+     * Get the productcategories from the ProductCategoryController
+     * Probably the wrong way to do this, please fix me
+     *
+     * @return List of Categories
+     */
+    public function getProductCategories()
+    {
+        return ProductCategory::pluck('category', 'id');
     }
 
 }

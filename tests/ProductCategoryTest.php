@@ -7,12 +7,26 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
  * Test CRUD operations of productcategory
  * @author Lennart
  *
- * TODO: Add test to check if user is admin
  */
 class ProductCategoryTest extends TestCase
 {
     // Empty the test database before beginning tests
     use DatabaseMigrations;
+
+    /**
+     * Tests if a logged in user can't visit the retailer index.
+     *
+     * @return void
+     */
+    public function testUserCantAccessProductCategoryIndex()
+    {
+        $user = factory(App\User::class)->create();
+
+        $this->actingAs($user)
+            ->visit('/productcategory')
+            ->see('Welkom')
+            ->seePageIs('/');
+    }
 
     /**
      * Basic test to check if the content of the page is correct and in dutch
@@ -21,14 +35,18 @@ class ProductCategoryTest extends TestCase
      */
     public function testPageContent()
     {
-        $this->visit('/productcategory')
-            ->see('Product Categorie')
-            ->dontsee('Product Categorie')
+        $this->seed('TestingDatabaseSeeder');
+        $admin = factory(App\User::class, 'admin')->create();
+
+        $this->actingAs($admin)
+            ->visit('/productcategory')
+            ->see('Product Categorieën')
+            ->dontsee('ProductCategorie')
             ->see('Maak nieuwe Product Categorie')
             //Check content of create page
             ->click('Maak nieuwe Product Categorie')
             ->seePageIs('/productcategory/create')
-            ->see('Maak nieuw Product Categorie')
+            ->see('Maak nieuwe Product Categorie')
             ->see('Categorie:')
             ->dontsee('Name:')
             ->see('Maak')
@@ -40,26 +58,36 @@ class ProductCategoryTest extends TestCase
      */
     public function testCreateProductCategory()
     {
-        $this->visit('/productcategory')
-            ->click('Maak nieuw Kwaliteitslabel')
+        $this->seed('TestingDatabaseSeeder');
+        $admin = factory(App\User::class, 'admin')->create();
+
+        $this->actingAs($admin)
+            ->visit('/productcategory')
+            ->click('Maak nieuwe Product Categorie')
             ->seePageIs('/productcategory/create')
-            ->type('CreateTest', 'name')
+            ->type('CreateTest', 'category')
+            ->type('CreateStatus', 'productstatus')
+            ->type('CreateOrigin', 'productorigin')
             ->press('Maak')
             ->seePageIs('/productcategory')
             ->see('CreateTest')
-            ->seeInDatabase('productcategory', ['id' => '1', 'name' => 'CreateTest'])
-            ->click('Maak nieuw Kwaliteitslabel')
-            ->type('CreateTest', 'name')
+            ->seeInDatabase('productcategories', ['id' => '1', 'category' => 'CreateTest', 'productstatus' => 'CreateStatus', 'productorigin' => 'CreateOrigin'])
+            ->click('Maak nieuwe Product Categorie')
+            ->type('CreateTest', 'category')
+            ->type('CreateStatus', 'productstatus')
+            ->type('CreateOrigin', 'productorigin')
             ->press('Maak')
-            ->seePageIs('/productcategory/create')
-            ->notSeeInDatabase('productcategory', ['id' => '2', 'name' => 'CreateTest'])
+            ->seePageIs('/productcategory')
+            ->notSeeInDatabase('productcategories', ['id' => '2', 'category' => 'CreateTest'])
             ->visit('/productcategory/create')
-            ->type('CreateTest2', 'name')
+            ->type('CreateTest2', 'category')
+            ->type('CreateStatus2', 'productstatus')
+            ->type('CreateOrigin2', 'productorigin')
             ->press('Maak')
             ->seePageIs('/productcategory')
             ->see('CreateTest2')
-            ->seeInDatabase('productcategory', ['id' => '1', 'name' => 'CreateTest'])
-            ->seeInDatabase('productcategory', ['id' => '2', 'name' => 'CreateTest2']);
+            ->seeInDatabase('productcategories', ['id' => '1', 'category' => 'CreateTest', 'productstatus' => 'CreateStatus', 'productorigin' => 'CreateOrigin'])
+            ->seeInDatabase('productcategories', ['id' => '2', 'category' => 'CreateTest2', 'productstatus' => 'CreateStatus2', 'productorigin' => 'CreateOrigin2']);
     }
 
     /**
@@ -67,21 +95,29 @@ class ProductCategoryTest extends TestCase
      */
     public function testDeleteProductCategory()
     {
-        $this->visit('/productcategory')
-            ->click('Maak nieuw Kwaliteitslabel')
+        $this->seed('TestingDatabaseSeeder');
+        $admin = factory(App\User::class, 'admin')->create();
+
+        $this->actingAs($admin)
+            ->visit('/productcategory')
+            ->click('Maak nieuwe Product Categorie')
             ->seePageIs('/productcategory/create')
-            ->type('DeleteTest', 'name')
+            ->type('DeleteTest', 'category')
+            ->type('DeleteStatus', 'productstatus')
+            ->type('DeleteOrigin', 'productorigin')
             ->press('Maak')
             ->seePageIs('productcategory')
-            ->click('Maak nieuw Kwaliteitslabel')
+            ->click('Maak nieuwe Product Categorie')
             ->seePageIs('/productcategory/create')
-            ->type('DeleteTest2', 'name')
+            ->type('DeleteTest2', 'category')
+            ->type('DeleteStatus2', 'productstatus')
+            ->type('DeleteOrigin2', 'productorigin')
             ->press('Maak')
-            ->seeInDatabase('productcategory', ['name' => 'DeleteTest'])
-            ->seeInDatabase('productcategory', ['name' => 'DeleteTest2'])
+            ->seeInDatabase('productcategories', ['id' => '1', 'category' => 'DeleteTest', 'productstatus' => 'DeleteStatus', 'productorigin' => 'DeleteOrigin'])
+            ->seeInDatabase('productcategories', ['id' => '2', 'category' => 'DeleteTest2', 'productstatus' => 'DeleteStatus2', 'productorigin' => 'DeleteOrigin2'])
             ->press('Verwijder')
-            ->notSeeInDatabase('productcategory', ['name' => 'DeleteTest'])
-            ->seeInDatabase('productcategory', ['name' => 'DeleteTest2']);
+            ->notSeeInDatabase('productcategories', ['category' => 'DeleteTest'])
+            ->seeInDatabase('productcategories', ['category' => 'DeleteTest2']);
     }
 
     /**
@@ -89,23 +125,29 @@ class ProductCategoryTest extends TestCase
      */
     public function testEditProductCategory()
     {
-        $this->visit('/productcategory')
-            ->click('Maak nieuw Kwaliteitslabel')
+        $this->seed('TestingDatabaseSeeder');
+        $admin = factory(App\User::class, 'admin')->create();
+
+        $this->actingAs($admin)
+            ->visit('/productcategory')
+            ->click('Maak nieuwe Product Categorie')
             ->seePageIs('/productcategory/create')
-            ->type('EditTest', 'name')
+            ->type('EditTest', 'category')
+            ->type('EditStatus', 'productstatus')
+            ->type('EditOrigin', 'productorigin')
             ->press('Maak')
             ->seePageIs('productcategory')
-            ->seeInDatabase('productcategory', ['id'=>'1', 'name' => 'EditTest'])
+            ->seeInDatabase('productcategories', ['id'=>'1', 'category' => 'EditTest'])
             ->click('Bewerk')
             ->seePageIs('/productcategory/1/edit')
-            ->seeInField('name', 'EditTest')
+            ->seeInField('category', 'EditTest')
             ->clearInputs()
-            ->type('UpdatedTest', 'name')
+            ->type('UpdatedTest', 'category')
             ->press('Bewerk')
             ->seePageIs('/productcategory')
             ->see('UpdatedTest')
-            ->notSeeInDatabase('productcategory', ['id'=>'1', 'name' => 'EditTest'])
-            ->seeInDatabase('productcategory', ['id'=>'1', 'name' => 'UpdatedTest']);
+            ->notSeeInDatabase('productcategories', ['id'=>'1', 'category' => 'EditTest'])
+            ->seeInDatabase('productcategories', ['id'=>'1', 'category' => 'UpdatedTest']);
 
 
     }
