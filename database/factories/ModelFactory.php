@@ -45,3 +45,9 @@ $factory->defineAs(App\User::class, 'retailer', function (Faker\Generator $faker
         }
     ]);
 });
+
+$factory->define(App\ProductPhase::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name
+    ];
+});

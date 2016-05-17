@@ -8,7 +8,7 @@ class ProductPhaseTest extends TestCase
 {
 
     /**
-     * Tests if a logged in user can't visit the productphase index.
+     * Tests if a logged in user can't visit the product phase index.
      *
      * @return void
      */
@@ -17,14 +17,14 @@ class ProductPhaseTest extends TestCase
         $user = factory(App\User::class)->create();
 
         $this->actingAs($user)
-            ->visit('/productphase')
-            ->dontSee('Productfases')
+            ->visit('/product-phase')
+            ->dontSee('<h1>Productfases</h1>')
             ->see('Welkom')
             ->seePageIs('/');
     }
 
     /**
-     * Tests if an admin can visit the productphase index.
+     * Tests if an admin can visit the product phase index.
      *
      * @return void
      */
@@ -34,13 +34,13 @@ class ProductPhaseTest extends TestCase
         $admin = factory(App\User::class, 'admin')->create();
 
         $this->actingAs($admin)
-            ->visit('/productphase')
+            ->visit('/product-phase')
             ->see('Productfases')
-            ->seePageIs('/productphase');
+            ->seePageIs('/product-phase');
     }
 
     /**
-     * Tests if an admin can create a new productphase.
+     * Tests if an admin can create a new product phase.
      *
      * @return void
      */
@@ -50,16 +50,16 @@ class ProductPhaseTest extends TestCase
         $admin = factory(App\User::class, 'admin')->create();
 
         $this->actingAs($admin)
-            ->visit('productphase/create')
+            ->visit('/product-phase/create')
             ->type('Test Productfase', 'name')
             ->press('Productfase aanmaken')
             ->see('Productfase toegevoegd!')
-            ->seePageIs('/productphase')
+            ->seePageIs('/product-phase')
             ->seeInDatabase('productphases', ['name' => 'Test Productfase']);
     }
 
     /**
-     * Tests if an admin can't create a productphase that is already in
+     * Tests if an admin can't create a product phase that is already in
      * storage
      *
      * @return void
@@ -67,21 +67,21 @@ class ProductPhaseTest extends TestCase
     public function testAdminCantCreateDuplicateProductPhase()
     {
         $this->seed('TestingDatabaseSeeder');
+        $productphase = factory(App\ProductPhase::class)->create([
+            'name' => 'Dubbele Productfase'
+        ]);
         $admin = factory(App\User::class, 'admin')->create();
 
         $this->actingAs($admin)
-            ->visit('productphase/create')
-            ->type('Test Productfase', 'name')
+            ->visit('/product-phase/create')
+            ->type('Dubbele Productfase', 'name')
             ->press('Productfase aanmaken')
-            ->see('Productfase toegevoegd!')
-            ->visit('productphase/create')
-            ->type('Test Productfase', 'name')
-            ->press('Productfase aanmaken')
-            ->see('Productfase <strong>Test Productfase</strong> bestaat al');
+            ->see('name is al in gebruik')
+            ->seePageIs('/product-phase/create');
     }
 
     /**
-     * Tests if an admin can change the name of a productphase.
+     * Tests if an admin can change the name of a product phase.
      *
      * @return void
      */
@@ -94,35 +94,13 @@ class ProductPhaseTest extends TestCase
         $admin = factory(App\User::class, 'admin')->create();
 
         $this->actingAs($admin)
-            ->visit('/productphase/' . $productphase->id . '/edit')
+            ->visit('/product-phase/' . $productphase->id . '/edit')
             ->see('Wijzig productfase')
             ->type('Nieuwe Naam', 'name')
             ->press('Productfase wijzigen')
             ->see('Productfase bijgewerkt!')
-            ->seePageIs('/productphase')
+            ->seePageIs('/product-phase')
             ->seeInDatabase('productphases', ['id' => $productphase->id, 'name' => 'Nieuwe Naam'])
             ->dontSeeInDatabase('productphases', ['id' => $productphase->id, 'name' => 'Oude Naam']);
-    }
-
-    /**
-     * Tests if an admin can delete a productphase
-     *
-     * @return void
-     */
-    public function testAdminCanDeleteProductPhase()
-    {
-        $this->seed('TestingDatabaseSeeder');
-        $productphase = factory(App\ProductPhase::class)->create([
-            'name' => 'Test Productfase'
-        ]);
-        $admin = factory(App\User::class, 'admin')->create();
-
-        $this->actingAs($admin)
-            ->visit('/productphase')
-            ->see('Test Productfase')
-            ->press('Verwijder')
-            ->see('Productfase verwijderd!')
-            ->seePageIs('/productphase')
-            ->seeInDatabase('productphases', ['id' => $productphase->id, 'name' => 'Test Productfase']);
     }
 }
