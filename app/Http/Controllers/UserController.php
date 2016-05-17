@@ -168,7 +168,7 @@ class UserController extends Controller
 
         Flash::success('Gebruiker bijgewerkt.');
 
-        return redirect(route('user.edit', $user->id));
+        return redirect(route('user.show', $id));
     }
 
     /**

@@ -97,7 +97,7 @@ class ProductPhaseController extends Controller
 
         Flash::success('Productfase bijgewerkt!');
 
-        return redirect('product-phase');
+        return redirect(route('product-phase.show', $id));
     }
 
     /**

@@ -79,7 +79,7 @@ class RetailerCrudTest extends TestCase
             ->visit('retailer/create')
             ->type('Test Retailer', 'name')
             ->press('Retailer aanmaken')
-            ->see('Retailer <strong>Test Retailer</strong> bestaat al');
+            ->see('name is al in gebruik');
     }
 
     /**
@@ -101,7 +101,7 @@ class RetailerCrudTest extends TestCase
             ->type('Nieuwe Naam', 'name')
             ->press('Retailer wijzigen')
             ->see('Retailer bijgewerkt!')
-            ->seePageIs('/retailer')
+            ->seePageIs('/retailer/' . $retailer->id)
             ->seeInDatabase('retailers', ['id' => $retailer->id, 'name' => 'Nieuwe Naam'])
             ->dontSeeInDatabase('retailers', ['id' => $retailer->id, 'name' => 'Oude Naam']);
     }

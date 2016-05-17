@@ -45,14 +45,8 @@ class RetailerController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required'
+            'name' => 'required|unique:retailers'
         ]);
-
-        // If retailer already exists, stop creating it
-        if (Retailer::where('name', '=', Input::get('name'))->exists()) {
-            Flash::error('Retailer <strong>' . Input::get('name') . '</strong> bestaat al!');
-            return redirect('retailer');
-        }
 
         Retailer::create($request->all());
 
@@ -107,7 +101,7 @@ class RetailerController extends Controller
 
         Flash::success('Retailer bijgewerkt!');
 
-        return redirect('retailer');
+        return redirect(route('retailer.show', $id));
     }
 
     /**

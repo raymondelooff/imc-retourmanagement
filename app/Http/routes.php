@@ -79,6 +79,9 @@ Route::group(['middleware' => ['auth']], function() {
 
 		// Product phase management
 		Route::resource('product-phase', 'ProductPhaseController');
+
+		// Product category management
+		Route::resource('product-category', 'ProductCategoryController');
 	});
 
 	Route::group(['middleware' => ['role:admin,retailer']], function() {

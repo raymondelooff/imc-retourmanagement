@@ -33,6 +33,9 @@ class Menus
                     }
                 }
 
+                //Product Categorieen. Too irrelevant to create a completely new menu.
+                $menu->producten->add("Productcategorieën beheren", ['route' => 'product-category.index']);
+
                 if(Auth::user()->isAdmin()) {
                     $menu->add('Gebruikers', ['route' => 'user.index']);
                     $menu->gebruikers->prepend('<i class="fa fa-users" aria-hidden="true"></i> ');
