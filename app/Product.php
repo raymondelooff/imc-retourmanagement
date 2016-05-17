@@ -19,7 +19,7 @@ class Product extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'description', 'short_description', 'ean_code', 'serial_number', 'invoice_number', 'weight', 'country_code', 'location', 'retailer_id', 'quality_label', 'status', 'problem_description', 'color', 'msrp'];
+    protected $fillable = ['name', 'description', 'short_description', 'ean_code', 'serial_number', 'invoice_number', 'weight', 'country_code', 'location', 'retailer_id', 'quality_label', 'productphase_id', 'problem_description', 'color', 'msrp'];
 
     /**
      * Returns the retailer associated with the user
@@ -35,8 +35,8 @@ class Product extends Model
      * Defines relations with a ProductPhase object
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function productPhases()
+    public function product_phases()
     {
-        return $this->hasOne('App\ProductPhase');
+        return $this->hasOne('App\ProductPhase', 'id', 'productphase_id');
     }
 }

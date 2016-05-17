@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ProductPhase;
 use Gate;
 use App\Http\Requests;
 use App\Product;
@@ -51,7 +52,14 @@ class ProductController extends Controller
             $retailer_values[$retailer->id] = $retailer->name;
         }
 
-        return view('product.create', compact('retailer_values'));
+        $product_phases = ProductPhase::all();
+        $product_phases_values = [];
+
+        foreach($product_phases as $product_phase) {
+            $product_phases_values[$product_phase->id] = $product_phase->name;
+        }
+
+        return view('product.create', compact('retailer_values', 'product_phases_values'));
     }
 
     /**
@@ -67,7 +75,8 @@ class ProductController extends Controller
 
         if($request->user()->isRetailer()) {
             $request->merge([
-                'retailer_id' => $request->user()->retailer_id
+                'retailer_id' => $request->user()->retailer_id,
+                'productphase_id' => null
             ]);
         }
 
@@ -138,7 +147,14 @@ class ProductController extends Controller
             $retailer_values[$retailer->id] = $retailer->name;
         }
 
-        return view('product.edit', compact('product', 'retailer_values'));
+        $product_phases = ProductPhase::all();
+        $product_phases_values = [];
+
+        foreach($product_phases as $product_phase) {
+            $product_phases_values[$product_phase->id] = $product_phase->name;
+        }
+
+        return view('product.edit', compact('product', 'retailer_values', 'product_phases_values'));
     }
 
     /**
@@ -156,7 +172,8 @@ class ProductController extends Controller
 
         if($request->user()->isRetailer()) {
             $request->merge([
-                'retailer_id' => $request->user()->retailer_id
+                'retailer_id' => $request->user()->retailer_id,
+                'productphase_id' => $request->old('productphase_id')
             ]);
         }
 
@@ -190,7 +207,7 @@ class ProductController extends Controller
 
         Flash::success('Product gewijzigd!');
 
-        return redirect('product');
+        return redirect(route('product.show', $id));
     }
 
     /**

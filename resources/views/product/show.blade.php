@@ -27,12 +27,8 @@
                         <td>{{ $product->location }}</td>
                     </tr>
                     <tr>
-                        <th>Productstatus</th>
-                        <td>{{ $product->productstatus }}</td>
-                    </tr>
-                    <tr>
-                        <th>Status</th>
-                        <td>Status {{ $product->status }}</td>
+                        <th>Productfase</th>
+                        <td>{{ $product->product_phases ? $product->product_phases->name : "Nog niet bekend" }}</td>
                     </tr>
                     <tr>
                         <th>Staat</th>

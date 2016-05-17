@@ -12,28 +12,17 @@ class Role
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  $requiredRole
+     * @param  $roles
      * @return mixed
      */
-    public function handle($request, Closure $next, $requiredRole)
+    public function handle($request, Closure $next, ...$roles)
     {
         $user = $request->user();
 
-        if(isset($user) && isset($requiredRole)) {
-
-            switch($requiredRole) {
-                case 'admin':
-                    if($user->isAdmin()) {
-                        return $next($request);
-                    }
-                    break;
-                case 'retailer':
-                    if($user->isRetailer()) {
-                        return $next($request);
-                    }
-                    break;
+        foreach($roles as $role) {
+            if($user->hasRole($role)) {
+                return $next($request);
             }
-
         }
 
         return redirect()->back();
