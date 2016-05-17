@@ -6,7 +6,6 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Product;
-use App\ProductCategory;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
@@ -33,9 +32,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $productcategories=$this->getProductCategories();
-
-        return view('product.create', ['productcategories' => $productcategories]);
+        return view('product.create');
     }
 
     /**
@@ -45,7 +42,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         Product::create($request->all());
 
         Session::flash('flash_message', 'product added!');
@@ -90,7 +87,7 @@ class ProductController extends Controller
      */
     public function update($id, Request $request)
     {
-        
+
         $product = Product::findOrFail($id);
         $product->update($request->all());
 
@@ -113,17 +110,6 @@ class ProductController extends Controller
         Session::flash('flash_message', 'product deleted!');
 
         return redirect('product');
-    }
-
-    /**
-     * Get the productcategories from the ProductCategoryController
-     * Probably the wrong way to do this, please fix me
-     *
-     * @return List of Categories
-     */
-    public function getProductCategories()
-    {
-        return ProductCategory::pluck('category', 'id');
     }
 
 }
