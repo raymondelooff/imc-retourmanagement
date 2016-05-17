@@ -17,12 +17,14 @@ class UsersTableSeeder extends Seeder
                 'email' => 'admin@voorbeeld.imc',
                 'password' => bcrypt('Admin123'),
                 'user_role' => 'admin',
+                'activated' => 1
             ],
             [
                 'name' => 'Voorbeeld Retailer',
                 'email' => 'retailer@voorbeeld.imc',
                 'password' => bcrypt('Retailer123'),
                 'user_role' => 'retailer',
+                'activated' => 1
             ]
         ]);
     }
