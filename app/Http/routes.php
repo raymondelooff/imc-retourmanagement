@@ -129,3 +129,12 @@ Route::get('register', [
 Route::post('register', [
     'uses' => 'Auth\AuthController@postRegister'
 ]);
+
+Route::resource('product-phase', 'ProductPhaseController');
+Route::resource('product-phase', 'ProductPhaseController');
+Route::resource('posts', 'PostsController');
+Route::resource('product-phases', 'ProductPhasesController');
+Route::resource('product-phase', 'ProductPhaseController');
+Route::resource('product-phase', 'ProductPhaseController');
+Route::resource('productphase', 'ProductphaseController');
+Route::resource('productphase', 'ProductphaseController');
