@@ -20,7 +20,7 @@ class ProductPhaseController extends Controller
     {
         $productphase = ProductPhase::paginate(15);
 
-        return view('productphase.index', compact('productphase'));
+        return view('product-phase.index', compact('productphase'));
     }
 
     /**
@@ -30,7 +30,7 @@ class ProductPhaseController extends Controller
      */
     public function create()
     {
-        return view('productphase.create');
+        return view('product-phase.create');
     }
 
     /**
@@ -48,7 +48,7 @@ class ProductPhaseController extends Controller
 
         Flash::success('Productfase toegevoegd!');
 
-        return redirect('productphase');
+        return redirect('product-phase');
     }
 
     /**
@@ -62,7 +62,7 @@ class ProductPhaseController extends Controller
     {
         $productphase = ProductPhase::findOrFail($id);
 
-        return view('productphase.show', compact('productphase'));
+        return view('product-phase.show', compact('productphase'));
     }
 
     /**
@@ -76,7 +76,7 @@ class ProductPhaseController extends Controller
     {
         $productphase = ProductPhase::findOrFail($id);
 
-        return view('productphase.edit', compact('productphase'));
+        return view('product-phase.edit', compact('productphase'));
     }
 
     /**
@@ -97,7 +97,7 @@ class ProductPhaseController extends Controller
 
         Flash::success('Productfase bijgewerkt!');
 
-        return redirect('productphase');
+        return redirect('product-phase');
     }
 
     /**
@@ -113,7 +113,7 @@ class ProductPhaseController extends Controller
 
         Flash::success('Productfase verwijderd!');
 
-        return redirect('productphase');
+        return redirect('product-phase');
     }
 
 }

@@ -4,7 +4,7 @@
 {{-- Header button --}}
 @section('header-nav')
     <li>
-        <a href="{{ route('productphase.create') }}">
+        <a href="{{ route('product-phase.create') }}">
             <i class="fa fa-plus"></i> Maak nieuwe productfase
         </a>
     </li>
@@ -31,10 +31,10 @@
                     </td>
                     <td>{{ $item->name }}</td>
                     <td>
-                        <a href="{{ route('productphase.edit', $item->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Bewerk</a>
+                        <a href="{{ route('product-phase.edit', $item->id) }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Bewerk</a>
                         {!! Form::open([
                             'method'=>'DELETE',
-                            'url' => ['productphase', $item->id],
+                            'url' => ['product-phase', $item->id],
                             'style' => 'display:inline'
                         ]) !!}
                             {!! Form::button('<i class="fa fa-trash"></i> Verwijder', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs']) !!}

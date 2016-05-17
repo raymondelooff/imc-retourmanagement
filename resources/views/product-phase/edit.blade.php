@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('back', route('productphase.show', $productphase->id))
+@section('back', route('product-phase.show', $productphase->id))
 @section('title', 'Productfase wijzigen')
 
 @section('content')
@@ -7,7 +7,7 @@
         <div class="col-xs-12 col-sm-8 col-md-6">
             {!! Form::model($productphase, [
                 'method' => 'PATCH',
-                'url' => ['productphase', $productphase->id],
+                'url' => ['product-phase', $productphase->id],
                 'class' => 'form-horizontal'
             ]) !!}
 
@@ -22,7 +22,7 @@
             <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-8">
                     {!! Form::button('Productfase wijzigen', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
-                    <a href="{{ route('productphase.show', $productphase->id) }}" class="btn btn-danger">Annuleren</a>
+                    <a href="{{ route('product-phase.show', $productphase->id) }}" class="btn btn-danger">Annuleren</a>
                 </div>
             </div>
 

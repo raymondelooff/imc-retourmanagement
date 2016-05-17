@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('back', route('productphase.index'))
+@section('back', url('product-phase'))
 @section('title', 'Details productfase')
 
 @section('content')

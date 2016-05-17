@@ -27,7 +27,7 @@ class Menus
                 $menu->add('Producten', ['route' => 'product.index']);
                 $menu->producten->prepend('<i class="fa fa-cubes" aria-hidden="true"></i> ');
                 $menu->producten->add('Voeg een product toe', ['route' => 'product.create']);
-                $menu->producten->add('Productfases beheren', ['route' => 'productphase.index']);
+                $menu->producten->add('Productfases beheren', ['route' => 'product-phase.index']);
 
                 if(Auth::user()->isAdmin()) {
                     $menu->add('Gebruikers', ['route' => 'user.index']);
