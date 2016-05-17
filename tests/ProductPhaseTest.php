@@ -99,7 +99,7 @@ class ProductPhaseTest extends TestCase
             ->type('Nieuwe Naam', 'name')
             ->press('Productfase wijzigen')
             ->see('Productfase bijgewerkt!')
-            ->seePageIs('/product-phase')
+            ->seePageIs('/product-phase/' . $productphase->id)
             ->seeInDatabase('productphases', ['id' => $productphase->id, 'name' => 'Nieuwe Naam'])
             ->dontSeeInDatabase('productphases', ['id' => $productphase->id, 'name' => 'Oude Naam']);
     }

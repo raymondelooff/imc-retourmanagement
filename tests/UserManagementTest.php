@@ -98,7 +98,7 @@ class UserManagementTest extends TestCase
              ->type('Nieuwe Naam', 'name')
              ->press('Gebruiker wijzigen')
              ->see('Gebruiker bijgewerkt.')
-             ->seePageIs('/user/' . $user->id . '/edit')
+             ->seePageIs('/user/' . $user->id)
              ->seeInDatabase('users', ['id' => $user->id, 'name' => 'Nieuwe Naam'])
              ->dontSeeInDatabase('users', ['id' => $user->id, 'name' => 'Oude Naam']);
     }
@@ -123,7 +123,7 @@ class UserManagementTest extends TestCase
              ->type('nieuw123@test.nl', 'email')
              ->press('Gebruiker wijzigen')
              ->see('Gebruiker bijgewerkt.')
-             ->seePageIs('/user/' . $user->id . '/edit')
+             ->seePageIs('/user/' . $user->id)
              ->seeInDatabase('users', ['id' => $user->id, 'email' => 'nieuw123@test.nl'])
              ->dontSeeInDatabase('users', ['id' => $user->id, 'email' => 'oud123@test.nl']);
     }
@@ -145,7 +145,7 @@ class UserManagementTest extends TestCase
              ->select('0', 'activated')
              ->press('Gebruiker wijzigen')
              ->see('Gebruiker bijgewerkt.')
-             ->seePageIs('/user/' . $user->id . '/edit')
+             ->seePageIs('/user/' . $user->id)
              ->seeInDatabase('users', ['id' => $user->id, 'activated' => '0'])
              ->dontSeeInDatabase('users', ['id' => $user->id, 'activated' => '1']);
     }
@@ -169,7 +169,7 @@ class UserManagementTest extends TestCase
              ->select('1', 'activated')
              ->press('Gebruiker wijzigen')
              ->see('Gebruiker bijgewerkt.')
-             ->seePageIs('/user/' . $user->id . '/edit')
+             ->seePageIs('/user/' . $user->id)
              ->seeInDatabase('users', ['id' => $user->id, 'activated' => '1'])
              ->dontSeeInDatabase('users', ['id' => $user->id, 'activated' => '0']);
     }
@@ -192,7 +192,7 @@ class UserManagementTest extends TestCase
              ->select($retailer->id, 'retailer_id')
              ->press('Gebruiker wijzigen')
              ->see('Gebruiker bijgewerkt.')
-             ->seePageIs('/user/' . $user->id . '/edit')
+             ->seePageIs('/user/' . $user->id)
              ->seeInDatabase('users', ['id' => $user->id, 'retailer_id' => $retailer->id]);
     }
 
@@ -213,7 +213,7 @@ class UserManagementTest extends TestCase
              ->select('admin', 'user_role')
              ->press('Gebruiker wijzigen')
              ->see('Gebruiker bijgewerkt.')
-             ->seePageIs('/user/' . $user->id . '/edit')
+             ->seePageIs('/user/' . $user->id)
              ->seeInDatabase('users', ['id' => $user->id, 'user_role' => 'admin']);
     }
 
@@ -234,7 +234,7 @@ class UserManagementTest extends TestCase
              ->select('user', 'user_role')
              ->press('Gebruiker wijzigen')
              ->see('Gebruiker bijgewerkt.')
-             ->seePageIs('/user/' . $user->id . '/edit')
+             ->seePageIs('/user/' . $user->id)
              ->seeInDatabase('users', ['id' => $user->id, 'user_role' => 'user']);
     }
 

@@ -101,7 +101,7 @@ class RetailerController extends Controller
 
         Flash::success('Retailer bijgewerkt!');
 
-        return redirect('retailer');
+        return redirect(route('retailer.show', $id));
     }
 
     /**
