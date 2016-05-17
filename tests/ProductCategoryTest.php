@@ -95,27 +95,13 @@ class ProductCategoryTest extends TestCase
     {
         $this->seed('TestingDatabaseSeeder');
         $admin = factory(App\User::class, 'admin')->create();
+        $categories = factory(App\ProductCategory::class)->create();
 
         $this->actingAs($admin)
             ->visit('/product-category')
-            ->click('Maak nieuwe productcategorie')
-            ->seePageIs('/product-category/create')
-            ->type('DeleteTest', 'category')
-            ->type('DeleteStatus', 'productstatus')
-            ->type('DeleteOrigin', 'productorigin')
-            ->press('Productcategorie aanmaken')
-            ->seePageIs('product-category')
-            ->click('Maak nieuwe productcategorie')
-            ->seePageIs('/product-category/create')
-            ->type('DeleteTest2', 'category')
-            ->type('DeleteStatus2', 'productstatus')
-            ->type('DeleteOrigin2', 'productorigin')
-            ->press('Productcategorie aanmaken')
-            ->seeInDatabase('productcategories', ['id' => '1', 'category' => 'DeleteTest', 'productstatus' => 'DeleteStatus', 'productorigin' => 'DeleteOrigin'])
-            ->seeInDatabase('productcategories', ['id' => '2', 'category' => 'DeleteTest2', 'productstatus' => 'DeleteStatus2', 'productorigin' => 'DeleteOrigin2'])
+            ->seeInDatabase('productcategories', ['id' => '1'])
             ->press('Verwijder')
-            ->notSeeInDatabase('productcategories', ['category' => 'DeleteTest'])
-            ->seeInDatabase('productcategories', ['category' => 'DeleteTest2']);
+            ->notSeeInDatabase('productcategories', ['id' => '1']);
     }
 
     /**
@@ -125,26 +111,18 @@ class ProductCategoryTest extends TestCase
     {
         $this->seed('TestingDatabaseSeeder');
         $admin = factory(App\User::class, 'admin')->create();
+        $categories = factory(App\ProductCategory::class)->create();
 
         $this->actingAs($admin)
             ->visit('/product-category')
-            ->click('Maak nieuwe productcategorie')
-            ->seePageIs('/product-category/create')
-            ->type('EditTest', 'category')
-            ->type('EditStatus', 'productstatus')
-            ->type('EditOrigin', 'productorigin')
-            ->press('Productcategorie aanmaken')
-            ->seePageIs('product-category')
-            ->seeInDatabase('productcategories', ['id'=>'1', 'category' => 'EditTest'])
+            ->seeInDatabase('productcategories', ['id'=>'1'])
             ->click('Bewerk')
             ->seePageIs('/product-category/1/edit')
-            ->seeInField('category', 'EditTest')
             ->clearInputs()
             ->type('UpdatedTest', 'category')
             ->press('Productcategorie bewerken')
             ->seePageIs('/product-category')
             ->see('UpdatedTest')
-            ->notSeeInDatabase('productcategories', ['id'=>'1', 'category' => 'EditTest'])
             ->seeInDatabase('productcategories', ['id'=>'1', 'category' => 'UpdatedTest']);
 
 
