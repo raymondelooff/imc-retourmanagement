@@ -29,8 +29,7 @@ class Menus
                 $menu->producten->add('Voeg een product toe', ['route' => 'product.create']);
 
                 //Product Categorieen. Too irrelevant to create a completely new menu.
-                $menu->producten->add("Overzicht Product Categorieën", ['route' => 'productcategory.index']);
-                $menu->producten->add('Voeg een nieuwe Product Categorie toe', ['route' => 'productcategory.create']);
+                $menu->producten->add("Productcategorieën beheren", ['route' => 'product-category.index']);
 
                 if(Auth::user()->isAdmin()) {
                     $menu->add('Gebruikers', ['route' => 'user.index']);

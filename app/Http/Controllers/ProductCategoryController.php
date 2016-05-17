@@ -24,7 +24,7 @@ class ProductCategoryController extends Controller
     {
         $productcategory = ProductCategory::paginate(15);
 
-        return view('productcategory.index', compact('productcategory'));
+        return view('product-category.index', compact('productcategory'));
     }
 
     /**
@@ -34,7 +34,7 @@ class ProductCategoryController extends Controller
      */
     public function create()
     {
-        return view('productcategory.create');
+        return view('product-category.create');
     }
 
     /**
@@ -47,13 +47,13 @@ class ProductCategoryController extends Controller
 
         if (ProductCategory::where('category', '=', Input::get('category'))->exists() && ProductCategory::where('productstatus', '=', Input::get('productstatus'))->exists()) {
             Flash::error('Categorie <strong>' . Input::get('category') . '</strong> met status <strong>'. Input::get('productstatus') .'</strong> bestaat al!');
-            return redirect('productcategory');
+            return redirect('product-category');
         }
         ProductCategory::create($request->all());
 
-        Flash::success('Product Categorie toegevoegd!');
+        Flash::success('Productcategorie toegevoegd!');
 
-        return redirect('productcategory');
+        return redirect('product-category');
     }
 
     /**
@@ -67,7 +67,7 @@ class ProductCategoryController extends Controller
     {
         $productcategory = ProductCategory::findOrFail($id);
 
-        return view('productcategory.show', compact('productcategory'));
+        return view('product-category.show', compact('productcategory'));
     }
 
     /**
@@ -81,7 +81,7 @@ class ProductCategoryController extends Controller
     {
         $productcategory = ProductCategory::findOrFail($id);
 
-        return view('productcategory.edit', compact('productcategory'));
+        return view('product-category.edit', compact('productcategory'));
     }
 
     /**
@@ -98,9 +98,9 @@ class ProductCategoryController extends Controller
         $productcategory = ProductCategory::findOrFail($id);
         $productcategory->update($request->all());
 
-        Flash::success('Product Categorie bijgewerkt!');
+        Flash::success('Productcategorie bijgewerkt!');
 
-        return redirect('productcategory');
+        return redirect('product-category');
     }
 
     /**
@@ -114,9 +114,9 @@ class ProductCategoryController extends Controller
     {
         ProductCategory::destroy($id);
 
-        Flash::success('Product Categorie verwijderd!');
+        Flash::success('Productcategorie verwijderd!');
 
-        return redirect('productcategory');
+        return redirect('product-category');
     }
 
 }

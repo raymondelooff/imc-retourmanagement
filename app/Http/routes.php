@@ -100,7 +100,7 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::resource('retailer', 'RetailerController');
 
         //productcategory
-        Route::resource('productcategory', 'ProductCategoryController');
+        Route::resource('product-category', 'ProductCategoryController');
 	});
 
 	// Product routes

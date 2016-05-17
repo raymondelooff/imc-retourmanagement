@@ -1,11 +1,11 @@
 @extends('layouts.master')
-@section('title', 'Product Categorieën')
+@section('title', 'Productcategorieën')
 
 {{-- Header button --}}
 @section('header-nav')
     <li>
-        <a href="{{ url('productcategory/create') }}">
-            <i class="fa fa-plus"></i> Maak nieuwe Product Categorie
+        <a href="{{ url('product-category/create') }}">
+            <i class="fa fa-plus"></i> Maak nieuwe productcategorie
         </a>
     </li>
 @stop
@@ -17,7 +17,9 @@
             <thead>
                 <tr>
                     <th>Nr.</th>
-                    <th>Categorie</th><th>Productstatus</th><th>Herkomst van product</th>
+                    <th>Categorie</th>
+                    <th>Productstatus</th>
+                    <th>Herkomst van product</th>
                     <th>Acties</th>
                 </tr>
             </thead>
@@ -26,15 +28,15 @@
             @foreach($productcategory as $item)
                 {{-- */$x++;/* --}}
                 <tr>
+                    <td>{{ $x }}</td>
+                    <td><a href="{{ url('product-category', $item->id) }}">{{ $item->category }}</a></td>
+                    <td>{{ $item->productstatus }}</td>
+                    <td>{{ $item->productorigin }}</td>
                     <td>
-                        {{ $x }}
-                    </td>
-                    <td><a href="{{ url('productcategory', $item->id) }}">{{ $item->category }}</a></td><td>{{ $item->productstatus }}</td><td>{{ $item->productorigin }}</td>
-                    <td>
-                        <a href="{{ url('productcategory/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Bewerk</a> /
+                        <a href="{{ url('product-category/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Bewerk</a> /
                         {!! Form::open([
                             'method'=>'DELETE',
-                            'url' => ['productcategory', $item->id],
+                            'url' => ['product-category', $item->id],
                             'style' => 'display:inline'
                         ]) !!}
                             {!! Form::button('<i class="fa fa-trash"></i> Verwijder', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs']) !!}

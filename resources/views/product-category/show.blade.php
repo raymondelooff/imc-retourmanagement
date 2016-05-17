@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Productcategory')
+@section('title', 'Productcategorie')
 
 @section('content')
 
@@ -8,13 +8,17 @@
             <thead>
                 <tr>
                     <th>Nr.</th>
-                    <th>Categorie</th><th>Productstatus</th><th>Herkomst van product</th>
+                    <th>Categorie</th>
+                    <th>Productstatus</th>
+                    <th>Herkomst van product</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>{{ $productcategory->id }}</td>
-                    <td> {{ $productcategory->category }} </td><td> {{ $productcategory->productstatus }} </td><td> {{ $productcategory->productorigin }} </td>
+                    <td>{{ $productcategory->category }}</td>
+                    <td>{{ $productcategory->productstatus }}</td>
+                    <td>{{ $productcategory->productorigin }}</td>
                 </tr>
             </tbody>    
         </table>
