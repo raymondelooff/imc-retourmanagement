@@ -31,4 +31,12 @@ class Product extends Model
         return $this->hasOne('App\Retailer', 'id', 'retailer_id');
     }
 
+    /**
+     * Defines relations with a ProductPhase object
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function productPhases()
+    {
+        return $this->hasOne('App\ProductPhase');
+    }
 }

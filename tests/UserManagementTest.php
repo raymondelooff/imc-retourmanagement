@@ -38,10 +38,10 @@ class UserManagementTest extends TestCase
     }
 
     /**
- * Tests if an admin can't deactivate his own account.
- *
- * @return void
- */
+     * Tests if an admin can't deactivate his own account.
+     *
+     * @return void
+     */
     public function testAdminCantDeactivateHisOwnAccount()
     {
         $this->seed('TestingDatabaseSeeder');
