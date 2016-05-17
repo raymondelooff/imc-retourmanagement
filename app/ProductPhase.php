@@ -29,4 +29,14 @@ class ProductPhase extends Model
     {
         return $this->hasMany('App\Product');
     }
+
+    /**
+     * Setters for setting the name attribute on the product phase.
+     *
+     * @param $name
+     */
+    public function setNameAttribute($name)
+    {
+        $this->attributes['name'] = $name;
+    }
 }

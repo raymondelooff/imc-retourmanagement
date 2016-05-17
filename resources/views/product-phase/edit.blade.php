@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('back', route('product-phase.show', $productphase->id))
-@section('title', 'Productfase wijzigen')
+@section('title', 'Wijzig productfase')
 
 @section('content')
     <div class="row">

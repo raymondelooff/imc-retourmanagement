@@ -41,7 +41,7 @@ class ProductPhaseController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required'
+            'name' => 'required|unique:productphases'
         ]);
 
         ProductPhase::create($request->all());
