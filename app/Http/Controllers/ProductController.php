@@ -42,7 +42,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         Product::create($request->all());
 
         Session::flash('flash_message', 'product added!');
@@ -87,7 +87,7 @@ class ProductController extends Controller
      */
     public function update($id, Request $request)
     {
-        
+
         $product = Product::findOrFail($id);
         $product->update($request->all());
 

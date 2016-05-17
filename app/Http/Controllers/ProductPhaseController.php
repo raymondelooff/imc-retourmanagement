@@ -3,16 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
-use App\Retailer;
+use App\ProductPhase;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Input;
-use Session;
 use Laracasts\Flash\Flash;
 
-class RetailerController extends Controller
+class ProductPhaseController extends Controller
 {
 
     /**
@@ -22,9 +18,9 @@ class RetailerController extends Controller
      */
     public function index()
     {
-        $retailer = Retailer::paginate(15);
+        $productphase = ProductPhase::paginate(15);
 
-        return view('retailer.index', compact('retailer'));
+        return view('product-phase.index', compact('productphase'));
     }
 
     /**
@@ -34,7 +30,7 @@ class RetailerController extends Controller
      */
     public function create()
     {
-        return view('retailer.create');
+        return view('product-phase.create');
     }
 
     /**
@@ -45,14 +41,14 @@ class RetailerController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:retailers'
+            'name' => 'required|unique:productphases'
         ]);
 
-        Retailer::create($request->all());
+        ProductPhase::create($request->all());
 
-        Flash::success('Retailer aangemaakt!');
+        Flash::success('Productfase toegevoegd!');
 
-        return redirect('retailer');
+        return redirect('product-phase');
     }
 
     /**
@@ -64,9 +60,9 @@ class RetailerController extends Controller
      */
     public function show($id)
     {
-        $retailer = Retailer::findOrFail($id);
+        $productphase = ProductPhase::findOrFail($id);
 
-        return view('retailer.show', compact('retailer'));
+        return view('product-phase.show', compact('productphase'));
     }
 
     /**
@@ -78,9 +74,9 @@ class RetailerController extends Controller
      */
     public function edit($id)
     {
-        $retailer = Retailer::findOrFail($id);
+        $productphase = ProductPhase::findOrFail($id);
 
-        return view('retailer.edit', compact('retailer'));
+        return view('product-phase.edit', compact('productphase'));
     }
 
     /**
@@ -96,12 +92,12 @@ class RetailerController extends Controller
             'name' => 'required'
         ]);
 
-        $retailer = Retailer::findOrFail($id);
-        $retailer->update($request->all());
+        $productphase = ProductPhase::findOrFail($id);
+        $productphase->update($request->all());
 
-        Flash::success('Retailer bijgewerkt!');
+        Flash::success('Productfase bijgewerkt!');
 
-        return redirect(route('retailer.show', $id));
+        return redirect(route('product-phase.show', $id));
     }
 
     /**
@@ -113,11 +109,11 @@ class RetailerController extends Controller
      */
     public function destroy($id)
     {
-        Retailer::destroy($id);
+        ProductPhase::destroy($id);
 
-        Flash::success('Retailer verwijderd!');
+        Flash::success('Productfase verwijderd!');
 
-        return redirect('retailer');
+        return redirect('product-phase');
     }
 
 }

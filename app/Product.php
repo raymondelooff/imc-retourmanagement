@@ -21,4 +21,12 @@ class Product extends Model
      */
     protected $fillable = ['name', 'description', 'short_description', 'ean_code', 'serial_number', 'invoice_number', 'weight', 'country_code', 'location', 'supplier', 'quality_label', 'status', 'tax_group', 'problem_description', 'color', 'msrp'];
 
+    /**
+     * Defines relations with a ProductPhase object
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function productPhases()
+    {
+        return $this->hasOne('App\ProductPhase');
+    }
 }

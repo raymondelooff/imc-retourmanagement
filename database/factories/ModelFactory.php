@@ -45,3 +45,17 @@ $factory->defineAs(App\User::class, 'retailer', function (Faker\Generator $faker
         }
     ]);
 });
+
+$factory->define(App\ProductPhase::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name
+    ];
+});
+
+$factory->define(App\ProductCategory::class, function (Faker\Generator $faker) {
+    return [
+        'category' => $faker->word,
+        'productstatus' => $faker->word,
+        'productorigin' => $faker->word
+    ];
+});
