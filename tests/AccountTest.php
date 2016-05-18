@@ -114,7 +114,7 @@ class AccountTest extends TestCase
     public function testCanChangePassword()
     {
         $user = factory(App\User::class)->create([
-            'password' => 'CurrentPassword123'
+            'password' => bcrypt('CurrentPassword123')
         ]);
 
         $this->actingAs($user)
