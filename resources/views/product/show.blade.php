@@ -31,8 +31,14 @@
                         <td>{{ $product->product_phases ? $product->product_phases->name : "Nog niet bekend" }}</td>
                     </tr>
                     <tr>
-                        <th>Staat</th>
-                        <td>Nieuw / Zo goed als nieuw / Gebruikt</td>
+                        <th>Productcategorie(&euml;n)</th>
+                        <td>
+                        @if($product->product_category)
+                            @foreach($product->product_category as $product_category)
+                                {{ $product_category->category }} - {{ $product_category->productstatus }};
+                            @endforeach
+                        @endif
+                        </td>
                     </tr>
                     <tr>
                         <th>Probleemomschrijving</th>
@@ -48,10 +54,6 @@
         <div class="col col-md-6">
             <div class="table-responsive">
                 <table class="table table-bordered table-striped table-hover">
-                    <tr>
-                        <th>Kwaliteitslabel</th>
-                        <td>{{ $product->quality_label }}</td>
-                    </tr>
                     <tr>
                         <th>Serienummer</th>
                         <td>{{ $product->serial_number }}</td>

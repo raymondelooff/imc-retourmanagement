@@ -115,9 +115,10 @@ class ProductController extends Controller
         ], $messages);
 
         $product = Product::create($request->all());
+        $product_categories = $request->get('product_categories');
 
-        if($request->user()->isAdmin()) {
-            $product->product_category()->sync($request->get('product_categories'));
+        if($request->user()->isAdmin() && isset($product_categories)) {
+            $product->product_category()->sync($product_categories);
         }
 
         Flash::success('Product toegevoegd!');
@@ -235,9 +236,10 @@ class ProductController extends Controller
         }
 
         $product->update($request->all());
+        $product_categories = $request->get('product_categories');
 
-        if($request->user()->isAdmin()) {
-            $product->product_category()->sync($request->get('product_categories'));
+        if($request->user()->isAdmin() && isset($product_categories)) {
+            $product->product_category()->sync($product_categories);
         }
 
         Flash::success('Product gewijzigd!');
