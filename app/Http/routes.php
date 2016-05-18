@@ -66,7 +66,7 @@ Route::group(['middleware' => ['auth']], function() {
 		]);
 	});
 
-	Route::group(['middleware' => ['role:admin']], function() {
+	Route::group(['middleware' => ['verified', 'role:admin']], function() {
 		// User management routes
 		Route::patch('user/{user}/activate', [
 			'uses' => 'UserController@activate',
@@ -85,7 +85,9 @@ Route::group(['middleware' => ['auth']], function() {
 	});
 
 	// Product routes
-	Route::resource('product', 'ProductController');
+	Route::group(['middleware' => 'verified'], function() {
+		Route::resource('product', 'ProductController');
+	});
 
 });
 

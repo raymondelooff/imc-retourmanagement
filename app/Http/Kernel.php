@@ -38,7 +38,7 @@ class Kernel extends HttpKernel
 
         'auth' => [
             'auth:web',
-            \App\Http\Middleware\RedirectIfNotActivated::class,
+            'activated'
         ],
     ];
 
@@ -52,6 +52,8 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'activated' => \App\Http\Middleware\RedirectIfNotActivated::class,
+        'verified' => \App\Http\Middleware\RedirectIfNotVerified::class,
         'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'role' => \App\Http\Middleware\Role::class,
