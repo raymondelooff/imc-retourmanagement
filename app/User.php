@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'user_role', 'retailer_id', 'activated',
+        'name', 'email', 'password', 'user_role', 'retailer_id', 'activated', 'verified'
     ];
 
     /**
@@ -102,6 +102,16 @@ class User extends Authenticatable
     public function setRetailerIdAttribute($retailer_id)
     {
         $this->attributes['retailer_id'] = $retailer_id;
+    }
+
+    /**
+     * Setter for setting the verified attribute on the user.
+     *
+     * @param $activated
+     */
+    public function setVerifiedAttribute($activated)
+    {
+        $this->attributes['verified'] = $activated;
     }
 
     /**

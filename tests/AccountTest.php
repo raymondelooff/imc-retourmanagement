@@ -61,6 +61,31 @@ class AccountTest extends TestCase
     }
 
     /**
+     * Tests if the user needs to validate his email address after changing it
+     *
+     * @return void
+     */
+    public function testMustVerifyEmailAfterEditEmail()
+    {
+        $user = factory(App\User::class)->create([
+            'email' => 'abc2@abc2.nl',
+        ]);
+
+        $this->actingAs($user)
+            ->visit('/account/email/edit')
+            ->see('E-mailadres wijzigen')
+            ->type('verify@verify.nl', 'email')
+            ->type('verify@verify.nl', 'email_confirmation')
+            ->press('E-mailadres wijzigen')
+            ->seePageIs('/account')
+            ->see('Uw e-mailadres is bijgewerkt.')
+            ->see('verify@verify.nl')
+            ->dontSee('abc2@abc2.nl')
+            ->seeInDatabase('users', ['email' => 'verify@verify.nl', 'verified' => false])
+            ->dontSeeInDatabase('users', ['email' => 'abc2@abc2.nl', 'verified' => true]);
+    }
+
+    /**
      * Tests if the user can edit his email address when supplying
      * two different email addresses
      *
