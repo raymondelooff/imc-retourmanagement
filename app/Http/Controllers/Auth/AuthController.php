@@ -38,13 +38,6 @@ class AuthController extends Controller
     protected $loginPath = '/login';
 
     /**
-     * Set the email subject
-     *
-     * @var string
-     */
-    protected $subject = 'Uw wachtwoord vergeten link';
-
-    /**
      * Create a new authentication controller instance.
      *
      * @return void

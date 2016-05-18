@@ -28,6 +28,13 @@ class PasswordController extends Controller
     protected $redirectTo = '/';
 
     /**
+     * Set the email subject
+     *
+     * @var string
+     */
+    protected $subject = 'Uw wachtwoord vergeten link';
+
+    /**
      * Create a new password controller instance.
      *
      * @return void
