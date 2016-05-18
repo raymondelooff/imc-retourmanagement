@@ -21,21 +21,21 @@ class EmailController extends Controller
      *
      * @var string
      */
-    protected $redirectIfVerified = '/account';
+    protected $redirectIfVerified = '/account/email/verificate';
 
     /**
      * Where to redirect after a successful verification token generation.
      *
      * @var string
      */
-    protected $redirectAfterTokenGeneration = '/account';
+    protected $redirectAfterTokenGeneration = '/account/email/verificate';
 
     /**
      * Where to redirect after a successful verification.
      *
      * @var string
      */
-    protected $redirectAfterVerification = '/account';
+    protected $redirectAfterVerification = '/account/email/verificate';
 
     /**
      * Where to redirect after a failing token verification.
@@ -43,6 +43,28 @@ class EmailController extends Controller
      * @var string
      */
     protected $redirectIfVerificationFails = '/account/email/verificate/error';
+
+    /**
+     * Name of the view returned by the getVerificationError method.
+     *
+     * @var string
+     */
+    protected $verificationErrorView = 'account.email.verificate.error';
+
+    /**
+     * Email verificate index view
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index(Request $request)
+    {
+        if(!$request->session()->has('flash_notification.message')) {
+            return redirect('account');
+        }
+
+        return view('account.email.verificate.index');
+    }
 
     /**
      * Email edit view
@@ -91,13 +113,13 @@ class EmailController extends Controller
         $this->validateRequest($request);
 
         try {
-            Flash::success('Uw e-mailadres is gevalideerd.');
+            Flash::success('Uw e-mailadres is geverifieerd.');
             UserVerification::process($request->input('email'), $token, $this->userTable());
         } catch (UserNotFoundException $e) {
-            Flash::error('Het e-mailadres kon niet worden gevalideerd omdat de gebruiker niet werd gevonden.');
+            Flash::error('Het e-mailadres kon niet worden geverifieerd omdat de gebruiker niet werd gevonden.');
             return redirect($this->redirectIfVerificationFails());
         } catch (UserIsVerifiedException $e) {
-            Flash::warning('Het e-mailadres is al gevalideerd.');
+            Flash::warning('Het e-mailadres is al geverifieerd.');
             return redirect($this->redirectIfVerified());
         } catch (TokenMismatchException $e) {
             Flash:error('Het e-mailadres kon niet worden geverifieerd.');

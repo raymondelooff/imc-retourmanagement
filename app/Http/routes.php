@@ -117,15 +117,20 @@ Route::post('register', [
 ]);
 
 // Email verification routes
-Route::group(['prefix' => 'account/email', 'as' => 'account.email.'], function() {
-	Route::get('verificate/error', [
-		'uses' => 'Account\EmailController@getVerificationError',
-		'as' => 'verificate.error'
+Route::group(['prefix' => 'account/email/verificate', 'as' => 'account.email.verificate.'], function() {
+	Route::get('/', [
+		'uses' => 'Account\EmailController@index',
+		'as' => 'index'
 	]);
 
-	Route::get('verificate/{token}', [
+	Route::get('{token}', [
 		'uses' => 'Account\EmailController@getVerification',
-		'as' => 'verificate'
+		'as' => 'token'
+	]);
+
+	Route::get('error', [
+		'uses' => 'Account\EmailController@getVerificationError',
+		'as' => 'error'
 	]);
 });
 
