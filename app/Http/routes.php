@@ -66,7 +66,7 @@ Route::group(['middleware' => ['auth']], function() {
 		]);
 	});
 
-	Route::group(['middleware' => ['role:admin']], function() {
+	Route::group(['middleware' => ['verified', 'role:admin']], function() {
 		// User management routes
 		Route::patch('user/{user}/activate', [
 			'uses' => 'UserController@activate',
@@ -85,7 +85,9 @@ Route::group(['middleware' => ['auth']], function() {
 	});
 
 	// Product routes
-	Route::resource('product', 'ProductController');
+	Route::group(['middleware' => 'verified'], function() {
+		Route::resource('product', 'ProductController');
+	});
 
 });
 
@@ -114,6 +116,24 @@ Route::post('register', [
     'uses' => 'Auth\AuthController@postRegister'
 ]);
 
+// Email verification routes
+Route::group(['prefix' => 'account/email/verificate', 'as' => 'account.email.verificate.'], function() {
+	Route::get('/', [
+		'uses' => 'Account\EmailController@index',
+		'as' => 'index'
+	]);
+
+	Route::get('{token}', [
+		'uses' => 'Account\EmailController@getVerification',
+		'as' => 'token'
+	]);
+
+	Route::get('error', [
+		'uses' => 'Account\EmailController@getVerificationError',
+		'as' => 'error'
+	]);
+});
+
 // Password reset routes
 Route::group(['prefix' => 'account/password', 'as' => 'account.password.'], function() {
 	// Password reset link request routes
@@ -128,10 +148,21 @@ Route::group(['prefix' => 'account/password', 'as' => 'account.password.'], func
 
 	// Password reset routes
 	Route::get('reset/{token}', [
-		'uses' => 'Auth\PasswordController@getReset'
+		'uses' => 'Auth\PasswordController@getReset',
+		'as' => 'reset'
 	]);
 
 	Route::post('reset', [
 		'uses' => 'Auth\PasswordController@postReset'
+	]);
+
+	// Password set routes
+	Route::get('set/{token}', [
+		'uses' => 'UserController@getReset',
+		'as' => 'set'
+	]);
+
+	Route::post('set', [
+		'uses' => 'UserController@postReset'
 	]);
 });

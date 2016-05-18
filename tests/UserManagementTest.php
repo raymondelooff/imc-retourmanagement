@@ -111,7 +111,6 @@ class UserManagementTest extends TestCase
     public function testAdminCanChangeUserEmail()
     {
         $this->seed('TestingDatabaseSeeder');
-        //$this->expectsEvents('');
         $user = factory(App\User::class)->create([
             'email' => 'oud123@test.nl'
         ]);
@@ -126,6 +125,28 @@ class UserManagementTest extends TestCase
              ->seePageIs('/user/' . $user->id)
              ->seeInDatabase('users', ['id' => $user->id, 'email' => 'nieuw123@test.nl'])
              ->dontSeeInDatabase('users', ['id' => $user->id, 'email' => 'oud123@test.nl']);
+    }
+
+    /**
+     * Tests if an admin can change the email of a user.
+     *
+     * @return void
+     */
+    public function testUserMustVerifyEmailAfterEmailEdit()
+    {
+        $this->seed('TestingDatabaseSeeder');
+        $user = factory(App\User::class)->create();
+        $admin = factory(App\User::class, 'admin')->create();
+
+        $this->actingAs($admin)
+            ->visit('/user/' . $user->id . '/edit')
+            ->see('Wijzig gebruiker')
+            ->type('nieuw123@test.nl', 'email')
+            ->press('Gebruiker wijzigen')
+            ->see('Gebruiker bijgewerkt.')
+            ->seePageIs('/user/' . $user->id)
+            ->seeInDatabase('users', ['id' => $user->id, 'email' => 'nieuw123@test.nl', 'verified' => false])
+            ->dontSeeInDatabase('users', ['id' => $user->id, 'email' => $user->email, 'verified' => true]);
     }
 
     /**

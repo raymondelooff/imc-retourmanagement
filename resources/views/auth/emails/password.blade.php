@@ -1,1 +1,1 @@
-Klik hier om uw wachtwoord opnieuw in te stellen: {{ url('account/password/reset/' . $token) }}
+Klik hier om uw wachtwoord opnieuw in te stellen: {{ route('account.password.reset', $token) }}

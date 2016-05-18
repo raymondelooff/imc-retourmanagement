@@ -56,8 +56,31 @@ class AccountTest extends TestCase
              ->see('Uw e-mailadres is bijgewerkt.')
              ->see('test@test.nl')
              ->dontSee('abc@abc.nl')
-             ->seeInDatabase('users', ['email' => 'test@test.nl'])
-             ->dontSeeInDatabase('users', ['email' => 'abc@abc.nl']);
+             ->seeInDatabase('users', ['id' => $user->id, 'email' => 'test@test.nl'])
+             ->dontSeeInDatabase('users', ['id' => $user->id, 'email' => 'abc@abc.nl']);
+    }
+
+    /**
+     * Tests if the user needs to validate his email address after changing it
+     *
+     * @return void
+     */
+    public function testMustVerifyEmailAfterEditEmail()
+    {
+        $user = factory(App\User::class)->create();
+
+        $this->actingAs($user)
+            ->visit('/account/email/edit')
+            ->see('E-mailadres wijzigen')
+            ->type('verify@verify.nl', 'email')
+            ->type('verify@verify.nl', 'email_confirmation')
+            ->press('E-mailadres wijzigen')
+            ->seePageIs('/account')
+            ->see('Uw e-mailadres is bijgewerkt.')
+            ->see('verify@verify.nl')
+            ->dontSee('abc2@abc2.nl')
+            ->seeInDatabase('users', ['id' => $user->id, 'email' => 'verify@verify.nl', 'verified' => false])
+            ->dontSeeInDatabase('users', ['id' => $user->id, 'email' => $user->email, 'verified' => true]);
     }
 
     /**
@@ -80,7 +103,7 @@ class AccountTest extends TestCase
              ->press('E-mailadres wijzigen')
              ->seePageIs('/account/email/edit')
              ->see('email bevestiging komt niet overeen.')
-             ->notSeeInDatabase('users', ['email' => 'test@test.nl']);
+             ->notSeeInDatabase('users', ['id' => $user->id, 'email' => 'test@test.nl']);
     }
 
     /**

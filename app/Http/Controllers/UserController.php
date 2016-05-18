@@ -7,14 +7,45 @@ use App\Http\Requests;
 use App\Retailer;
 use App\User;
 use App\UserRole;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Laracasts\Flash\Flash;
 use Session;
 use Validator;
 use Auth;
+use UserVerification;
 
 class UserController extends Controller
 {
+    use ResetsPasswords;
+
+    /**
+     * Use the password broker settings for new users.
+     *
+     * @var string
+     */
+    protected $broker = 'new_users';
+
+    /**
+     * Where to redirect users after login / registration.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/';
+
+    /**
+     * The password set view.
+     * 
+     * @var string
+     */
+    protected $resetView = 'account.password.set';
+
+    /**
+     * Set the email subject
+     *
+     * @var string
+     */
+    protected $subject = 'Uw registratie link';
 
     /**
      * Display a listing of the resource.
@@ -59,7 +90,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->merge([
-            'retailer_id' => $request->get('retailer_id') ? $request->get('retailer_id') : null
+            'retailer_id' => $request->get('retailer_id') ? $request->get('retailer_id') : null,
+            'verified' => true
         ]);
 
         $this->validate($request, [
@@ -71,6 +103,9 @@ class UserController extends Controller
         ]);
 
         User::create($request->all());
+
+        // Send password reset link to the user
+        $this->sendResetLinkEmail($request);
 
         Flash::success('Gebruiker toegevoegd!');
 
@@ -98,7 +133,7 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
         $user = User::findOrFail($id);
         $user_roles = UserRole::all();
@@ -164,7 +199,14 @@ class UserController extends Controller
         }
         
         $user = User::findOrFail($id);
+        $user_old_email = $user->email;
         $user->update($request->all());
+
+        // Send email verification link when the email address has been changed
+        if($user_old_email != $request->get('email')) {
+            UserVerification::generate($user);
+            UserVerification::send($user, 'Verifieer uw e-mailadres');
+        }
 
         Flash::success('Gebruiker bijgewerkt.');
 
