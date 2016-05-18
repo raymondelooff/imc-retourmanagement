@@ -44,11 +44,11 @@ class ProductCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'category' => 'required|unique:productcategories',
+            'productstatus' => 'required'
+        ]);
 
-        if (ProductCategory::where('category', '=', Input::get('category'))->exists() && ProductCategory::where('productstatus', '=', Input::get('productstatus'))->exists()) {
-            Flash::error('Categorie <strong>' . Input::get('category') . '</strong> met status <strong>'. Input::get('productstatus') .'</strong> bestaat al!');
-            return redirect('product-category');
-        }
         ProductCategory::create($request->all());
 
         Flash::success('Productcategorie toegevoegd!');
@@ -93,14 +93,17 @@ class ProductCategoryController extends Controller
      */
     public function update($id, Request $request)
     {
-        $this->validate($request, ['category' => 'required', 'productstatus' => 'required', ]);
+        $this->validate($request, [
+            'category' => 'required|unique:productcategories',
+            'productstatus' => 'required'
+        ]);
 
         $productcategory = ProductCategory::findOrFail($id);
         $productcategory->update($request->all());
 
         Flash::success('Productcategorie bijgewerkt!');
 
-        return redirect('product-category');
+        return redirect(route('product-category.show', $id));
     }
 
     /**

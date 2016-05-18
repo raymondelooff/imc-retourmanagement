@@ -33,7 +33,7 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-6">
-                    {!! Form::submit('Productcategorie aanmaken', ['class' => 'btn btn-primary form-control']) !!}
+                    {!! Form::button('Productcategorie aanmaken', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
                 </div>
             </div>
 

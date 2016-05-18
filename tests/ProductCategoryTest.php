@@ -10,9 +10,6 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
  */
 class ProductCategoryTest extends TestCase
 {
-    // Empty the test database before beginning tests
-    use DatabaseMigrations;
-
     /**
      * Tests if a logged in user can't visit the retailer index.
      *
@@ -41,12 +38,10 @@ class ProductCategoryTest extends TestCase
         $this->actingAs($admin)
             ->visit('/product-category')
             ->see('Productcategorieën')
-            ->dontsee('Product Categorie')
             ->see('Maak nieuwe productcategorie')
-            //Check content of create page
             ->click('Maak nieuwe productcategorie')
             ->seePageIs('/product-category/create')
-            ->see('Productcategorie toevoege')
+            ->see('Productcategorie toevoegen')
             ->see('Categorie')
             ->see('Productcategorie aanmaken');
     }
@@ -69,39 +64,29 @@ class ProductCategoryTest extends TestCase
             ->press('Productcategorie aanmaken')
             ->seePageIs('/product-category')
             ->see('CreateTest')
-            ->seeInDatabase('productcategories', ['id' => '1', 'category' => 'CreateTest', 'productstatus' => 'CreateStatus', 'productorigin' => 'CreateOrigin'])
-            ->click('Maak nieuwe productcategorie')
-            ->type('CreateTest', 'category')
-            ->type('CreateStatus', 'productstatus')
-            ->type('CreateOrigin', 'productorigin')
-            ->press('Productcategorie aanmaken')
-            ->seePageIs('/product-category')
-            ->notSeeInDatabase('productcategories', ['id' => '2', 'category' => 'CreateTest'])
-            ->visit('/product-category/create')
-            ->type('CreateTest2', 'category')
-            ->type('CreateStatus2', 'productstatus')
-            ->type('CreateOrigin2', 'productorigin')
-            ->press('Productcategorie aanmaken')
-            ->seePageIs('/product-category')
-            ->see('CreateTest2')
-            ->seeInDatabase('productcategories', ['id' => '1', 'category' => 'CreateTest', 'productstatus' => 'CreateStatus', 'productorigin' => 'CreateOrigin'])
-            ->seeInDatabase('productcategories', ['id' => '2', 'category' => 'CreateTest2', 'productstatus' => 'CreateStatus2', 'productorigin' => 'CreateOrigin2']);
+            ->seeInDatabase('productcategories', ['id' => '1', 'category' => 'CreateTest', 'productstatus' => 'CreateStatus', 'productorigin' => 'CreateOrigin']);
     }
 
     /**
-     * Test deleting a product category
+     * Tests if an admin can't create a retailer that is already in
+     * storage
+     *
+     * @return void
      */
-    public function testDeleteProductCategory()
+    public function testAdminCantCreateRetailerAlreadyInDatabase()
     {
         $this->seed('TestingDatabaseSeeder');
         $admin = factory(App\User::class, 'admin')->create();
-        $categories = factory(App\ProductCategory::class)->create();
+        $product_category = factory(App\ProductCategory::class)->create([
+            'category' => 'Dubbele Categorie'
+        ]);
 
         $this->actingAs($admin)
-            ->visit('/product-category')
-            ->seeInDatabase('productcategories', ['id' => '1'])
-            ->press('Verwijder')
-            ->notSeeInDatabase('productcategories', ['id' => '1']);
+            ->visit('/product-category/create')
+            ->type('Dubbele Categorie', 'category')
+            ->type('Dubbele Categorie Beschrijving', 'productstatus')
+            ->press('Productcategorie aanmaken')
+            ->see('category is al in gebruik');
     }
 
     /**
@@ -111,21 +96,20 @@ class ProductCategoryTest extends TestCase
     {
         $this->seed('TestingDatabaseSeeder');
         $admin = factory(App\User::class, 'admin')->create();
-        $categories = factory(App\ProductCategory::class)->create();
+        $product_category = factory(App\ProductCategory::class)->create([
+            'category' => 'Oude Naam'
+        ]);
 
         $this->actingAs($admin)
-            ->visit('/product-category')
-            ->seeInDatabase('productcategories', ['id'=>'1'])
-            ->click('Bewerk')
-            ->seePageIs('/product-category/1/edit')
-            ->clearInputs()
-            ->type('UpdatedTest', 'category')
+            ->visit('/product-category/' . $product_category->id . '/edit')
+            ->see('Productcategorie bewerken')
+            ->type('Nieuwe Naam', 'category')
+            ->type('Productstatus', 'productstatus')
             ->press('Productcategorie bewerken')
-            ->seePageIs('/product-category')
-            ->see('UpdatedTest')
-            ->seeInDatabase('productcategories', ['id'=>'1', 'category' => 'UpdatedTest']);
-
-
+            ->see('Productcategorie bijgewerkt')
+            ->seePageIs('/product-category/' . $product_category->id)
+            ->seeInDatabase('productcategories', ['id' => $product_category->id, 'category' => 'Nieuwe Naam'])
+            ->dontSeeInDatabase('productcategories', ['id' => $product_category->id, 'category' => 'Oude Naam']);
     }
 
 }

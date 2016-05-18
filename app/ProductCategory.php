@@ -21,15 +21,4 @@ class ProductCategory extends Model
      */
     protected $fillable = ['category', 'productstatus', 'productorigin'];
 
-    /**
-     * Creates list of all productcategories
-     *
-     * @return Array
-     */
-    public function getProductCategoryList()
-    {
-        $categories = lists('category', 'id', 'productstatus', 'productorigin');
-        return $categories;
-    }
-
 }
