@@ -12,6 +12,7 @@ use Laracasts\Flash\Flash;
 use Session;
 use Validator;
 use Auth;
+use UserVerification;
 
 class UserController extends Controller
 {
@@ -70,7 +71,11 @@ class UserController extends Controller
             'retailer_id' => 'numeric'
         ]);
 
-        User::create($request->all());
+        $user = User::create($request->all());
+
+        // Send email verification link
+        UserVerification::generate($user);
+        UserVerification::send($user, 'Verifieer uw e-mailadres');
 
         Flash::success('Gebruiker toegevoegd!');
 

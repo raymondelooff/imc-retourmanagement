@@ -114,6 +114,19 @@ Route::post('register', [
     'uses' => 'Auth\AuthController@postRegister'
 ]);
 
+// Email verification routes
+Route::group(['prefix' => 'account/email', 'as' => 'account.email.'], function() {
+	Route::get('verificate/error', [
+		'uses' => 'Account\EmailController@getVerificationError',
+		'as' => 'verificate.error'
+	]);
+
+	Route::get('verificate/{token}', [
+		'uses' => 'Account\EmailController@getVerification',
+		'as' => 'verificate'
+	]);
+});
+
 // Password reset routes
 Route::group(['prefix' => 'account/password', 'as' => 'account.password.'], function() {
 	// Password reset link request routes
