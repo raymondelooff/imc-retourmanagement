@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Retailer;
 use App\User;
 use App\UserRole;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Laracasts\Flash\Flash;
 use Session;
@@ -16,6 +17,35 @@ use UserVerification;
 
 class UserController extends Controller
 {
+    use ResetsPasswords;
+
+    /**
+     * Use the password broker settings for new users.
+     *
+     * @var string
+     */
+    protected $broker = 'new_users';
+
+    /**
+     * Where to redirect users after login / registration.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/';
+
+    /**
+     * The password set view.
+     * 
+     * @var string
+     */
+    protected $resetView = 'account.password.set';
+
+    /**
+     * Set the email subject
+     *
+     * @var string
+     */
+    protected $subject = 'Uw registratie link';
 
     /**
      * Display a listing of the resource.
@@ -60,7 +90,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->merge([
-            'retailer_id' => $request->get('retailer_id') ? $request->get('retailer_id') : null
+            'retailer_id' => $request->get('retailer_id') ? $request->get('retailer_id') : null,
+            'verified' => true
         ]);
 
         $this->validate($request, [
@@ -72,6 +103,9 @@ class UserController extends Controller
         ]);
 
         User::create($request->all());
+
+        // Send password reset link to the user
+        $this->sendResetLinkEmail($request);
 
         Flash::success('Gebruiker toegevoegd!');
 

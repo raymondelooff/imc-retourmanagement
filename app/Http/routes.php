@@ -148,10 +148,21 @@ Route::group(['prefix' => 'account/password', 'as' => 'account.password.'], func
 
 	// Password reset routes
 	Route::get('reset/{token}', [
-		'uses' => 'Auth\PasswordController@getReset'
+		'uses' => 'Auth\PasswordController@getReset',
+		'as' => 'reset'
 	]);
 
 	Route::post('reset', [
 		'uses' => 'Auth\PasswordController@postReset'
+	]);
+
+	// Password set routes
+	Route::get('set/{token}', [
+		'uses' => 'UserController@getReset',
+		'as' => 'set'
+	]);
+
+	Route::post('set', [
+		'uses' => 'UserController@postReset'
 	]);
 });
