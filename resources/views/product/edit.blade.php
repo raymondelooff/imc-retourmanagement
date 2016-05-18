@@ -37,7 +37,7 @@
             <div class="form-group {{ $errors->has('ean_code') ? 'has-error' : ''}}">
                 {!! Form::label('ean_code', 'EAN', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
-                    {!! Form::text('ean_code', null, ['class' => 'form-control']) !!}
+                    {!! Form::number('ean_code', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('ean_code', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
@@ -51,7 +51,7 @@
             <div class="form-group {{ $errors->has('invoice_number') ? 'has-error' : ''}}">
                 {!! Form::label('invoice_number', 'Factuurnummer', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
-                    {!! Form::text('invoice_number', null, ['class' => 'form-control']) !!}
+                    {!! Form::number('invoice_number', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('invoice_number', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
