@@ -13,7 +13,8 @@
         "thomaswelton/laravel-gravatar": "^1.1",
         "laracasts/flash": "^2.0",
         "kirkbater/soft-deletes": "^1.0",
-        "jrean/laravel-user-verification": "^2.2"
+        "jrean/laravel-user-verification": "^2.2",
+        "doctrine/dbal": "^2.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

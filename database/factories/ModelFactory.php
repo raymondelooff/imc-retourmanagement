@@ -60,3 +60,12 @@ $factory->define(App\ProductCategory::class, function (Faker\Generator $faker) {
         'productorigin' => $faker->word
     ];
 });
+
+$factory->define(App\Product::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'retailer_id' => function() {
+            return factory(App\Retailer::class)->create()->id;
+        }
+    ];
+});
