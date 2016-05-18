@@ -71,11 +71,7 @@ class UserController extends Controller
             'retailer_id' => 'numeric'
         ]);
 
-        $user = User::create($request->all());
-
-        // Send email verification link
-        UserVerification::generate($user);
-        UserVerification::send($user, 'Verifieer uw e-mailadres');
+        User::create($request->all());
 
         Flash::success('Gebruiker toegevoegd!');
 
@@ -103,7 +99,7 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
         $user = User::findOrFail($id);
         $user_roles = UserRole::all();
@@ -169,7 +165,14 @@ class UserController extends Controller
         }
         
         $user = User::findOrFail($id);
+        $user_old_email = $user->email;
         $user->update($request->all());
+
+        // Send email verification link when the email address has been changed
+        if($user_old_email != $request->get('email')) {
+            UserVerification::generate($user);
+            UserVerification::send($user, 'Verifieer uw e-mailadres');
+        }
 
         Flash::success('Gebruiker bijgewerkt.');
 
