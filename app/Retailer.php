@@ -31,7 +31,19 @@ class Retailer extends Model
     protected $dates = ['deleted_at'];
 
     /**
-     * Get the users of the retailer.
+     * Returns the products associated with the retailer
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function products()
+    {
+        return $this->hasMany('App\Product');
+    }
+
+    /**
+     * Returns the users associated with the retailer
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function users()
     {

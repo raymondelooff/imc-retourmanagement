@@ -19,14 +19,33 @@ class Product extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'description', 'short_description', 'ean_code', 'serial_number', 'invoice_number', 'weight', 'country_code', 'location', 'supplier', 'quality_label', 'status', 'tax_group', 'problem_description', 'color', 'msrp'];
+    protected $fillable = ['name', 'description', 'short_description', 'ean_code', 'serial_number', 'invoice_number', 'weight', 'country_code', 'location', 'retailer_id', 'productphase_id', 'problem_description', 'color', 'msrp'];
+
+    /**
+     * Returns the retailer associated with the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function retailer()
+    {
+        return $this->hasOne('App\Retailer', 'id', 'retailer_id');
+    }
 
     /**
      * Defines relations with a ProductPhase object
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function productPhases()
+    public function product_phases()
     {
-        return $this->hasOne('App\ProductPhase');
+        return $this->hasOne('App\ProductPhase', 'id', 'productphase_id');
+    }
+
+    /**
+     * Defines relations with a set of ProductCategory objects
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function product_category()
+    {
+        return $this->belongsToMany('App\ProductCategory', 'productcategory_product', 'product_id', 'productcategory_id');
     }
 }

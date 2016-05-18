@@ -83,9 +83,9 @@ Route::group(['middleware' => ['auth']], function() {
 		// Product category management
 		Route::resource('product-category', 'ProductCategoryController');
 	});
-
-	// Product routes
-	Route::group(['middleware' => 'verified'], function() {
+	
+	Route::group(['middleware' => ['verified', 'role:admin,retailer']], function() {
+		// Product routes
 		Route::resource('product', 'ProductController');
 	});
 

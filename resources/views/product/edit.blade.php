@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('back', url('product',  $product->id))
 @section('title', 'Product wijzigen')
 
 @section('content')
@@ -16,49 +17,49 @@
                 {!! Form::label('name', 'Naam *', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
                     {!! Form::text('name', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('Naam', '<p class="help-block">:message</p>') !!}
+                    {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('description') ? 'has-error' : ''}}">
                 {!! Form::label('description', 'Beschrijving', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
                     {!! Form::text('description', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('Beschrijving', '<p class="help-block">:message</p>') !!}
+                    {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('short_description') ? 'has-error' : ''}}">
                 {!! Form::label('short_description', 'Korte beschrijving', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
                     {!! Form::text('short_description', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('Korte beschrijving', '<p class="help-block">:message</p>') !!}
+                    {!! $errors->first('short_description', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('ean_code') ? 'has-error' : ''}}">
-                {!! Form::label('ean_code', 'EAN *', ['class' => 'col-sm-4 control-label']) !!}
+                {!! Form::label('ean_code', 'EAN', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
                     {!! Form::number('ean_code', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('EAN', '<p class="help-block">:message</p>') !!}
+                    {!! $errors->first('ean_code', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('serial_number') ? 'has-error' : ''}}">
                 {!! Form::label('serial_number', 'Serienummer', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
                     {!! Form::text('serial_number', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('Serienummer', '<p class="help-block">:message</p>') !!}
+                    {!! $errors->first('serial_number', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('invoice_number') ? 'has-error' : ''}}">
                 {!! Form::label('invoice_number', 'Factuurnummer', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
                     {!! Form::number('invoice_number', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('Factuurnummer', '<p class="help-block">:message</p>') !!}
+                    {!! $errors->first('invoice_number', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('weight') ? 'has-error' : ''}}">
                 {!! Form::label('weight', 'Gewicht', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
-                    {!! Form::number('weight', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('Gewicht', '<p class="help-block">:message</p>') !!}
+                    {!! Form::text('weight', null, ['class' => 'form-control']) !!}
+                    {!! $errors->first('weight', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('country_code') ? 'has-error' : ''}}">
@@ -323,58 +324,53 @@
                         "ZW" => "Zimbabwe"
                     ), null, ['class' => 'form-control']) !!}
                 </div>
-                {!! $errors->first('Landcode', '<p class="help-block">:message</p>') !!}
+                {!! $errors->first('country_code', '<p class="help-block">:message</p>') !!}
             </div>
             <div class="form-group {{ $errors->has('location') ? 'has-error' : ''}}">
                 {!! Form::label('location', 'Locatie', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
                     {!! Form::text('location', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('Locatie', '<p class="help-block">:message</p>') !!}
+                    {!! $errors->first('location', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
         </div>
 
         <div class="col-sm-6">
-            <div class="form-group {{ $errors->has('supplier') ? 'has-error' : ''}}">
-                {!! Form::label('supplier', 'Leverancier', ['class' => 'col-sm-4 control-label']) !!}
-                <div class="col-sm-8">
-                    {!! Form::text('supplier', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('Leverancier', '<p class="help-block">:message</p>') !!}
+            @if(Auth::user()->isAdmin())
+                <div class="form-group {{ $errors->has('retailer_id') ? 'has-error' : ''}}">
+                    {!! Form::label('retailer_id', 'Retailer *', ['class' => 'col-sm-4 control-label']) !!}
+                    <div class="col-sm-8">
+                        {!! Form::select('retailer_id', $retailer_values, null, ['class' => 'form-control']) !!}
+                        {!! $errors->first('retailer_id', '<p class="help-block">:message</p>') !!}
+                    </div>
                 </div>
-            </div>
-            <div class="form-group {{ $errors->has('quality_label') ? 'has-error' : ''}}">
-                {!! Form::label('quality_label', 'Kwaliteitslabel', ['class' => 'col-sm-4 control-label']) !!}
-                <div class="col-sm-8">
-                    {!! Form::text('quality_label', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('Kwaliteitslabel', '<p class="help-block">:message</p>') !!}
+                <div class="form-group {{ $errors->has('productphase_id') ? 'has-error' : ''}}">
+                    {!! Form::label('productphase_id', 'Productfase', ['class' => 'col-sm-4 control-label']) !!}
+                    <div class="col-sm-8">
+                        {!! Form::select('productphase_id', array_replace(['' => 'Nog niet bekend'], $product_phases_values), null, ['class' => 'form-control']) !!}
+                        {!! $errors->first('productphase_id', '<p class="help-block">:message</p>') !!}
+                    </div>
                 </div>
-            </div>
-            <div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">
-                {!! Form::label('status', 'Status', ['class' => 'col-sm-4 control-label']) !!}
-                <div class="col-sm-8">
-                    {!! Form::text('status', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('Status', '<p class="help-block">:message</p>') !!}
+                <div class="form-group {{ $errors->has('product_categories[]') ? 'has-error' : ''}}">
+                    {!! Form::label('product_categories[]', 'Productcategorie', ['class' => 'col-sm-4 control-label']) !!}
+                    <div class="col-sm-8">
+                        {!! Form::select('product_categories[]', $product_categories_values, $product->product_category->lists('id')->toArray(), ['class' => 'form-control', 'multiple' => 'multiple']) !!}
+                        {!! $errors->first('product_categories[]', '<p class="help-block">:message</p>') !!}
+                    </div>
                 </div>
-            </div>
-            <div class="form-group {{ $errors->has('tax_group') ? 'has-error' : ''}}">
-                {!! Form::label('tax_group', 'Belastingsgroep', ['class' => 'col-sm-4 control-label']) !!}
-                <div class="col-sm-8">
-                    {!! Form::text('tax_group', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('Belastingsgroep', '<p class="help-block">:message</p>') !!}
-                </div>
-            </div>
+            @endif
             <div class="form-group {{ $errors->has('problem_description') ? 'has-error' : ''}}">
                 {!! Form::label('problem_description', 'Probleemomschrijving', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
                     {!! Form::text('problem_description', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('Probleemomschrijving', '<p class="help-block">:message</p>') !!}
+                    {!! $errors->first('problem_description', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('color') ? 'has-error' : ''}}">
                 {!! Form::label('color', 'Kleur: ', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
                     {!! Form::text('color', null, ['class' => 'form-control']) !!}
-                    {!! $errors->first('Kleur', '<p class="help-block">:message</p>') !!}
+                    {!! $errors->first('color', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group {{ $errors->has('msrp') ? 'has-error' : ''}}">
@@ -382,9 +378,9 @@
                 <div class="col-sm-8">
                     <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa-eur" aria-hidden="true"></i></div>
-                        {!! Form::number('msrp', null, ['class' => 'form-control']) !!}
+                        {!! Form::text('msrp', null, ['class' => 'form-control']) !!}
                     </div>
-                    {!! $errors->first('Adviesprijs', '<p class="help-block">:message</p>') !!}
+                    {!! $errors->first('msrp', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
             <div class="form-group">
@@ -402,13 +398,5 @@
     </div>
 
     {!! Form::close() !!}
-
-    @if ($errors->any())
-        <ul class="alert alert-danger">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
 
 @endsection

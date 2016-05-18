@@ -115,17 +115,28 @@ class User extends Authenticatable
     }
 
     /**
+     * Checks if the user has the given role.
+     *
+     * @param $role
+     * @return bool
+     */
+    public function hasRole($role)
+    {
+        if(!is_null($this->role) && $this->role->alias == $role) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Checks if the user is an admin or not.
      *
      * @return bool
      */
     public function isAdmin()
     {
-        if(!is_null($this->role) && $this->role->alias == 'admin') {
-            return true;
-        }
-
-        return false;
+        return $this->hasRole('admin');
     }
 
     /**
@@ -135,10 +146,6 @@ class User extends Authenticatable
      */
     public function isRetailer()
     {
-        if(!is_null($this->role) && $this->role->alias == 'retailer') {
-            return true;
-        }
-
-        return false;
+        return $this->hasRole('retailer');
     }
 }

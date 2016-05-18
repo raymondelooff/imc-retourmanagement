@@ -1,16 +1,12 @@
 @extends('layouts.master')
+@section('back', url('product'))
 @section('title', $product->name)
 
 {{-- Header button --}}
 @section('header-nav')
     <li>
-        <a href="{{ url('product/' . $product->id . '/edit') }}">
+        <a href="{{ route('product.edit', $product->id) }}">
             <i class="fa fa-pencil"></i><span class="hidden-xs hidden-sm">Product bewerken</span>
-        </a>
-    </li>
-    <li>
-        <a href="{{ url('product/') }}">
-            <i class="fa fa-chevron-left "></i><span class="hidden-xs hidden-sm">Terug naar het overicht</span>
         </a>
     </li>
 @stop
@@ -31,16 +27,18 @@
                         <td>{{ $product->location }}</td>
                     </tr>
                     <tr>
-                        <th>Productstatus</th>
-                        <td>{{ $product->productstatus }}</td>
+                        <th>Productfase</th>
+                        <td>{{ $product->product_phases ? $product->product_phases->name : "Nog niet bekend" }}</td>
                     </tr>
                     <tr>
-                        <th>Status</th>
-                        <td>Status {{ $product->status }}</td>
-                    </tr>
-                    <tr>
-                        <th>Staat</th>
-                        <td>Nieuw / Zo goed als nieuw / Gebruikt</td>
+                        <th>Productcategorie(&euml;n)</th>
+                        <td>
+                        @if($product->product_category)
+                            @foreach($product->product_category as $product_category)
+                                {{ $product_category->category }} - {{ $product_category->productstatus }};
+                            @endforeach
+                        @endif
+                        </td>
                     </tr>
                     <tr>
                         <th>Probleemomschrijving</th>
@@ -56,10 +54,6 @@
         <div class="col col-md-6">
             <div class="table-responsive">
                 <table class="table table-bordered table-striped table-hover">
-                    <tr>
-                        <th>Kwaliteitslabel</th>
-                        <td>{{ $product->quality_label }}</td>
-                    </tr>
                     <tr>
                         <th>Serienummer</th>
                         <td>{{ $product->serial_number }}</td>
@@ -78,11 +72,7 @@
                     </tr>
                     <tr>
                         <th>Leverancier</th>
-                        <td>{{ $product->manufacturer }}</td>
-                    </tr>
-                    <tr>
-                        <th>Belastingroep</th>
-                        <td>{{ $product->tax_group }}</td>
+                        <td>{{ $product->retailer->name }}</td>
                     </tr>
                     <tr>
                         <th>Kleur</th>

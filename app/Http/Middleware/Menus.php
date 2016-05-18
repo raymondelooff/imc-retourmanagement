@@ -23,14 +23,16 @@ class Menus
 
             // Check if the user is authenticated
             if(Auth::check()) {
-                // Products
-                $menu->add('Producten', ['route' => 'product.index']);
-                $menu->producten->prepend('<i class="fa fa-cubes" aria-hidden="true"></i> ');
-                $menu->producten->add('Voeg een product toe', ['route' => 'product.create']);
-                $menu->producten->add('Productfases beheren', ['route' => 'product-phase.index']);
-
-                //Product Categorieen. Too irrelevant to create a completely new menu.
-                $menu->producten->add("Productcategorieën beheren", ['route' => 'product-category.index']);
+                if(Auth::user()->isAdmin() || Auth::user()->isRetailer()) {
+                    // Products
+                    $menu->add('Producten', ['route' => 'product.index']);
+                    $menu->producten->prepend('<i class="fa fa-cubes" aria-hidden="true"></i> ');
+                    $menu->producten->add('Voeg een product toe', ['route' => 'product.create']);
+                    if(Auth::user()->isAdmin()) {
+                        $menu->producten->add('Productfases beheren', ['route' => 'product-phase.index']);
+                        $menu->producten->add('Productcategorieën beheren', ['route' => 'product-category.index']);
+                    }
+                }
 
                 if(Auth::user()->isAdmin()) {
                     $menu->add('Gebruikers', ['route' => 'user.index']);
