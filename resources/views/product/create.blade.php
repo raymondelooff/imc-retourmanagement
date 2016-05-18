@@ -347,14 +347,14 @@
                             {!! $errors->first('productphase_id', '<p class="help-block">:message</p>') !!}
                         </div>
                     </div>
-                @endif
-                <div class="form-group {{ $errors->has('quality_label') ? 'has-error' : ''}}">
-                    {!! Form::label('quality_label', 'Kwaliteitslabel', ['class' => 'col-sm-4 control-label']) !!}
-                    <div class="col-sm-8">
-                        {!! Form::text('quality_label', null, ['class' => 'form-control']) !!}
-                        {!! $errors->first('quality_label', '<p class="help-block">:message</p>') !!}
+                    <div class="form-group {{ $errors->has('product_categories[]') ? 'has-error' : ''}}">
+                        {!! Form::label('product_categories[]', 'Productcategorie', ['class' => 'col-sm-4 control-label']) !!}
+                        <div class="col-sm-8">
+                            {!! Form::select('product_categories[]', $product_categories_values, null, ['class' => 'form-control', 'multiple' => 'multiple']) !!}
+                            {!! $errors->first('product_categories[]', '<p class="help-block">:message</p>') !!}
+                        </div>
                     </div>
-                </div>
+                @endif
                 <div class="form-group {{ $errors->has('problem_description') ? 'has-error' : ''}}">
                     {!! Form::label('problem_description', 'Probleemomschrijving', ['class' => 'col-sm-4 control-label']) !!}
                     <div class="col-sm-8">

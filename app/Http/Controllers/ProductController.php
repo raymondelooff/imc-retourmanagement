@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ProductCategory;
 use App\ProductPhase;
 use Gate;
 use App\Http\Requests;
@@ -59,7 +60,14 @@ class ProductController extends Controller
             $product_phases_values[$product_phase->id] = $product_phase->name;
         }
 
-        return view('product.create', compact('retailer_values', 'product_phases_values'));
+        $product_categories = ProductCategory::all();
+        $product_categories_values = [];
+
+        foreach($product_categories as $product_category) {
+            $product_categories_values[$product_category->id] = $product_category->category . ' - ' . $product_category->productstatus;
+        }
+
+        return view('product.create', compact('retailer_values', 'product_phases_values', 'product_categories_values'));
     }
 
     /**
@@ -77,6 +85,12 @@ class ProductController extends Controller
             $request->merge([
                 'retailer_id' => $request->user()->retailer_id,
                 'productphase_id' => null
+            ]);
+        }
+
+        if($request->user()->isAdmin()) {
+            $request->merge([
+                'productphase_id' => $request->get('productphase_id') ? $request->get('productphase_id') : null
             ]);
         }
 
@@ -100,7 +114,11 @@ class ProductController extends Controller
             'msrp' => 'regex:/^\d+(\.\d{2})?$/'
         ], $messages);
 
-        Product::create($request->all());
+        $product = Product::create($request->all());
+
+        if($request->user()->isAdmin()) {
+            $product->product_category()->sync($request->get('product_categories'));
+        }
 
         Flash::success('Product toegevoegd!');
 
@@ -154,7 +172,14 @@ class ProductController extends Controller
             $product_phases_values[$product_phase->id] = $product_phase->name;
         }
 
-        return view('product.edit', compact('product', 'retailer_values', 'product_phases_values'));
+        $product_categories = ProductCategory::all();
+        $product_categories_values = [];
+
+        foreach($product_categories as $product_category) {
+            $product_categories_values[$product_category->id] = $product_category->category . ' - ' . $product_category->productstatus;
+        }
+
+        return view('product.edit', compact('product', 'retailer_values', 'product_phases_values', 'product_categories_values'));
     }
 
     /**
@@ -174,6 +199,12 @@ class ProductController extends Controller
             $request->merge([
                 'retailer_id' => $request->user()->retailer_id,
                 'productphase_id' => $request->old('productphase_id')
+            ]);
+        }
+
+        if($request->user()->isAdmin()) {
+            $request->merge([
+                'productphase_id' => $request->get('productphase_id') ? $request->get('productphase_id') : null
             ]);
         }
 
@@ -204,6 +235,10 @@ class ProductController extends Controller
         }
 
         $product->update($request->all());
+
+        if($request->user()->isAdmin()) {
+            $product->product_category()->sync($request->get('product_categories'));
+        }
 
         Flash::success('Product gewijzigd!');
 
