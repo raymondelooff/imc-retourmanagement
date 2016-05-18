@@ -32,6 +32,10 @@
                             <td>{{ $user->email }}</td>
                         </tr>
                         <tr>
+                            <td>E-mailadres status</td>
+                            <td>{!! $user->verified ? '<span class="label label-success">Geverifieerd</a>' : '<span class="label label-warning">Niet geverifieerd</span>' !!}</td>
+                        </tr>
+                        <tr>
                             <td>Account status</td>
                             <td>{!! $user->activated ? '<span class="label label-success">Geactiveerd</a>' : '<span class="label label-warning">Gedeactiveerd</span>' !!}</td>
                         </tr>
