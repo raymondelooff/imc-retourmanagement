@@ -60,7 +60,6 @@ $factory->define(App\ProductCategory::class, function (Faker\Generator $faker) {
     ];
 });
 
-/*
 $factory->define(App\Product::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
@@ -68,4 +67,4 @@ $factory->define(App\Product::class, function (Faker\Generator $faker) {
             return factory(App\Retailer::class)->create()->id;
         }
     ];
-});*/
+});
