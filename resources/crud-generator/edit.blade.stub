@@ -1,0 +1,23 @@
+@extends('layouts.master')
+@section('back', url('%%routeGroup%%%%crudName%%', $%%crudNameSingular%%->id))
+@section('title', '%%modelName%%')
+
+@section('content')
+
+    {!! Form::model($%%crudNameSingular%%, [
+        'method' => 'PATCH',
+        'url' => ['%%routeGroup%%%%crudName%%', $%%crudNameSingular%%->id],
+        'class' => 'form-horizontal'
+    ]) !!}
+
+    %%formFieldsHtml%%
+
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-3">
+            {!! Form::submit('Bewerk', ['class' => 'btn btn-primary form-control']) !!}
+            <a href="{{ url('%%routeGroup%%%%crudName%%', $%%crudNameSingular%%->id) }}" class="btn btn-danger">Annuleren</a>
+        </div>
+    </div>
+    {!! Form::close() !!}
+
+@endsection

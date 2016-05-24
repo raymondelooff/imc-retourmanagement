@@ -7,3 +7,4 @@ Homestead.json
 .idea/
 bower_components/
 .sass-cache/
+npm-debug.log

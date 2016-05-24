@@ -31,13 +31,20 @@ class AuthController extends Controller
     protected $redirectTo = '/';
 
     /**
+     * Where to redirect users after failing login
+     *
+     * @var string
+     */
+    protected $loginPath = '/login';
+
+    /**
      * Create a new authentication controller instance.
      *
      * @return void
      */
     public function __construct()
     {
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->middleware($this->guestMiddleware(), ['except' => 'getLogout']);
     }
 
     /**

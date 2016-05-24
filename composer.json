@@ -6,7 +6,15 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.2.*"
+        "laravel/framework": "5.2.*",
+        "lavary/laravel-menu": "dev-master",
+        "appzcoder/crud-generator": "^1.0",
+        "laravelcollective/html": "^5.2",
+        "thomaswelton/laravel-gravatar": "^1.1",
+        "laracasts/flash": "^2.0",
+        "kirkbater/soft-deletes": "^1.0",
+        "jrean/laravel-user-verification": "^2.2",
+        "doctrine/dbal": "^2.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
