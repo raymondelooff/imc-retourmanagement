@@ -28,9 +28,9 @@ class UpdateProductsTableColumns extends Migration
     public function down()
     {
         Schema::table('products', function($table){
-            $table->bigInteger('ean_code',20)->change();
-            $table->bigInteger('invoice_number',20)->change();
-            $table->integer('weight',11)->change();
+            $table->bigInteger('ean_code')->change();
+            $table->bigInteger('invoice_number')->change();
+            $table->integer('weight')->change();
             $table->decimal('msrp',10,2)->change();
         });
     }
