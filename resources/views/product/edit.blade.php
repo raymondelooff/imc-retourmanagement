@@ -56,7 +56,7 @@
                 </div>
             </div>
             <div class="form-group {{ $errors->has('weight') ? 'has-error' : ''}}">
-                {!! Form::label('weight', 'Gewicht', ['class' => 'col-sm-4 control-label']) !!}
+                {!! Form::label('weight', 'Gewicht (kg)', ['class' => 'col-sm-4 control-label']) !!}
                 <div class="col-sm-8">
                     {!! Form::text('weight', null, ['class' => 'form-control']) !!}
                     {!! $errors->first('weight', '<p class="help-block">:message</p>') !!}
