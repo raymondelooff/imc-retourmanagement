@@ -78,7 +78,8 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->merge([
-            'msrp' => str_replace(',', '.', $request->input('msrp'))
+            'msrp' => str_replace(',', '.', $request->input('msrp')),
+            'weight' => str_replace(',', '.', $request->input('weight'))
         ]);
 
         if($request->user()->isRetailer()) {
@@ -193,7 +194,8 @@ class ProductController extends Controller
     public function update($id, Request $request)
     {
         $request->merge([
-            'msrp' => str_replace(',', '.', $request->input('msrp'))
+            'msrp' => str_replace(',', '.', $request->input('msrp')),
+            'weight' => str_replace(',', '.', $request->input('weight'))
         ]);
 
         if($request->user()->isRetailer()) {
