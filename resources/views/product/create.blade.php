@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="form-group {{ $errors->has('ean_code') ? 'has-error' : ''}}">
-                    {!! Form::label('ean_code', 'EAN', ['class' => 'col-sm-4 control-label']) !!}
+                    {!! Form::label('ean_code', 'EAN', ['class' => 'col-sm-4 control-label', 'maxlength' => '13']) !!}
                     <div class="col-sm-8">
                         {!! Form::number('ean_code', null, ['class' => 'form-control']) !!}
                         {!! $errors->first('ean_code', '<p class="help-block">:message</p>') !!}
