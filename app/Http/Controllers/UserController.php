@@ -216,12 +216,21 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      *
+     * @param Request $request
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
+        $user = $request->user();
+
+        // Check if the user wants to delete his own account
+        if($id == $user->id) {
+            Flash::error('Het is niet toegestaan jezelf te verwijderen.');
+            return redirect('user');
+        }
+
         User::destroy($id);
 
         Flash::success('Gebruiker verwijderd!');
